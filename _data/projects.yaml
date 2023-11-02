@@ -1,0 +1,30 @@
+projects:
+  - title: "Knowledge Graph based In-Context Knowledge Editing in LLMs"
+    subtitle: "Randomizing Over Randomized Experiments"
+    thumbnail: "assets/projects/2023_KG-IKE/thumbnail.png"
+    url: "projects/2023_KG-IKE.html"
+    selected: y
+
+  - title: "Compact and De-biased Multiple Instance Learning"
+    subtitle: "Tool for Mapping Social Networks"
+    thumbnail: "assets/projects/2023_CDNE/thumbnail.png"
+    url: "projects/2023_CDNE.html"
+    selected: y
+
+  - title: "Self-supervised Structured Causal Disentanglement"
+    subtitle: "Pilot project in Jun, Spain"
+    thumbnail: "assets/projects/2023_SCADI/thumbnail.png"
+    url: "projects/2023_SCADI.html"
+    selected: y
+
+  - title: "Enhanced Open Set Recognition via Feature Disentanglement"
+    subtitle: "Learning Local Collective Embeddings"
+    thumbnail: "assets/projects/2023_DOSER/thumbnail.png"
+    url: "projects/2023_DOSER.html"
+    selected: y
+
+  - title: "Normal Pressure Hydrocephalus Prediction"
+    subtitle: "Iterative Hybrid Algorithm"
+    thumbnail: "assets/projects/2022_NPH-prediction/thumbnail.png"
+    url: "projects/2022_NPH-prediction.html"
+    selected: y

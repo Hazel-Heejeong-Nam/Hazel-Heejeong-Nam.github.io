@@ -1,0 +1,31 @@
+experiences:
+
+- place: "Linq Labs"
+  time: "Sep 2023- now"
+  title: "Research Intern"
+  subtitle: "Industry-Academic Coorporation"
+  category: "work"
+
+- place: "AITRICS"
+  time: "Oct 2022 – Feb 2023"
+  title: "Research Intern"
+  subtitle: "Digital Pathology <br/>Multiple Instance Learning"
+  category: "work"
+
+- place: "Vision Research Lab, UCSB"
+  time: "Jun-Sep 2022"
+  title: "Research Intern"
+  subtitle: "Bio-medical Image Analysis"
+  category: "work"
+
+- place: "University of California, Los Angeles"
+  time: "Jan-Jun 2022"
+  title: "Exchange Student"
+  subtitle: "Department of Electrical & Computer Engineering"
+  category: "school"
+
+- place: "Yonsei University"
+  time: "2019 - 2024"
+  title: "B.Sc. Student"
+  subtitle: "Major | Electrical & Electronic Engineering <br/> Minor | Astronomy"
+  category: "school"

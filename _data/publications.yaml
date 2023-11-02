@@ -1,0 +1,25 @@
+papers:
+
+  - title: "SCADI: Self-supervised Causal Disentanglement in Latent Variable Models"
+    authors: "<b>Heejeong Nam</b>"
+    venue: "NeurIPS 2023 Workshop on Causal Representation Learning"
+    paper_pdf: "/assets/publications/2022_flipfeed/paper.pdf"
+    # code: "https://github.com/msaveski/twitter_perspective_taking"
+    # data: "https://github.com/msaveski/twitter_perspective_taking"
+    selected: y
+
+  - title: "Enhanced Open Set Recognition via Disentangled Representation Learning"
+    authors: "<b>Heejeong Nam</b>"
+    venue: "4th Korea Artificial Intelligence Conference pp.208-210"
+    paper_pdf: "/assets/publications/2022_newsbridge/paper.pdf"
+    selected: y
+
+
+  # - title: "The Structure of Toxic Conversations on Twitter"
+  #   authors: "<b>Martin Saveski</b>, Brandon Roy, Deb Roy"
+  #   venue: "WWW'21: The Web Conference 2021"
+  #   paper_pdf: "/assets/publications/2021_dtox/paper.pdf"
+  #   code: "https://github.com/msaveski/toxic_conversation_structure"
+  #   data: "https://doi.org/10.7910/DVN/TRWPVB"
+  #   video: "https://www.youtube.com/watch?v=JLkUgxH92pE"
+  #   selected: y
