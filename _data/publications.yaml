@@ -3,7 +3,7 @@ papers:
   - title: "SCADI: Self-supervised Causal Disentanglement in Latent Variable Models"
     authors: "<b>Heejeong Nam</b>"
     venue: "NeurIPS 2023 Workshop on Causal Representation Learning"
-    paper_pdf: "/assets/publications/2022_flipfeed/paper.pdf"
+    # paper_pdf: "/assets/publications/2022_flipfeed/paper.pdf"
     # code: "https://github.com/msaveski/twitter_perspective_taking"
     # data: "https://github.com/msaveski/twitter_perspective_taking"
     selected: y
@@ -11,7 +11,7 @@ papers:
   - title: "Enhanced Open Set Recognition via Disentangled Representation Learning"
     authors: "<b>Heejeong Nam</b>"
     venue: "4th Korea Artificial Intelligence Conference pp.208-210"
-    paper_pdf: "/assets/publications/2022_newsbridge/paper.pdf"
+    # paper_pdf: "/assets/publications/2022_newsbridge/paper.pdf"
     selected: y
 
 

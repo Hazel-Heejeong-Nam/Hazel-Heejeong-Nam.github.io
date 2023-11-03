@@ -1,37 +1,28 @@
 ---
 layout: project
-title: Detecting Network Effects
-subtitle: "Randomizing Over Randomized Experiments"
+title: Enhanced Open Set Recognition via Feature Disentanglement
+subtitle: "Realistic Unseen Data Generation using Style-Content Disentangling"
 ---
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 
 **Abstract.**
-Randomized experiments, or A/B tests, are the standard approach for evaluating the causal effects of new product features, i.e., treatments.
-The validity of these tests rests on the "stable unit treatment value assumption" (SUTVA), which implies that the treatment only affects the behavior of treated users, and does not affect the behavior of their connections.
-Violations of SUTVA, common in features that exhibit network effects, result in inaccurate estimates of the causal effect of treatment.
-<br/> &nbsp;&nbsp;&nbsp;&nbsp;
-In this work, we propose a new experimental design for testing whether SUTVA holds, without making any assumptions on how treatment effects may spill over between the treatment and the control group.
-To achieve this, we simultaneously run both a completely randomized and a cluster-based randomized experiment, and then we compare the difference of the resulting estimates. We present a statistical test for measuring the significance of this difference and offer theoretical bounds on the Type I error rate.
-<br/> &nbsp;&nbsp;&nbsp;&nbsp;
-We provide practical guidelines for implementing our methodology on large-scale experimentation platforms.
-Importantly, the proposed methodology can be applied to settings in which a network is not necessarily observed but, if available, can be used in the analysis.
-Finally, we deploy this design to LinkedIn's experimentation platform and apply it to two online experiments, highlighting the presence of network effects and bias in standard A/B testing approaches in a real-world setting.
+Open set recognition (OSR) is a subfield of out-of-distribution (OOD) detection that involves simultaneously performing multi-class classification on in-distribution data and OOD detection tasks. Particularly, OSR aims to address the fundamental challenge faced by OOD detection due to the overconfident attitude of softmax classifiers, by transforming the closed set setting into an open set setting through various methods. In this regard, we propose a novel model that leverages manifold mix-up for unknown generation, as commonly employed in existing models, but reinterprets it from the perspective of style-content disentangling. Our proposed model allows for the enforcement of disentangling, which can be beneficial for the OSR task.
 
-This work is part of a two-paper series.
-In the <a href="https://arxiv.org/abs/1704.01190" target="_blank">first paper</a> we introduce the methodology and main theoretical results and
-in the <a href="{{ '/assets/publications/2017_detecting_network_effects/paper.pdf' | prepend: site.baseurl }}" target="_blank">second paper</a> we present implementation guidelines for using the methodology on large-scale experimentation platforms.
-
-**Illustration of the proposed experimental design for detecting network effects.** <br/>
 {%
 	include image_with_caption.html
-	url="/assets/projects/2016_network-ab/main.png"
+	url="/assets/projects/2023_DOSER/osr.png"
+	width="60%"
+%}
+
+Unlike other OOD tasks, open set recognition presents several challenging conditions during the training process: it relies solely on in-distribution data, there can be multiple classes within the in-distribution data itself, OOD samples may not exhibit significant differences from the in-distribution data, and it requires not only OOD detection but classification for in-distribution data. In the early stages of open set recognition, various calibration techniques, including extreme value theory, were commonly used. As the field of OOD detection has evolved, several methods, such as distance-based approaches, sparse representation, reconstruction error, and unknown generation have been expanded and widely adopted. Among these methods, we adopted Zhou et al.’s approach that utilizes unknown generation as our baseline. Unknown generation, also referred as fake data generation, is not only applicable to OOD detection but also can be used in various applications. Firstly, we slightly reinterpret the PROSER model to enhance its efficiency in operation; In order to secure the model's potential and ensure training stability, we have modified the model's training process to fully utilize the mini-batch while maintaining a simpler training flow. The objective function remains the same, and this modification does not violate any assumptions of the original model, while serving the purpose of training more effectively.
+
+{%
+	include image_with_caption.html
+	url="/assets/projects/2023_DOSER/doser.png"
 	width="100%"
 %}
-**(A)** Graph of all units and the connections between them; the dashed circles represent (equally-sized) clusters. <br/>
-**(B)** Assigning clusters to treatment arms: completely randomized (CR) and cluster-based randomized assignment (CBR). <br/>
-**(C)** Assigning units to treatment buckets---treatment and control---using the corresponding strategy. <br/>
-**(D)** Computing the treatment effect within each treatment arm: $$\hat \mu_{cr}$$ and $$\hat \mu_{cbr}$$, and variance: $$\hat \sigma^2_{cr}$$ and $$\hat \sigma^2_{cbr}$$. <br/>
-**(E)** Computing the difference of the estimates from each treatment arm: $$\Delta = \hat \mu_{cr} - \hat \mu_{cbr}$$, and the total variance: $$\hat \sigma^2 = \hat \sigma^2_{cr} + \hat \sigma^2_{cbr}$$. <br/>
 
-**Short video describing the work. Recorded for KDD'17.** <br/>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/E3yiKJCgLE4" frameborder="0" allowfullscreen></iframe>
+Performing mix-up at the final layer of the network would introduce excessive variations to the data, making it challenging to predict unknown data accurately at the inference phase. Hence Zhou et al. tried to preserve the data distribution to some extent while altering only the fine details from the middle layers. From the perspective of disentangling, it can be considered as a serial style content disentangling. The mixing portion determines the content, i.e., the shape of the numbers in the case of MNIST data, while ensuring that the mixed data retains the same texture and style as the original data, thereby generating more realistic unknown sample. To strengthen this aspect, we considered the part before the mix-up layer as the content encoder and the subsequent part as the style encoder, serially connected. Additional regularization was applied to allow the in-distribution data to share the latent space for style, aiming to ensure that each latent captures the intended information in style-content disentangling. When passing the mixed style and content to the decoder, which contains global information from the style and detailed information from the content, the decoder strives to reconstruct the full original image. 
+
+**Slide can be found here.** <br/>
+<iframe width="560" height="315" src="https://drive.google.com/file/d/1NXD215p10jhKknq1B1Y9sYdr612LibW1/view?usp=sharing" frameborder="0" allowfullscreen></iframe>
