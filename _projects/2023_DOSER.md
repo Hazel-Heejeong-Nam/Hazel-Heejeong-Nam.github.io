@@ -23,6 +23,6 @@ Unlike other OOD tasks, open set recognition presents several challenging condit
 %}
 
 Performing mix-up at the final layer of the network would introduce excessive variations to the data, making it challenging to predict unknown data accurately at the inference phase. Hence Zhou et al. tried to preserve the data distribution to some extent while altering only the fine details from the middle layers. From the perspective of disentangling, it can be considered as a serial style content disentangling. The mixing portion determines the content, i.e., the shape of the numbers in the case of MNIST data, while ensuring that the mixed data retains the same texture and style as the original data, thereby generating more realistic unknown sample. To strengthen this aspect, we considered the part before the mix-up layer as the content encoder and the subsequent part as the style encoder, serially connected. Additional regularization was applied to allow the in-distribution data to share the latent space for style, aiming to ensure that each latent captures the intended information in style-content disentangling. When passing the mixed style and content to the decoder, which contains global information from the style and detailed information from the content, the decoder strives to reconstruct the full original image. 
-
+<!-- 
 **Slide can be found here.** <br/>
-<iframe width="560" height="315" src="https://drive.google.com/file/d/1NXD215p10jhKknq1B1Y9sYdr612LibW1/view?usp=sharing" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://drive.google.com/file/d/1NXD215p10jhKknq1B1Y9sYdr612LibW1/view?usp=sharing" frameborder="0" allowfullscreen></iframe> -->
