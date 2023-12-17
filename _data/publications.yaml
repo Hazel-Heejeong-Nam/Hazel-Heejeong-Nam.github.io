@@ -2,7 +2,7 @@ papers:
 
   - title: "Compact and De-biased Negative Instance Embedding for Multi-Instance Learning on Whole-Slide Pathological Images"
     authors: "Joohyeong Lee, <b>Heejeong Nam</b>, Kwanhyeong Lee, Sangchul Hahn"
-    venue: "(under review) International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2024"
+    venue: "International Conference on Acoustics, Speech and Signal Processing (ICASSP). IEEE, 2024"
     # paper_pdf: "/assets/publications/2022_flipfeed/paper.pdf"
     # code: "https://github.com/msaveski/twitter_perspective_taking"
     # data: "https://github.com/msaveski/twitter_perspective_taking"
