@@ -1,0 +1,42 @@
+---
+layout : default2
+---
+
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href={{ "/assets/css/style.css" | prepend: site.baseurl }}>
+
+<link rel="stylesheet" href={{ "/assets/css/bulma.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href={{ "/libs/external/font-awesome-4.7.0/css/font-awesome.css" | prepend: site.baseurl }}>
+
+<body>
+    <section class="hero is-fullheight" id="blog">
+        <div class="hero-body">
+            <div class="container">
+                {% include blogpage-heading.html %}
+            </div>
+        </div>
+        <div id="results-container"></div>
+        <!--Blog Cards Section-->
+        {% for post in site.posts %}
+            {% include blog-card.html %}
+        {% endfor %}
+        </div>
+    </section>
+    <br>
+
+    <script src="{{site.baseurl}}/assets/js/simple-jekyll-search.js" type="text/javascript"></script>
+    
+    <script>
+        SimpleJekyllSearch({
+            searchInput: document.getElementById("search-input"),
+            resultsContainer: document.getElementById('results-container'),
+            json: "{{site.baseurl}}/search.json", 
+            searchResultTemplate: '<div style="border: 0.3rem dashed black" class="searchResult columns has-text-centered" id="blog-card"><div class="column is-marginless is-paddingless is-one-third-desktop is-one-third-fullhd is-one-third-tablet"><div class="image" style="background-image: url({image});"></div></div><a href="{url}"><div class="column has-text-left-desktop has-text-left-tablet"><h1 class="title is-size-4-touch">{title}</h1><div class="content has-text-grey">{content}<hr class="has-background-grey"><span class="has-text-grey">Published on <span class="has-text-weight-semibold">{date}</span></span> | <i class="fas fa-clock"></i> <span class="has-text-weight-semibold">{readtime} min</span> read</div></div></a></div>',
+            noResultsText: '<div class="subtitle has-text-centered is-uppercase">No Results Found</div><hr class="has-background-black" style="margin: 0.5rem 0rem 2.5rem 5rem">',
+            fuzzy: true,
+        });
+    </script>
+</body>
+
+</html>
