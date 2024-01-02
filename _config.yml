@@ -10,3 +10,9 @@ collections:
 sass:
   sass_dir: _sass
   style: compressed
+
+markdown: kramdown
+highlighter: rouge
+lsi: false
+excerpt_separator: "\n\n"
+incremental: false
