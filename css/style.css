@@ -236,7 +236,7 @@ header h6+p {
 }
 
 header.major h2 {
-    color: #A31F34;
+    color: #342655;
     font-size: 3.5em;
 }
 
@@ -300,7 +300,7 @@ input[type="password"]:focus,
 input[type="email"]:focus,
 select:focus,
 textarea:focus {
-    border-color: #A31F34;
+    border-color: #342655;
 }
 
 .select-wrapper {
@@ -411,7 +411,7 @@ input[type="radio"]:checked+label:before {
 
 input[type="checkbox"]:focus+label:before,
 input[type="radio"]:focus+label:before {
-    border-color: #A31F34;
+    border-color: #342655;
 }
 
 input[type="checkbox"]+label:before {
@@ -603,7 +603,7 @@ ul.feature-icons li:before {
 }
 
 ul.feature-icons li:before {
-    background: #A31F34;
+    background: #342655;
     border-radius: 100%;
     color: #ffffff;
     display: block;
@@ -806,7 +806,7 @@ input[type="button"],
     background-color: #ffffff;
     border-radius: 5px;
     border: 0;
-    color: #A31F34 !important;
+    color: #342655 !important;
     cursor: pointer;
     display: inline-block;
     font-weight: 700;
@@ -823,7 +823,7 @@ input[type="reset"]:hover,
 input[type="button"]:hover,
 .button:hover {
     background-color: #C2C0BF;
-    color: #A31F34 !important;
+    color: #342655 !important;
 }
 
 input[type="submit"]:active,
@@ -916,7 +916,7 @@ input[type="submit"].special,
 input[type="reset"].special,
 input[type="button"].special,
 .button.special {
-    background-color: #A31F34;
+    background-color: #342655;
     color: #ffffff !important;
 }
 
@@ -987,7 +987,7 @@ input[type="button"]:disabled,
 /* Header */
 
 #header {
-    background: #A31F34;
+    background: #342655;
     color: #d1f1e9;
     height: 100%;
     position: fixed;
@@ -1091,7 +1091,7 @@ input[type="button"]:disabled,
 
 #header>nav ul li a.active {
     background: #fff;
-    color: #A31F34 !important;
+    color: #342655 !important;
 }
 
 #header>nav ul li:first-child {
@@ -1122,7 +1122,7 @@ input[type="button"]:disabled,
 /* One */
 
 #one:before {
-    background-image: url("../images/banners/mosculp.jpg");
+    background-image: url("../images/banners/bann.jpg");
     background-position: top left;
     background-repeat: no-repeat;
     background-size: cover;
