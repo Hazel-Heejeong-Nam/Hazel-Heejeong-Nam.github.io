@@ -1,5 +1,9 @@
+!.gitignore
+
 .DS_Store
-*/.DS_Store
-.jekyll-cache
-_site/*
-_snap_md5.txt
+
+*.swp
+*.swo
+
+baidu_verify_wFCfrYirT8.html
+googled2ac69e784a9004c.html
