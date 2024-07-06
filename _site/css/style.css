@@ -1165,3 +1165,18 @@ input[type="button"]:disabled,
 #footer .copyright li a {
     color: inherit;
 }
+
+#videos {
+    margin-top: 50px;
+}
+
+.video-container {
+    display: flex;
+    overflow-x: scroll;
+    padding: 10px;
+}
+
+.video-item {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
