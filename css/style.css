@@ -86,7 +86,7 @@ i {
 }
 
 p {
-    margin: 0 0 2.25em 0;
+    margin: 0 0 1em 0;
 }
 
 h1,
@@ -556,12 +556,12 @@ ol li {
 
 ul {
     list-style: disc;
-    margin: 0 0 2.25em 0;
+    margin: 0 0 1em 0;
     padding-left: 1em;
 }
 
 ul li {
-    padding-left: 0.5em;
+    padding-left: 0.3em;
 }
 
 ul.alt {
