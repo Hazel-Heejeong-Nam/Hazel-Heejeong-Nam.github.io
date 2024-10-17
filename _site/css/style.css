@@ -89,6 +89,10 @@ p {
     margin: 0 0 1em 0;
 }
 
+mark {
+    background-color: #fff7af;
+}
+
 h1,
 h2,
 h3,
