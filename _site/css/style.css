@@ -11,6 +11,19 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 /* Basic */
 
+.two-columns {
+    display: flex;
+    gap: 40px;
+    /* 컬럼 사이 간격 */
+}
+
+.column {
+    flex: 1;
+    /* 각 컬럼이 균등 너비 차지 */
+}
+
+/* 필요 시 ul 스타일도 조정 가능 */
+
 body {
     background: #fff;
 }
