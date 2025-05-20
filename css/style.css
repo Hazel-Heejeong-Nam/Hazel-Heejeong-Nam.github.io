@@ -103,6 +103,21 @@ h6 {
     font-weight: 700;
     line-height: 1em;
     margin: 0 0 0.5625em 0;
+    gap: 8px;
+}
+
+
+
+.logo {
+    width: auto;
+    /* 원하는 크기로 조절 */
+    height: 1em;
+}
+
+.logo2 {
+    width: auto;
+    /* 원하는 크기로 조절 */
+    height: 0.6em;
 }
 
 h1 a,
