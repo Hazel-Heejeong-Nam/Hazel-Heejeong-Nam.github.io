@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en" class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+
+<head>
+  <meta property="og:title" content="VAGUE Benchmark Dataset">
+  <meta property="og:description" content="Visual contexts clarify ambiguous expressions in multimodal reasoning">
+  <meta property="og:url" content="https://arxiv.org/abs/2411.14137">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="description"
+    content="A multimodal benchmark dataset showing how visual contexts clarify ambiguous expressions in multimodal reasoning.">
+  <meta name="keywords"
+    content="VAGUE, multimodal, benchmark, dataset, visual context, ambiguous expressions, multimodal reasoning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="SHORTCUT ICON" href="../images/hn.jpg" type="image/x-icon">
+  <title>VAGUE: A multimodal benchmark dataset showing how visual contexts clarify ambiguous expressions in multimodal
+    reasoning</title>
+
+  <!--
+-->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <link href="./assets/css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/dropdown.css">
+  <link rel="stylesheet" href="./assets/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-slider.min.css">
+
+  <link rel="stylesheet" href="./assets/css/tab_gallery.css">
+  <!-- <link rel="stylesheet" href="./assets/css/fontawesome.all.min.css"> -->
+  <link rel="stylesheet" href="./assets/css/academicons.min.css">
+  <link rel="stylesheet" href="./assets/css/index.css">
+  <link rel="stylesheet" href="./assets/css/juxtapose.css">
+  <link rel="stylesheet" href="./assets/css/image_card_fader.css">
+  <link rel="stylesheet" href="./assets/css/image_card_slider.css">
+  <link rel="stylesheet" href="./assets/css/gallery.css">
+  <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Akronim' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Sofia ' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=VT323 ' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Playfair Display ' rel='stylesheet'>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+            <h1 class="title is-1 publication-title"
+              style="font-family: 'Google Lexend', sans-serif; margin-bottom: 20px;">
+              VAGUE: Visual Contexts Clarify Ambiguous Expressions
+              <h2 class="title is-2 publication-title"
+                style="font-family: 'Google Lexend', sans-serif ;font-weight: normal; color: #696969;">
+                Can LVLMs correctly interpret indirect and ambiguous expressions in multimodal reasoning?
+              </h2>
+              <img src="./image_assets/logo/iccv-navbar-logo.svg" alt="iccv" width="200" height="auto"
+                style="margin-bottom: 20px;">
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://hazel-heejeong-nam.github.io/">Heejeong Nam</a><sup>*§1</sup>,
+                  <a href="https://jwahnn.github.io/">Jinwoo Ahn</a><sup>*2</sup>,
+                  <a href="https://mirlab.yonsei.ac.kr/people/keummin.html">Keummin Ka</a><sup>3</sup>,
+                  <a href="https://jiwanchung.github.io/">Jiwan Chung</a><sup>3</sup>,
+                  <a href="https://yj-yu.github.io/home/">Youngjae Yu</a><sup>‡3</sup>,
+                </span>
+                </span>
+
+
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block"><sup>1</sup>Computer Science, Brown University, </span>
+                <span class="author-block"><sup>2</sup>EECS, University of California Berkeley, </span>
+                <span class="author-block"><sup>3</sup>Artificial Intelligence, Yonsei University,
+                </span>
+              </div>
+              <div class="is-size-6 publication-authors">
+                <span class="author-block"><sup>*</sup> Equal contribution</span>
+                <span class="author-block"><sup>‡</sup> Corresponding authors</span>
+                <span class="author-block"><sup>§</sup> Lead contact</span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- PDF Link. -->
+
+                  <span class="link-block">
+                    <a href="https://arxiv.org/abs/2411.14137"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                      </span>
+                      <span>arXiv</span>
+                    </a>
+                  </span>
+                  <!-- <span class="link-block">
+                  <a href="https://aka.ms/biomedparse-paper" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span> -->
+                  <!-- Video Link. -->
+                  <!-- <span class="link-block">
+                <a href="./image_assets/video_demo/Demo-upload3.mp4"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+                  <!--               Code Link. -->
+
+                  <span class="link-block">
+                    <a href="https://github.com/Hazel-Heejeong-Nam/VAGUE"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+
+                  <!--               Dataset Link. -->
+                  <span class="link-block">
+                    <a href="https://drive.google.com/drive/folders/1GIoMcmN59PqDoczwcrymqnZ6JY4jgf0r"
+                      class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon">
+                        <i class="far fa-images"></i>
+                      </span>
+                      <span>Data</span>
+                    </a>
+                </div>
+
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="gallery">
+    <!-- <div class="overlay">
+      <div class="caption" style="font-size: 4vw;">Everything Everywhere All at Once</div>
+  </div> -->
+    <!-- Row 1 -->
+    <div class="image-row">
+
+      <img src="./image_assets/image_demo/vague1.png" alt="vague1">
+      <img src="./image_assets/image_demo/vague2.png" alt="vague2">
+      <img src="./image_assets/image_demo/vague3.png" alt="vague3">
+
+
+    </div>
+    <!-- Row 2
+    <div class="image-row">
+      <img src="./image_assets/image_demo/coronacases_003_123_CT_lung_rot.png" alt="CT Lung">
+      <img
+        src="./image_assets/image_demo/coronacases_003_123_CT_lung_COVID-19+infection_COVID-19+infection+in+lung+CT_dice93_box20_convex24_IRI16_rot.png"
+        alt="COVID-19 Infection in Lung CT">
+      <img src="./image_assets/image_demo/covid_1585_X-Ray_chest.png" alt="Chest X-Ray">
+      <img
+        src="./image_assets/image_demo/covid_1585_X-Ray_chest_COVID-19+infection_COVID-19+infection+in+chest+X-Ray_dice93_box39_convex51_IRI40.png"
+        alt="COVID-19 Infection in Chest X-Ray">
+      <img src="./image_assets/image_demo/d260bfcb4443de3ef69f6db034099130_endoscope_colon.png" alt="Colon Endoscope">
+      <img
+        src="./image_assets/image_demo/d260bfcb4443de3ef69f6db034099130_endoscope_colon_neoplastic+polyp_neoplastic+polyp+in+colon+endoscope_dice99_box78_convex100_IRI99.png"
+        alt="Neoplastic Polyp in Colon Endoscope">
+    -->
+    <!-- duplicate -->
+    <!-- <img src="./image_assets/image_demo/coronacases_003_123_CT_lung_rot.png" alt="CT Lung">
+      <img
+        src="./image_assets/image_demo/coronacases_003_123_CT_lung_COVID-19+infection_COVID-19+infection+in+lung+CT_dice93_box20_convex24_IRI16_rot.png"
+        alt="COVID-19 Infection in Lung CT">
+      <img src="./image_assets/image_demo/covid_1585_X-Ray_chest.png" alt="Chest X-Ray">
+      <img
+        src="./image_assets/image_demo/covid_1585_X-Ray_chest_COVID-19+infection_COVID-19+infection+in+chest+X-Ray_dice93_box39_convex51_IRI40.png"
+        alt="COVID-19 Infection in Chest X-Ray">
+      <img src="./image_assets/image_demo/d260bfcb4443de3ef69f6db034099130_endoscope_colon.png" alt="Colon Endoscope">
+      <img
+        src="./image_assets/image_demo/d260bfcb4443de3ef69f6db034099130_endoscope_colon_neoplastic+polyp_neoplastic+polyp+in+colon+endoscope_dice99_box78_convex100_IRI99.png"
+        alt="Neoplastic Polyp in Colon Endoscope"> 
+    </div> -->
+    <!-- Row 3 -->
+    <!-- <div class="image-row">
+      <img src="./image_assets/image_demo/dermIS_SSM27_dermoscopy_skin.png" alt="Skin Dermoscopy">
+      <img
+        src="./image_assets/image_demo/dermIS_SSM27_dermoscopy_skin_melanoma_melanoma+in+skin+dermoscope_dice98_box71_convex97_IRI90.png"
+        alt="Melanoma in Skin Dermoscope">
+      <img src="./image_assets/image_demo/malignant85_ultrasound_breast.png" alt="Ultrasound Breast">
+      <img
+        src="./image_assets/image_demo/malignant85_ultrasound_breast_malignant+tumor_malignant+tumor+in+breast+ultrasound_dice94_box62_convex91_IRI67.png"
+        alt="Malignant Tumor in Breast Ultrasound">
+      <img src="./image_assets/image_demo/testA_34_pathology_colon.png" alt="Pathology Colon">
+      <img
+        src="./image_assets/image_demo/testA_34_pathology_colon_glandular+structure_glandular+structure+in+colon+pathology_dice96.png"
+        alt="Glandular Structure in Colon Pathology"> -->
+    <!-- duplicate -->
+    <!-- <img src="./image_assets/image_demo/dermIS_SSM27_dermoscopy_skin.png" alt="Skin Dermoscopy">
+      <img
+        src="./image_assets/image_demo/dermIS_SSM27_dermoscopy_skin_melanoma_melanoma+in+skin+dermoscope_dice98_box71_convex97_IRI90.png"
+        alt="Melanoma in Skin Dermoscope">
+      <img src="./image_assets/image_demo/malignant85_ultrasound_breast.png" alt="Ultrasound Breast">
+      <img
+        src="./image_assets/image_demo/malignant85_ultrasound_breast_malignant+tumor_malignant+tumor+in+breast+ultrasound_dice94_box62_convex91_IRI67.png"
+        alt="Malignant Tumor in Breast Ultrasound">
+      <img src="./image_assets/image_demo/testA_34_pathology_colon.png" alt="Pathology Colon">
+      <img
+        src="./image_assets/image_demo/testA_34_pathology_colon_glandular+structure_glandular+structure+in+colon+pathology_dice96.png"
+        alt="Glandular Structure in Colon Pathology">
+    </div> -->
+  </div>
+  <!-- Examples. -->
+
+  <section class="section" style="background-color: #f5f5f5;">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column ">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+
+            <p>Human communication often relies on visual cues to resolve ambiguity. While humans can intuitively
+              integrate these cues, AI systems often find it challenging to engage in sophisticated multimodal
+              reasoning. We introduce VAGUE, a benchmark evaluating multimodal AI systems' ability to integrate visual
+              context for intent disambiguation. VAGUE consists of 1.6K ambiguous textual expressions, each paired with
+              an image and multiple-choice interpretations, where the correct answer is only apparent with visual
+              context. The dataset spans both staged, complex (Visual Commonsense Reasoning) and natural, personal
+              (Ego4D) scenes, ensuring diversity. Our experiments reveal that existing multimodal AI models struggle to
+              infer the speaker's true intent. While performance consistently improves from the introduction of more
+              visual cues, the overall accuracy remains far below human performance, highlighting a critical gap in
+              multimodal reasoning. Analysis of failure cases demonstrates that current models fail to distinguish true
+              intent from superficial correlations in the visual scene, indicating that they perceive images but do not
+              effectively reason with them.</p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+    </div>
+  </section>
+
+
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <img src="../images/hn.jpg" alt="default Logo" class="footer-logo"
+          style="max-width: 100px; height: auto; display: block; margin: 0 auto;">
+        <!-- <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a> -->
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              Website template adapted from the <a href="https://github.com/microsoft/BiomedParse/tree/project_page"
+                target="_blank" rel="noopener">BiomedParse project page</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/juxtapose.js"></script>
+  <script src="./assets/js/popper.min.js"></script>
+  <script src="./assets/js/jquery.min.js"></script>
+  <script src="./assets/js/bootstrap.min.js"></script>
+  <script defer="" src="./assets/js/fontawesome.all.min.js"></script>
+  <script src="./assets/js/bulma-carousel.min.js"></script>
+  <script src="./assets/js/bulma-slider.min.js"></script>
+  <script src="./assets/js/dropdown.js"></script>
+
+</body>
+
+</html>
