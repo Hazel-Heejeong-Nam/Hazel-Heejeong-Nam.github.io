@@ -249,7 +249,7 @@ article.special {
 }
 
 header p {
-    color: #777;
+    color: #ffffff;
     position: relative;
     margin: 0 0 1.5em 0;
 }
@@ -462,7 +462,7 @@ input[type="radio"]+label:before {
 }
 
 ::-webkit-input-placeholder {
-    color: #aaa !important;
+    color: #ffffff !important;
     font-style: italic;
     opacity: 1.0;
 }
@@ -1082,7 +1082,7 @@ input[type="button"]:disabled,
 }
 
 #header>header p {
-    color: #d1f1e9;
+    color: #e1dad8;
     font-style: italic;
     margin: 1em 0 0 0;
 }
