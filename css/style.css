@@ -133,6 +133,13 @@ h6 {
     height: 0.6em;
 }
 
+.logo3 {
+    width: auto;
+    /* 원하는 크기로 조절 */
+    height: 0.5em;
+}
+
+
 h1 a,
 h2 a,
 h3 a,
