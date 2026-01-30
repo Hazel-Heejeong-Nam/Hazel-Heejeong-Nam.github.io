@@ -992,8 +992,10 @@ input[type="button"]:disabled,
 
 .features article {
     border-top: solid 3px #f4f4f4;
-    margin-bottom: 1em;
-    padding-top: 1em;
+    margin-bottom: 0.5em;
+    /* ARTICLE BOTTOM MARGIN */
+    padding-top: 0.5em;
+    /* ARTICLE TOP PADDING */
 }
 
 .features article:first-child {
@@ -1004,7 +1006,8 @@ input[type="button"]:disabled,
 .features article .image {
     display: inline-block;
     padding-right: 1em;
-    vertical-align: middle;
+    vertical-align: top;
+    /* IMAGE VERTICAL ALIGNMENT: top, middle, bottom */
     width: 20%;
 }
 
@@ -1015,7 +1018,8 @@ input[type="button"]:disabled,
 
 .features article .inner {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
+    /* TEXT VERTICAL ALIGNMENT: top, middle, bottom */
     width: 75%;
 }
 
@@ -1023,10 +1027,44 @@ input[type="button"]:disabled,
     margin-bottom: 0;
 }
 
+/* Publication Meta Row - Badge left, Links right */
+
+.pub-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.0em;
+}
+
+.pub-links {
+    display: inline;
+}
+
+/* Conference Badge */
+
+.conf-badge {
+    display: inline-block;
+    background: #541e13;
+    /* TAG BACKGROUND COLOR */
+    color: #ffffff;
+    /* TAG TEXT COLOR */
+    font-size: 0.85em;
+    /* TAG SIZE */
+    font-weight: 800;
+    padding: 1px 4px;
+    /* Tight vertical, comfortable horizontal */
+    border-radius: 5px;
+    /* TAG ROUNDNESS */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+}
+
 /* Header */
 
 #header {
-    background: #131313;
+    background: #261815;
     color: #d1f1e9;
     height: 100%;
     position: fixed;

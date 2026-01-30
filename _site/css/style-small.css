@@ -77,6 +77,18 @@ header.major h2+p {
     width: 100%;
 }
 
+/* Conference Badge - Mobile */
+
+.pub-meta-row {
+    flex-wrap: wrap;
+    gap: 0.3em;
+}
+
+.conf-badge {
+    font-size: 0.6em;
+    padding: 1px 6px;
+}
+
 /* Header */
 
 #header>header {
