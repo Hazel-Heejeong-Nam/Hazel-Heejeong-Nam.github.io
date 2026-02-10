@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" class="fontawesome-i2svg-active fontawesome-i2svg-complete">
+
+<head>
+  <meta property="og:title" content="Causal-JEPA">
+  <meta property="og:description" content="Learning World Models through Object-Level Latent Interventions">
+  <meta property="og:url" content="https://arxiv.org/abs/2411.14137">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="description"
+    content="Causal-JEPA: Learning World Models through Object-Level Latent Interventions. Causal-JEPA is a novel approach to learning world models by leveraging object-level latent interventions.">
+  <meta name="keywords"
+    content="C-JEPA, Causal-JEPA, Causal JEPA, Causal Joint Embedding Predictive Architecture, causal world models, object-level latent interventions, object centric world models, object-centric learning, world model learning, causal representation learning, causal inference, causal discovery, causal reasoning, causality in machine learning, causality in AI, causality in deep learning, causality in reinforcement learning, causality in robotics, causality in computer vision">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="SHORTCUT ICON" href="../images/hn.jpg" type="image/x-icon">
+  <title>C-JEPA</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <link href="./assets/css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/dropdown.css">
+  <link rel="stylesheet" href="./assets/css/bulma.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./assets/css/bulma-slider.min.css">
+
+  <link rel="stylesheet" href="./assets/css/tab_gallery.css">
+  <link rel="stylesheet" href="./assets/css/academicons.min.css">
+  <link rel="stylesheet" href="./assets/css/index.css">
+  <link rel="stylesheet" href="./assets/css/juxtapose.css">
+  <link rel="stylesheet" href="./assets/css/image_card_fader.css">
+  <link rel="stylesheet" href="./assets/css/image_card_slider.css">
+  <link rel="stylesheet" href="./assets/css/gallery.css">
+
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
+
+<body>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+
+            <h1 class="title is-1 publication-title"
+              style="font-family: 'Google Lexend', sans-serif; margin-bottom: 20px;">
+              Causal-JEPA
+            </h1>
+            <h2 class="title is-2 publication-title"
+              style="font-family: 'Google Lexend', sans-serif ;font-weight: normal; color: #696969;">
+              Learning World Models through Object-Level Latent Interventions
+            </h2>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://hazel-heejeong-nam.github.io/">Heejeong Nam</a><sup>1</sup>,
+                <a href="https://quentinll.github.io/">Quentin Le Lidec</a><sup>*2</sup>,
+                <a href="https://lucasmaes.bearblog.dev/">Lucas Maes</a><sup>*3,4</sup>,
+                <a href="http://yann.lecun.com/">Yann LeCun</a><sup>2</sup>,
+                <a href="https://randallbalestriero.github.io/">Randall Balestriero</a><sup>1</sup>,
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Brown University, </span>
+              <span class="author-block"><sup>2</sup>New York University, </span>
+              <span class="author-block"><sup>3</sup>Mila, </span>
+              <span class="author-block"><sup>4</sup>Universite de Montreal</span>
+            </div>
+
+            <div class="is-size-6 publication-authors">
+              <span class="author-block"><sup>*</sup> Equal contribution</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2411.14137" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/galilai-group/cjepa"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://huggingface.co/HazelNam/CJEPA/tree/main"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="far fa-images"></i>
+                    </span>
+                    <span>HuggingFace</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" style="background-color: #f5f5f5;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Summary</h2>
+          <div class="content has-text-justified">
+            <p>
+              World models require robust relational understanding to support prediction, reasoning, and control. While
+              object-centric representations provide a useful abstraction, they are not sufficient to capture
+              interaction-dependent dynamics. We therefore propose C-JEPA, a simple and flexible object-centric world
+              model that extends masked joint embedding prediction from image patches to object-centric representations.
+              By applying object-level masking that requires an object's state to be inferred from other objects, C-JEPA
+              induces latent interventions with counterfactual-like effects and prevents shortcut solutions, making
+              interaction reasoning essential.
+              Empirically, C-JEPA leads to consistent gains in visual question answering, with an <b>absolute
+                improvement
+                of about 20% in counterfactual reasoning</b> compared to the same architecture without object-level
+              masking.
+              On agent control tasks, C-JEPA enables substantially more efficient planning by <b>using only 1% of the
+                total latent input features</b> required by patch-based world models, while achieving comparable
+              performance.
+              Finally, we provide a formal analysis demonstrating that object-level masking induces a causal inductive
+              bias via latent interventions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Methodology</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <img src="./image_assets/image_demo/architecture.png" alt="C-JEPA Training Architecture"
+            style="width: 100%; height: auto;">
+          <p class="content has-text-centered is-size-7 mt-2">
+            Figure 1. C-JEPA Training Pipeline. Selective object-level masking induces interaction reasoning by
+            requiring masked history slots to be inferred from other objects.
+          </p>
+        </div>
+      </div>
+      <div class="content has-text-justified">
+        <p>
+          <b>C-JEPA treats object masking as a structured latent intervention</b>. By masking an object's trajectory
+          throughout
+          the history window (except for a minimal identity anchor), the model is forced to rely on interactions with
+          other entities to minimize prediction error.
+        </p>
+        <p>
+          Masked tokens are constructed using a linear projection \(\Phi\), an identity anchor \(z_{t_0}^i\), and
+          learnable
+          temporal embeddings \(e_{\tau}\):
+          $$\overline{z}_{\tau}^{i} = \Phi(z_{t_{0}}^{i}) + e_{\tau}$$
+          The training objective minimizes the \(l_2\) distance between predicted and target masked latents across both
+          history recovery and future prediction:
+          $$\mathcal{L}_{mask} = \underbrace{\mathbb{E}[||\hat{Z}_{\tau} - Z_{\tau}||_{2}^{2} | \tau \le
+          t]}_{\mathcal{L}_{history}} + \underbrace{\mathbb{E}[||\hat{Z}_{\tau} - Z_{\tau}||_{2}^{2} | \tau >
+          t]}_{\mathcal{L}_{future}}$$
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background-color: #f5f5f5;">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+      <div class="content mt-6">
+        <h4 class="title is-4">1. Efficient Control (Push-T)</h4>
+        <p class="has-text-justified">
+          C-JEPA reconciles the efficiency of object-centric models with the performance of high-dimensional patch-based
+          approaches. It matches the performance of DINO-WM while using only <strong>1.02%</strong> of the
+          total latent features, enabling <strong>8x faster</strong> planning
+          .
+        </p>
+        <table class="table is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Input Features (Tokens)</th>
+              <th>Success Rate (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>DINO-WM (Patch-based)</td>
+              <td>196 x 384</td>
+              <td>91.33</td>
+            </tr>
+            <tr>
+              <td>OC-DINO-WM</td>
+              <td>6 x 128</td>
+              <td>60.67</td>
+            </tr>
+            <tr>
+              <td>OC-JEPA</td>
+              <td>6 x 128</td>
+              <td>76.00</td>
+            </tr>
+            <tr>
+              <td><strong>C-JEPA (Ours)</strong></td>
+              <td><strong>6 x 128 (~1%)</strong></td>
+              <td><strong>88.67</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="content">
+        <h4 class="title is-4">2. Visual Reasoning (CLEVRER)</h4>
+        <p class="has-text-justified">
+          C-JEPA achieves the strongest performance without relying on pixel-level reconstruction. Removing
+          reconstruction leads to severe degradation in baselines like SlotFormer, whereas C-JEPA's masking-based
+          objective remains highly effective.
+        </p>
+        <style>
+          .recon-yes {
+            color: #b04a4a;
+            /* muted blue */
+            font-weight: 600;
+          }
+
+          .recon-no {
+            color: #3a6ea5;
+            /* muted red */
+            font-weight: 600;
+          }
+        </style>
+
+        <table class="table is-striped is-fullwidth">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Recon.</th>
+              <th>Avg. per Que. (%)</th>
+              <th>Counterfactual per Que. (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SlotFormer</td>
+              <td class="recon-yes">Yes</td>
+              <td>79.44</td>
+              <td>47.29</td>
+            </tr>
+            <tr>
+              <td>SlotFormer (-) recon</td>
+              <td class="recon-no">No</td>
+              <td>44.94</td>
+              <td>11.10</td>
+            </tr>
+            <tr>
+              <td>OCVP-Seq</td>
+              <td class="recon-yes">Yes</td>
+              <td>83.11</td>
+              <td>56.06</td>
+            </tr>
+            <tr>
+              <td>OCVP-Seq (-) recon</td>
+              <td class="recon-no">No</td>
+              <td>80.09</td>
+              <td>43.00</td>
+            </tr>
+            <tr style="border-top: 2px solid #ccc;">
+              <td>OC-JEPA (Baseline)</td>
+              <td class="recon-no">No</td>
+              <td>77.28</td>
+              <td>41.10</td>
+            </tr>
+            <tr>
+              <td><strong>C-JEPA (Ours)</strong></td>
+              <td class="recon-no">No</td>
+              <td><strong>83.88</strong></td>
+              <td><strong>60.19</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="is-size-7">*Results using SAVi encoder for a fair comparison with baselines.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Theoretical Analysis</h2>
+      <div class="content has-text-justified">
+        <p>
+          We formally demonstrate that C-JEPA's objective induces a <strong>causal inductive bias</strong>.
+          Masked history prediction forces the predictor to identify an <strong>influence neighborhood</strong>, the
+          minimal sufficient subset of context variables required to recover an object's started.
+          This process aligns the model's attention with interaction-stable relational structures, making interaction
+          reasoning functionally necessary for minimizing training loss. More details are provided in the paper!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <img src="../images/hn.jpg" alt="Author Photo" class="footer-logo"
+          style="max-width: 100px; height: auto; border-radius: 50%; display: block; margin: 0 auto;">
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p class="has-text-centered">
+              Website template adapted from the <a href="https://github.com/microsoft/BiomedParse/tree/project_page"
+                target="_blank" rel="noopener">BiomedParse project page</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/js/juxtapose.js"></script>
+  <script src="./assets/js/popper.min.js"></script>
+  <script src="./assets/js/jquery.min.js"></script>
+  <script src="./assets/js/bootstrap.min.js"></script>
+  <script defer="" src="./assets/js/fontawesome.all.min.js"></script>
+  <script src="./assets/js/bulma-carousel.min.js"></script>
+  <script src="./assets/js/bulma-slider.min.js"></script>
+  <script src="./assets/js/dropdown.js"></script>
+
+</body>
+
+</html>
