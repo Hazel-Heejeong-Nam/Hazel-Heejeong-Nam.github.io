@@ -286,6 +286,10 @@ header.major h2+p {
     margin-top: -0.75em;
 }
 
+header.major h3+p {
+    color: #333;
+}
+
 /* Form */
 
 form {
