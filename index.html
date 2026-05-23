@@ -59,7 +59,7 @@
           <li><a href="#three">Publications</a></li>
           <!-- <li><a href="#four">Videos</a></li> -->
           <li><a href="#five">Talks</a></li>
-          <!-- <li><a href="#six">Side Work</a></li> -->
+          <li><a href="#six">Media</a></li>
           <li><a href="#seven">Misc</a></li>
 
         </ul>
@@ -68,7 +68,7 @@
         <ul class="icons">
           <li><a href="https://github.com/Hazel-Heejeong-Nam" target='_blank' class="icon fa-github"><span
                 class="label">GitHub</span></a></li>
-          <li><a href="https://www.linkedin.com/in/heejeong-nam-926963248/" target='_blank'
+          <li><a href="https://www.linkedin.com/in/heejeong-hazel-nam-926963248/" target='_blank'
               class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
           <!-- <li><a href="https://twitter.com/xiuming_zhang" target='_blank'
                 class="icon fa-twitter"><span
@@ -638,43 +638,77 @@
         </div>
       </section>
 
-      <!-- Side Work
       <section id="six">
         <div class="container">
           <header class="major">
-            <h3>Side Work</h3>
-            <p>Non-Referred Notes & Side Projects</p>
+            <h3>Media</h3>
           </header>
-          <div class="features">
-            <article>
-              <div class="image">
-                <img src="images/side_proj/nph.gif" alt="" />
-              </div>
-              <div class="inner">
-                <script>code("https://github.com/UCSB-VRL/NPH_Segmentation")</script>
-                <br>
-                <b>Normal Pressure Hydrocephalus(NPH) prediction</b>
-                <br>
-                Predicting NPH by performing brain CT segmentation and calculating the volume of ventricle. Done while
-                doing internship at UCSB.
-              </div>
-            </article>
-            <article>
-              <div class="image">
-                <img src="images/side_proj/classify.gif" alt="" />
-              </div>
-              <div class="inner">
-                <script>code("https://github.com/Hazel-Heejeong-Nam/classify");</script>
-                <br>
-                <b>UCLA Time Table Recommender</b>
-                <br>
-                Class description based class recommender.
-              </div>
-            </article>
 
+          <!-- Extend by duplicating one media-card block and swapping iframe / link card / img. -->
+          <div class="media-gallery" data-media-gallery>
+            <div class="media-gallery-header">
+              <p class="media-gallery-kicker">Click each card to visit website. Swipe or use the arrows to move one card
+                at a time.</p>
+              <div class="media-gallery-controls" aria-label="Media gallery controls">
+                <button type="button" class="media-gallery-button" data-media-nav="prev"
+                  aria-label="Show previous media item">
+                  <span aria-hidden="true">&#8592;</span>
+                </button>
+                <button type="button" class="media-gallery-button" data-media-nav="next"
+                  aria-label="Show next media item">
+                  <span aria-hidden="true">&#8594;</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="media-gallery-track">
+              <article class="media-card">
+                <div class="media-card-frame media-card-frame-video">
+                  <iframe width="1245" height="700" src="https://www.youtube.com/embed/GBd7iuJkW08"
+                    title="Stanford CS25: Transformers United V6 I From Representation Learning to World Modeling"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <p class="media-card-caption">Stanford CS25 talk on JEPA and world modeling.</p>
+              </article>
+
+              <article class="media-card">
+                <a href="https://www.boeing.com/innovation/innovation-quarterly/2025/09/getting-the-message"
+                  target="_blank" rel="noopener noreferrer" class="media-card-frame media-card-link"
+                  aria-label="Open Boeing Innovation Quarterly article">
+                  <div class="media-card-browser">
+                    <div class="media-card-browser-bar">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </div>
+                    <div class="media-card-browser-body">
+                      <div class="media-card-site-badge">
+                        <img src="images/logos/boeing_logoonly.png" alt="Boeing logo" />
+                        <span>Boeing Innovation Quarterly</span>
+                      </div>
+                      <div class="media-card-site-copy">
+                        <strong>Getting the Message</strong>
+                        <span>AI-powered speech-to-text for more accessible in-flight communication.</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <p class="media-card-caption">Feature story on Boeing’s AI project as a first Korean team!
+                </p>
+              </article>
+
+              <article class="media-card">
+                <div class="media-card-frame" aria-label="Fulbright image card">
+                  <img src="images/fulb.jpg" alt="Fulbright-related image" loading="lazy" />
+                </div>
+                <p class="media-card-caption">Fulbright moment captured!</p>
+              </article>
+            </div>
           </div>
         </div>
-      </section> -->
+      </section>
 
       <!-- Services -->
       <section id="seven">
@@ -735,6 +769,49 @@
     </section>
 
   </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var galleries = document.querySelectorAll('[data-media-gallery]');
+
+      galleries.forEach(function (gallery) {
+        var track = gallery.querySelector('.media-gallery-track');
+        var previousButton = gallery.querySelector('[data-media-nav="prev"]');
+        var nextButton = gallery.querySelector('[data-media-nav="next"]');
+
+        if (!track || !previousButton || !nextButton) {
+          return;
+        }
+
+        function getScrollAmount() {
+          var firstCard = track.querySelector('.media-card');
+
+          if (!firstCard) {
+            return 0;
+          }
+
+          var trackStyles = window.getComputedStyle(track);
+          var gap = parseFloat(trackStyles.gap || trackStyles.columnGap || 0);
+
+          return firstCard.getBoundingClientRect().width + gap;
+        }
+
+        function moveGallery(direction) {
+          track.scrollBy({
+            left: getScrollAmount() * direction,
+            behavior: 'smooth'
+          });
+        }
+
+        previousButton.addEventListener('click', function () {
+          moveGallery(-1);
+        });
+
+        nextButton.addEventListener('click', function () {
+          moveGallery(1);
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>

@@ -24,6 +24,251 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 /* 필요 시 ul 스타일도 조정 가능 */
 
+.media-gallery {
+    margin-top: 1.5em;
+}
+
+.media-gallery-header {
+    align-items: center;
+    display: flex;
+    gap: 1.25em;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+.media-gallery-kicker {
+    color: #6f7287;
+    font-size: 0.9em;
+    letter-spacing: 0.02em;
+    margin: 0;
+}
+
+.media-gallery-controls {
+    display: flex;
+    gap: 0.6em;
+    flex-shrink: 0;
+}
+
+.media-gallery-button {
+    align-items: center;
+    background: linear-gradient(135deg, #12192f 0%, #2e4c78 100%);
+    border: 0;
+    border-radius: 999px;
+    box-shadow: 0 12px 30px rgba(17, 31, 56, 0.18);
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1em;
+    height: 2.8em;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    width: 2.8em;
+}
+
+.media-gallery-button:hover {
+    box-shadow: 0 18px 35px rgba(17, 31, 56, 0.24);
+    color: #fff !important;
+    opacity: 0.96;
+    transform: translateY(-1px);
+}
+
+.media-gallery-track {
+    display: grid;
+    gap: 1.25em;
+    grid-auto-columns: 100%;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    padding: 0 0 0.75em;
+    scroll-behavior: smooth;
+    scroll-padding-inline: 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(46, 76, 120, 0.45) rgba(231, 236, 242, 0.85);
+}
+
+.media-gallery-track::-webkit-scrollbar {
+    height: 10px;
+}
+
+.media-gallery-track::-webkit-scrollbar-thumb {
+    background: rgba(46, 76, 120, 0.45);
+    border-radius: 999px;
+}
+
+.media-gallery-track::-webkit-scrollbar-track {
+    background: rgba(231, 236, 242, 0.85);
+    border-radius: 999px;
+}
+
+.media-card {
+    scroll-snap-align: start;
+}
+
+.media-card-frame {
+    align-items: stretch;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(140deg, #f6f8fb 0%, #e7edf6 100%);
+    border: 1px solid rgba(33, 57, 91, 0.08);
+    border-radius: 1.5em;
+    box-shadow: 0 28px 45px rgba(21, 31, 53, 0.08);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.media-card-frame iframe,
+.media-card-frame img {
+    border: 0;
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.media-card-frame-video {
+    background: #111;
+}
+
+.media-card-link {
+    border-bottom: 0;
+    color: inherit;
+}
+
+.media-card-link:hover {
+    color: inherit !important;
+}
+
+.media-card-link::after {
+    background: linear-gradient(135deg, rgba(18, 25, 47, 0) 35%, rgba(18, 25, 47, 0.16) 100%);
+    content: "";
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+}
+
+.media-card-browser {
+    background:
+        radial-gradient(circle at top left, rgba(84, 123, 174, 0.18), transparent 36%),
+        linear-gradient(155deg, #ffffff 0%, #eef3f9 100%);
+    color: #1c2640;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.media-card-browser-bar {
+    align-items: center;
+    background: rgba(28, 38, 64, 0.05);
+    display: flex;
+    gap: 0.45em;
+    padding: 0.85em 1em;
+}
+
+.media-card-browser-bar span {
+    background: rgba(28, 38, 64, 0.2);
+    border-radius: 50%;
+    display: block;
+    height: 0.72em;
+    width: 0.72em;
+}
+
+.media-card-browser-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1.15em;
+    justify-content: center;
+    padding: 2em 2.2em;
+}
+
+.media-card-site-badge {
+    align-items: center;
+    color: #415272;
+    display: inline-flex;
+    font-size: 0.9em;
+    font-weight: 700;
+    gap: 0.75em;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.media-card-site-badge img {
+    height: 1.35em;
+    object-fit: contain;
+    width: auto;
+}
+
+.media-card-site-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55em;
+}
+
+.media-card-site-copy strong {
+    color: #1c2640;
+    font-size: 1.55em;
+    line-height: 1.15em;
+}
+
+.media-card-site-copy span {
+    color: #4f5f7a;
+    font-size: 1em;
+    line-height: 1.6em;
+    max-width: 30em;
+}
+
+.media-card-placeholder {
+    background:
+        radial-gradient(circle at top, rgba(96, 149, 214, 0.22), transparent 42%),
+        linear-gradient(135deg, #f2f6fb 0%, #e2ebf7 100%);
+}
+
+.media-card-placeholder-art {
+    align-items: flex-start;
+    border: 1px dashed rgba(58, 86, 126, 0.35);
+    border-radius: 1.15em;
+    color: #31415f;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    justify-content: center;
+    margin: auto;
+    max-width: min(82%, 25em);
+    padding: 1.75em 2em;
+    width: 100%;
+}
+
+.media-card-placeholder-tag {
+    background: rgba(43, 83, 135, 0.1);
+    border-radius: 999px;
+    color: #35527d;
+    font-size: 0.72em;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0.45em 0.85em;
+    text-transform: uppercase;
+}
+
+.media-card-placeholder-art strong {
+    color: #233252;
+    font-size: 1.8em;
+    line-height: 1.1em;
+}
+
+.media-card-placeholder-art span:last-child {
+    color: #566782;
+    line-height: 1.6em;
+}
+
+.media-card-caption {
+    color: #4e5668;
+    font-size: 0.96em;
+    line-height: 1.55em;
+    margin: 0.9em 0 0;
+    text-align: center;
+}
+
 body {
     background: #fff;
 }
@@ -252,6 +497,54 @@ header p {
     color: #ffffff;
     position: relative;
     margin: 0 0 1.5em 0;
+}
+
+@media screen and (max-width: 980px) {
+
+    .media-gallery-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .media-card-browser-body {
+        padding: 1.6em;
+    }
+
+    .media-card-site-copy strong {
+        font-size: 1.35em;
+    }
+}
+
+@media screen and (max-width: 640px) {
+
+    .media-gallery-kicker {
+        font-size: 0.82em;
+        line-height: 1.6em;
+    }
+
+    .media-card-frame {
+        border-radius: 1.1em;
+    }
+
+    .media-card-browser-body {
+        gap: 0.9em;
+        padding: 1.25em;
+    }
+
+    .media-card-site-copy strong {
+        font-size: 1.15em;
+    }
+
+    .media-card-site-copy span,
+    .media-card-caption,
+    .media-card-placeholder-art span:last-child {
+        font-size: 0.9em;
+    }
+
+    .media-card-placeholder-art {
+        max-width: 88%;
+        padding: 1.2em 1.35em;
+    }
 }
 
 header h2+p {
