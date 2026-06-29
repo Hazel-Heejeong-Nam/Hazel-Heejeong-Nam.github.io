@@ -1,0 +1,25 @@
+{% assign callout_type = include.type | default: "technical-note" | slugify %}
+{% assign callout_title = include.title %}
+{% unless callout_title %}
+  {% case callout_type %}
+    {% when "key-idea" %}
+      {% assign callout_title = "Key idea" %}
+    {% when "intuition" %}
+      {% assign callout_title = "Intuition" %}
+    {% when "technical-note" %}
+      {% assign callout_title = "Technical note" %}
+    {% when "caveat" %}
+      {% assign callout_title = "Note" %}
+    {% else %}
+      {% assign callout_title = "Note" %}
+  {% endcase %}
+{% endunless %}
+
+<aside class="post-callout post-callout--{{ callout_type }}{% if include.no_title %} post-callout--untitled{% endif %}">
+  {% unless include.no_title %}
+  <div class="post-callout__label">{{ callout_title }}</div>
+  {% endunless %}
+  <div class="post-callout__body">
+    {{ include.content | markdownify }}
+  </div>
+</aside>

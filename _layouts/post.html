@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.subtitle | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 | escape }}">
+    <meta name="color-scheme" content="light">
+    <link rel="icon" href="{{ '/images/hn.jpg' | relative_url }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/post.css' | relative_url }}">
+    {% if page.math != false %}
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    {% endif %}
+  </head>
+  <body>
+    <div class="reading-progress" aria-hidden="true">
+      <div class="reading-progress__bar" data-reading-progress></div>
+    </div>
+
+    <div class="post-page">
+      <header class="post-topbar">
+        <a class="post-topbar__home" href="{{ '/' | relative_url }}">Heejeong Nam</a>
+        <span class="post-topbar__slash">/</span>
+        <span class="post-topbar__section">{{ page.kicker | default: 'Research Note' }}</span>
+      </header>
+
+      <main class="post-shell">
+        <article class="post-card" data-article-card>
+          <header class="post-hero">
+            <p class="post-hero__eyebrow">{{ page.kicker | default: 'Research Note' }}</p>
+            <h1>{{ page.title }}</h1>
+            {% if page.subtitle %}
+            <p class="post-hero__subtitle">{{ page.subtitle }}</p>
+            {% endif %}
+
+            <div class="post-meta">
+              {% if page.authors %}
+              <span class="post-meta__item">{{ page.authors }}</span>
+              {% endif %}
+              {% if page.date %}
+              <span class="post-meta__item">{{ page.date | date: "%B %-d, %Y" }}</span>
+              {% endif %}
+              {% if page.reading_time %}
+              <span class="post-meta__item">{{ page.reading_time }}</span>
+              {% endif %}
+              {% if page.arxiv_url %}
+              <a class="post-meta__item post-meta__item--logo" href="{{ page.arxiv_url }}" target="_blank" rel="noopener noreferrer" aria-label="Open arXiv page">
+                <span class="post-meta__logo-frame">
+                  <img src="{{ page.arxiv_logo | default: '/LAM/figs/brand-logo-primary.jpg' | relative_url }}" alt="arXiv">
+                </span>
+              </a>
+              {% endif %}
+            </div>
+
+            {% if page.teaser_image %}
+            <figure class="post-teaser">
+              <img src="{{ page.teaser_image | relative_url }}" alt="{{ page.teaser_alt | default: page.title }}" loading="eager">
+              {% if page.teaser_caption %}
+              <figcaption>{{ page.teaser_caption }}</figcaption>
+              {% endif %}
+            </figure>
+            {% endif %}
+          </header>
+
+          <section class="post-content" data-post-content>
+            {{ content }}
+          </section>
+
+          {% assign previous_url = page.previous_url %}
+          {% assign previous_title = page.previous_title %}
+          {% assign next_url = page.next_url %}
+          {% assign next_title = page.next_title %}
+
+          {% unless previous_url %}
+            {% if page.previous %}
+              {% assign previous_url = page.previous.url %}
+              {% assign previous_title = page.previous.title %}
+            {% endif %}
+          {% endunless %}
+
+          {% unless next_url %}
+            {% if page.next %}
+              {% assign next_url = page.next.url %}
+              {% assign next_title = page.next.title %}
+            {% endif %}
+          {% endunless %}
+
+          {% if previous_url or next_url %}
+          <nav class="post-pagination" aria-label="Post navigation">
+            {% if previous_url %}
+            <a class="post-pagination__link" href="{{ previous_url | relative_url }}">
+              <span class="post-pagination__label">Previous</span>
+              <strong>{{ previous_title }}</strong>
+            </a>
+            {% endif %}
+
+            {% if next_url %}
+            <a class="post-pagination__link post-pagination__link--next" href="{{ next_url | relative_url }}">
+              <span class="post-pagination__label">Next</span>
+              <strong>{{ next_title }}</strong>
+            </a>
+            {% endif %}
+          </nav>
+          {% endif %}
+        </article>
+
+        {% if page.toc != false %}
+          {% include toc.html %}
+        {% endif %}
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var content = document.querySelector('[data-post-content]');
+        var tocRoot = document.querySelector('[data-toc-list]');
+        var tocEmpty = document.querySelector('[data-toc-empty]');
+        var article = document.querySelector('[data-article-card]');
+        var progressBar = document.querySelector('[data-reading-progress]');
+
+        if (!content || !article) {
+          return;
+        }
+
+        function slugify(text) {
+          return text
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+        }
+
+        var headings = Array.prototype.slice.call(content.querySelectorAll('h2, h3'));
+        var slugCounts = {};
+
+        headings.forEach(function (heading) {
+          var title = heading.textContent.trim();
+
+          if (!title) {
+            return;
+          }
+
+          heading.setAttribute('data-heading-title', title);
+
+          var baseId = heading.id || slugify(title) || 'section';
+          slugCounts[baseId] = (slugCounts[baseId] || 0) + 1;
+
+          if (!heading.id) {
+            heading.id = slugCounts[baseId] > 1 ? baseId + '-' + slugCounts[baseId] : baseId;
+          }
+
+          if (!heading.querySelector('.section-anchor')) {
+            var anchor = document.createElement('a');
+            anchor.className = 'section-anchor';
+            anchor.href = '#' + heading.id;
+            anchor.setAttribute('aria-label', 'Link to ' + title);
+            anchor.textContent = '#';
+            heading.appendChild(anchor);
+          }
+        });
+
+        if (tocRoot && headings.length > 0) {
+          var list = document.createElement('ol');
+          list.className = 'post-toc__list';
+
+          headings.forEach(function (heading) {
+            var item = document.createElement('li');
+            item.className = 'post-toc__item post-toc__item--' + heading.tagName.toLowerCase();
+
+            var link = document.createElement('a');
+            link.className = 'post-toc__link';
+            link.href = '#' + heading.id;
+            link.textContent = heading.getAttribute('data-heading-title') || heading.textContent.replace(/\#$/, '').trim();
+            link.setAttribute('data-toc-target', heading.id);
+
+            item.appendChild(link);
+            list.appendChild(item);
+          });
+
+          tocRoot.appendChild(list);
+
+          if (tocEmpty) {
+            tocEmpty.hidden = true;
+          }
+        } else if (tocRoot && tocRoot.closest('[data-post-toc]')) {
+          tocRoot.closest('[data-post-toc]').hidden = true;
+        }
+
+        function updateProgress() {
+          if (!progressBar) {
+            return;
+          }
+
+          var articleTop = article.getBoundingClientRect().top + window.scrollY;
+          var articleHeight = article.offsetHeight;
+          var viewportHeight = window.innerHeight;
+          var maxScroll = Math.max(articleHeight - viewportHeight * 0.4, 1);
+          var progress = (window.scrollY - articleTop + viewportHeight * 0.22) / maxScroll;
+          var clamped = Math.min(Math.max(progress, 0), 1);
+
+          progressBar.style.transform = 'scaleX(' + clamped + ')';
+        }
+
+        updateProgress();
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress);
+
+        var tocLinks = Array.prototype.slice.call(document.querySelectorAll('[data-toc-target]'));
+        var codeBlocks = Array.prototype.slice.call(content.querySelectorAll('.highlighter-rouge'));
+
+        codeBlocks.forEach(function (block, index) {
+          if (block.querySelector('.code-copy-button')) {
+            return;
+          }
+
+          var code = block.querySelector('pre code');
+          if (!code) {
+            return;
+          }
+
+          var wrapper = document.createElement('div');
+          wrapper.className = 'code-block-shell';
+          if (block.classList.contains('language-bibtex')) {
+            wrapper.classList.add('code-block-shell--bibtex');
+          }
+          block.parentNode.insertBefore(wrapper, block);
+          wrapper.appendChild(block);
+
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'code-copy-button';
+          button.setAttribute('aria-label', 'Copy code to clipboard');
+          button.textContent = 'Copy';
+          wrapper.appendChild(button);
+
+          button.addEventListener('click', function () {
+            var text = code.innerText;
+
+            function setCopiedState() {
+              var original = button.textContent;
+              button.textContent = 'Copied';
+              window.setTimeout(function () {
+                button.textContent = original;
+              }, 1400);
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).then(setCopiedState);
+              return;
+            }
+
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            setCopiedState();
+          });
+        });
+
+        if (tocLinks.length === 0 || !('IntersectionObserver' in window)) {
+          return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) {
+              return;
+            }
+
+            tocLinks.forEach(function (link) {
+              link.classList.toggle('is-active', link.getAttribute('data-toc-target') === entry.target.id);
+            });
+          });
+        }, {
+          rootMargin: '-20% 0px -65% 0px',
+          threshold: 0.15
+        });
+
+        headings.forEach(function (heading) {
+          observer.observe(heading);
+        });
+      });
+    </script>
+  </body>
+</html>

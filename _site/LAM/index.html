@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>What LAMs Still Need Before They Can Master Video Games | Heejeong Nam</title>
+    <meta name="description" content="Blog post of &quot;Latent Actions from Factorized Transition Effects under Agent Ambiguity (Nam et al., 2026)&quot;">
+    <meta name="color-scheme" content="light">
+    <link rel="icon" href="/images/hn.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        svg: {
+          fontCache: 'global'
+        }
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+  </head>
+  <body>
+    <div class="reading-progress" aria-hidden="true">
+      <div class="reading-progress__bar" data-reading-progress></div>
+    </div>
+
+    <div class="post-page">
+      <header class="post-topbar">
+        <a class="post-topbar__home" href="/">Heejeong Nam</a>
+        <span class="post-topbar__slash">/</span>
+        <span class="post-topbar__section">OTF-LAM</span>
+      </header>
+
+      <main class="post-shell">
+        <article class="post-card" data-article-card>
+          <header class="post-hero">
+            <p class="post-hero__eyebrow">OTF-LAM</p>
+            <h1>What LAMs Still Need Before They Can Master Video Games</h1>
+            
+            <p class="post-hero__subtitle">Blog post of "Latent Actions from Factorized Transition Effects under Agent Ambiguity (Nam et al., 2026)"</p>
+            
+
+            <div class="post-meta">
+              
+              <span class="post-meta__item">Heejeong Nam</span>
+              
+              
+              <span class="post-meta__item">June 28, 2026</span>
+              
+              
+              <span class="post-meta__item">9 min read</span>
+              
+              
+              <a class="post-meta__item post-meta__item--logo" href="https://arxiv.org/abs/2602.11389" target="_blank" rel="noopener noreferrer" aria-label="Open arXiv page">
+                <span class="post-meta__logo-frame">
+                  <img src="/LAM/figs/brand-logo-primary.jpg" alt="arXiv">
+                </span>
+              </a>
+              
+            </div>
+
+            
+          </header>
+
+          <section class="post-content" data-post-content>
+            <!-- <p class="thesis">If a latent action model only sees pixels, it does not directly observe action. It observes a mixture of visual effects. For busy environments like platformers, the more honest first target is a compositional representation of what changed, before we ask the model which change was controllable.</p> -->
+
+<aside class="post-callout post-callout--key-idea">
+  
+  <div class="post-callout__label">Key idea</div>
+  
+  <div class="post-callout__body">
+    
+<p>Latent Action Models are often evaluated in settings where the acting object is visually obvious. In a game like Mario, the same frame transition mixes player motion, enemy motion, scrolling camera dynamics, particles, and background animation. That makes “the action” an ambiguous target unless we inject stronger assumptions. For busy environments, the more honest first target is a compositional representation of what changed how, before we ask the model which change was controllable.</p>
+
+  </div>
+</aside>
+
+<h2 id="can-current-lams-play-super-mario">Can Current LAMs Play Super Mario?</h2>
+
+<figure class="is-medium" style="--figure-width: min(80%, 30rem);">
+  <img src="/LAM/figs/mario1.gif" alt="Placeholder animated clip showing multiple motions at once." loading="lazy" />
+  <figcaption>Multiple motion sources in a single frame transition.</figcaption>
+</figure>
+
+<p>Latent Action Models are starting to look surprisingly capable.</p>
+
+<p>The basic promise is appealing: instead of requiring explicit action labels, a LAM watches how observations change over time and learns an action-like latent that can explain the transition. This has already led to encouraging results in controlled settings, and recent work even points toward cross-embodiment transfer, where action-like structure learned from one body or environment can remain useful in another.</p>
+
+<p>But there is a quiet assumption hiding behind many of these successes: The setup is often clean, the agent is visually dominant, and the background is mostly stable. In other words, the model is placed in a world where the answer to “what caused this transition?” is almost visually obvious.</p>
+
+<p>Now imagine teaching a LAM to play a video game.</p>
+
+<p>Take a simple Mario clip. Mario is moving. A cloud is moving. The camera is scrolling to keep Mario near the center of the screen. A score digit increases in the background. Blocks, enemies, particles, and UI elements may all change at the same time. The screen is not just showing the agent’s action. It is showing a mixture of many transition sources.</p>
+
+<p>From the model’s perspective, all of these changes arrive through the same channel: pixels at time $t$ and pixels at time $t + 1$. Unless we give the model stronger assumptions, it has no direct way to know which object is the agent of interest.</p>
+
+<p>That is the core issue. <strong><em>What humans call a distractor may not be a distractor to the model.</em></strong> For an inverse dynamics model, the input is the full observation transition. For a forward dynamics model, the latent action must help predict the next observation. If background motion, camera motion, and non-agent objects are useful for prediction, then they can become part of the learned latent action interface.</p>
+
+<p>This means the problem is not simply that video games are visually busy. The deeper problem is intrinsic ambiguity of agent without supervision.<sup id="fnref:ambiguity"><a href="#fn:ambiguity" class="footnote" rel="footnote" role="doc-noteref">1</a></sup></p>
+
+<h2 id="dont-expect-latent-actions-to-encode-the-action-you-want">Don’t expect latent actions to encode the action you want</h2>
+
+<p>We suggest a different strategy.</p>
+
+<p>Instead of forcing the LAM to decide which part of the transition belongs to the agent, we can postpone that decision. If a LAM cannot reliably know what the “agent of interest” is, then perhaps the first objective should not be agent identification. <strong>A more useful objective may be to build a clean and robust representation of what changed, under agent ambiguity.</strong></p>
+
+<p>To understand what such a representation should look like for a video game, we first need to accept a simple limitation: from two consecutive frames alone, we do not directly observe the true action.</p>
+
+<h4 id="an-action-is-a-cause-a-frame-transition-is-an-effect"><strong>An action is a cause. A frame transition is an effect.</strong></h4>
+
+<p>By the time the LAM sees the transition, the original action has already been mixed with many other sources of change.</p>
+
+<!-- 
+
+
+
+
+<aside class="post-callout post-callout--intuition">
+  
+  <div class="post-callout__label">Intuition</div>
+  
+  <div class="post-callout__body">
+    
+<p>Think of the observation pair as an image of consequences, not an image of intent. The model gets the aftermath of several causes tangled together in pixel space, then has to guess which one deserves the name “action.”</p>
+
+  </div>
+</aside>
+ -->
+
+<figure class="is-medium" style="--figure-width: min(100%, 34rem);">
+  <img src="/LAM/figs/3step.png" alt="From action to effect." loading="lazy" />
+  <figcaption>3 step process from action to effect.</figcaption>
+</figure>
+
+<p>A useful way to think about this is as a three-stage chain.</p>
+
+<ol>
+  <li>There are transition sources. Some are controlled, like the player’s action, while some others are uncontrolled.</li>
+  <li>These sources produce a physical or game-state change.</li>
+  <li>This state change becomes an observed visual effect in pixel space. Edges move. Textures shift. Objects appear or disappear. Local regions translate, deform, or flicker.</li>
+</ol>
+
+<p>The LAM only receives the observed transition. Without extra supervision, it has no built-in reason to know which part should be called the action.
+So the question becomes less about recovering the true action immediately, and more about building the right intermediate representation.</p>
+
+<p>Before we ask the model to decide what matters for control, we can ask it to describe the transition in a cleaner form. What moved? Where did it move? Which local visual effects appeared? Which parts of the frame changed together, and which changed independently?</p>
+
+<p>This is a lower-level target than action, but it is also more honest. Under agent ambiguity, the most reliable thing we can extract from observation-only data is not necessarily the action itself, but the <strong>structure of the observed transition effect</strong>.</p>
+
+<h2 id="bottom-up-approach-building-cause-from-noisy-effects">Bottom-up approach: building cause from noisy effects</h2>
+
+<p>We ultimately want a policy. 
+The proposal is not to stop at observed effects, but to use them as a better starting point for control. In the 3-step action to transition setup, we use bottom-up strategy, <strong><em>from observed effects to latent action, and then from latent action to real action.</em></strong></p>
+
+<aside class="post-callout post-callout--intuition post-callout--untitled">
+  
+  <div class="post-callout__body">
+    
+<ol>
+  <li>We pretrain environment-agnostic motion primitives as building blocks, asking: what moved, where did it move, and which local visual effects appeared?</li>
+  <li>We aggregate and abstract those primitives into a state-aware latent action, using the current frame as context to answer: which parts of the frame changed together, and which changed independently?</li>
+  <li>With a small amount of action-labeled data, we map the learned latent state changes back into real actions.</li>
+</ol>
+
+  </div>
+</aside>
+
+<h3 id="bottom-up-step-1-basic-building-blocks">Bottom-up step 1: basic building blocks</h3>
+
+<p>To learn those building blocks, we use a VQ-VAE-style module called <strong>Observed Transition Factorization</strong>, or <strong>OTF</strong>.</p>
+
+<p>The input and output of this module are both motion observations. Instead of reconstructing the next RGB frame directly, OTF is trained to reconstruct a motion-centered transition signal. The goal is to make the learned codebook focus on how the scene changes, rather than on what the scene looks like.</p>
+
+<figure class="is-medium" style="--figure-width: min(100%, 30rem);">
+  <img src="/LAM/figs/motion.png" alt="From action to effect." loading="lazy" />
+  <figcaption>Motion input.</figcaption>
+</figure>
+
+<p>A useful motion primitive should be as environment-agnostic as possible. “Moving right” should mean roughly the same thing whether the carrier is Mario, Kirby, a robot arm, or a distractor object. The visual appearance may change, but the local transition effect can still be shared.
+For this reason, we do not simply concatenate $x_t$ and $x_{t+1}$ as input. Concatenation would leave too much room for the encoder to memorize appearance and environment-specific details. Instead, we construct a motion input by subtracting or transforming the two frames so that the remaining signal emphasizes change. This motion input has the same spatial shape as the original observation, but contains more direct information about the transition.</p>
+
+<!-- 
+
+
+
+
+<aside class="post-callout post-callout--technical-note">
+  
+  <div class="post-callout__label">Technical note</div>
+  
+  <div class="post-callout__body">
+    
+<p>Rather than concatenate $x_t$ and $x_{t+1}$ directly, OTF can work on a change-focused representation such as a difference image or another motion transform. That pushes appearance information into the conditioning context and lets the codebook spend more of its capacity on transition structure.</p>
+
+  </div>
+</aside>
+ -->
+
+<p>The motion input is then divided into small spatial patches. Each patch is encoded into a local transition embedding. During training, the model learns a fixed-size codebook, and each patch embedding is assigned to its nearest code. Each code can be interpreted as a reusable local motion primitive.</p>
+
+<p>The decoder receives these quantized patch codes and reconstructs the motion observation. It also receives the current frame $x_t$ as a reference. $x_t$ provides appearance and spatial support, so the codebook does not need to store everything about the scene. It can focus more on the transition pattern itself.</p>
+
+<figure style="--figure-width: min(100%, 42rem);">
+  <img src="/LAM/figs/stage1.png" alt="From action to effect." loading="lazy" />
+  <figcaption>VQ-VAE style motion primitive learning.</figcaption>
+</figure>
+
+<p>This structure gives the LAM a better starting point. Instead of compressing the whole transition into one monolithic latent action, OTF first exposes the transition as a set of local observed effects.</p>
+
+<figure style="--figure-width: min(100%, 42rem);">
+  <img src="/LAM/figs/example_dcs.png" alt="From action to effect." loading="lazy" />
+  <figcaption>Example of motion primitives assigned to codebook entries.</figcaption>
+</figure>
+
+<h3 id="bottom-up-step-2-training-the-lam-on-top-of-otf">Bottom-up step 2: training the LAM on top of OTF</h3>
+
+<p>The LAM training stage then follows the conventional inverse-dynamics and forward-dynamics structure. The main difference is that the inverse side no longer compresses the raw frame transition directly into a single latent action. Instead, the frozen OTF module first extracts a set of motion primitives from the transition, and those primitives are then passed into an action aggregator.</p>
+
+<figure style="--figure-width: min(100%, 42rem);">
+  <img src="/LAM/figs/stage2.jpg" alt="From action to effect." loading="lazy" />
+  <figcaption>LAM training with aggregator.</figcaption>
+</figure>
+
+<p>The aggregator is the module that turns this set of motion primitives into one compact latent action embedding. From this point on, the model looks much closer to a standard LAM: the latent action is used together with the current state to predict the next observation or next representation.</p>
+
+<p>The aggregator is allowed to become environment-specific. This is necessary because action is not defined by motion alone. The same rightward motion can mean different things depending on the current state, object identity, and task context. For this reason, the aggregator also uses $x_t$. The current frame provides the state information needed to interpret the motion primitives.</p>
+
+<p>Again, the goal of a LAM is to provide a useful representation for downstream policy learning. Instead of mapping two consecutive observations directly into a single monolithic embedding, this compositional structure keeps different sources of change separable long enough for the policy to learn which changes are truly action-relevant, without inheriting spurious correlations from the visual transition.</p>
+
+<!-- ```python
+# Sketch of the training interface.
+motion_tokens = otf.encode_transition(x_t, x_t_plus_1)
+z_t = aggregator(x_t, motion_tokens)
+pred_next = forward_model(x_t, z_t)
+recovered_tokens = inverse_model(x_t, x_t_plus_1)
+``` -->
+
+<h3 id="bottom-up-step-3-mapping-latent-changes-to-real-actions">Bottom-up step 3: mapping latent changes to real actions</h3>
+
+<p>The final step is to connect the learned latent action space back to real actions.</p>
+
+<p>The visual transition alone is not invertible back to the true action. Many different causes can produce similar observed effects, and many non-agent changes can appear in the same transition. But action supervision can resolve this inverse ambiguity.</p>
+
+<figure style="--figure-width: min(80%, 34rem);">
+  <img src="/LAM/figs/policy.png" alt="From action to effect." loading="lazy" />
+  <figcaption>Policy training with latent actions.</figcaption>
+</figure>
+
+<p>In this setup, we use the learned latent action space as the target for behavioral cloning. A policy is trained to predict the latent action embedding from the current observation. Then, using a small action-labeled dataset, we train an action decoder that maps the predicted latent action into the true action space.</p>
+
+<p>This keeps the amount of action supervision small. Most of the structure is learned from observation-only transitions: first as reusable motion primitives, then as state-aware latent actions. The action labels are only used at the final stage, where they tell the model which explanation of the transition corresponds to the real controllable action.</p>
+
+<!-- 
+
+
+
+
+<aside class="post-callout post-callout--caveat">
+  
+  <div class="post-callout__label">Note</div>
+  
+  <div class="post-callout__body">
+    
+<p>This does not mean compositional latents must always outperform monolithic latents on every downstream benchmark. In a fixed environment, a monolithic LAM can exploit stable correlations between agent motion, camera motion, and background dynamics. OTF trades some of that shortcut capacity for a more reusable transition interface, which becomes more valuable when the carrier, morphology, or distractor statistics change.</p>
+
+  </div>
+</aside>
+ -->
+
+<h2 id="otf-lam-within-dino-wm">OTF-LAM within DINO-WM?</h2>
+
+<p>There is one more natural extension: instead of predicting the next frame in pixel space, we can predict the next state in a frozen visual representation space.</p>
+
+<p>This gives us OTF-LAM-DINO.</p>
+
+<figure style="--figure-width: min(70%, 30rem);">
+  <img src="/LAM/figs/dinolam.png" alt="From action to effect." loading="lazy" />
+  <figcaption>Policy training with latent actions.</figcaption>
+</figure>
+
+<p>In this sense, OTF-LAM-DINO is close in spirit to DINO-WM. Both use frozen visual features as a more stable state space for dynamics learning. The difference is that OTF-LAM-DINO focuses on the action side: it asks how to build an action-like latent from observation-only transitions, while keeping both the visual state representation and the low-level transition vocabulary reusable.</p>
+
+<p>This makes the separation sharper. OTF provides reusable observed-transition primitives. DINO provides a reusable visual state space. The remaining learned part is the environment-specific bridge between them: the aggregator and predictor that turn local transition effects into a state-aware latent action.</p>
+
+<h2 id="results-at-a-glance">Results at a Glance</h2>
+
+<ul>
+  <li>OTF primitives transfer across visual carriers.
+  Motion primitives learned from training data can be zero-shot transferred to unseen visual carriers, suggesting that the codebook captures reusable transition effects rather than digit-specific appearance.</li>
+  <li>Monolithic latents can be brittle under shift of visual carrier.</li>
+  <li>OTF is competitive for downstream policy learning.
+  It does not always beat every baseline in every fixed environment, but compatible to baselines or often better. FLAM is one of the strongest baselines, but it explicitly use object-centric learning to separate multiple sources of change.</li>
+  <li>OTF-LAM-DINO improves the interface further.
+  Predicting future DINOv2 features instead of pixels reduces pressure to model texture, lighting, and other pixel-level nuisance factors.</li>
+  <li>Codebook size is a capacity trade-off.
+  Larger vocabularies can help when motion is more complex, but more codes do not always mean better control performance.</li>
+</ul>
+
+<aside class="post-callout post-callout--caveat">
+  
+  <div class="post-callout__label">Note</div>
+  
+  <div class="post-callout__body">
+    
+<p>This paper does not claim that compositional latents must always outperform monolithic latents on every downstream benchmark. In a fixed environment, a monolithic LAM can exploit stable correlations between agent motion, camera motion, and background dynamics. OTF trades some of that shortcut capacity for a more reusable transition interface, which becomes more valuable when the carrier, morphology, or distractor statistics change.</p>
+
+  </div>
+</aside>
+
+<h2 id="bibtex-citation">Bibtex Citation</h2>
+
+<p>If you want to cite this work, please use the following BibTeX entry:</p>
+
+<div class="language-bibtex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">@misc</span><span class="p">{</span><span class="nl">nam2026causaljepalearningworldmodels</span><span class="p">,</span>
+      <span class="na">title</span><span class="p">=</span><span class="s">{Causal-JEPA: Learning World Models through Object-Level Latent Masking}</span><span class="p">,</span> 
+      <span class="na">author</span><span class="p">=</span><span class="s">{Heejeong Nam and Quentin Le Lidec and Lucas Maes and Yann LeCun and Randall Balestriero}</span><span class="p">,</span>
+      <span class="na">year</span><span class="p">=</span><span class="s">{2026}</span><span class="p">,</span>
+      <span class="na">eprint</span><span class="p">=</span><span class="s">{2602.11389}</span><span class="p">,</span>
+      <span class="na">archivePrefix</span><span class="p">=</span><span class="s">{arXiv}</span><span class="p">,</span>
+      <span class="na">primaryClass</span><span class="p">=</span><span class="s">{cs.AI}</span><span class="p">,</span>
+      <span class="na">url</span><span class="p">=</span><span class="s">{https://arxiv.org/abs/2602.11389}</span><span class="p">,</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:ambiguity">
+      <p>Inverse ambiguity is structural here, not just a nuisance variable issue. Two visually similar transitions can come from different causes, while a single action can look different depending on state, camera motion, and other entities on screen. <a href="#fnref:ambiguity" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+          </section>
+
+          
+          
+          
+          
+
+          
+
+          
+
+          
+          <nav class="post-pagination" aria-label="Post navigation">
+            
+            <a class="post-pagination__link" href="/">
+              <span class="post-pagination__label">Previous</span>
+              <strong>Return to main site</strong>
+            </a>
+            
+
+            
+          </nav>
+          
+        </article>
+
+        
+          <aside class="post-toc" aria-label="Table of contents" data-post-toc>
+  <div class="post-toc__inner">
+    <p class="post-toc__eyebrow">On this page</p>
+    <nav class="post-toc__nav" data-toc-list></nav>
+    <p class="post-toc__empty" data-toc-empty>Jump links will appear here.</p>
+  </div>
+</aside>
+
+        
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var content = document.querySelector('[data-post-content]');
+        var tocRoot = document.querySelector('[data-toc-list]');
+        var tocEmpty = document.querySelector('[data-toc-empty]');
+        var article = document.querySelector('[data-article-card]');
+        var progressBar = document.querySelector('[data-reading-progress]');
+
+        if (!content || !article) {
+          return;
+        }
+
+        function slugify(text) {
+          return text
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+        }
+
+        var headings = Array.prototype.slice.call(content.querySelectorAll('h2, h3'));
+        var slugCounts = {};
+
+        headings.forEach(function (heading) {
+          var title = heading.textContent.trim();
+
+          if (!title) {
+            return;
+          }
+
+          heading.setAttribute('data-heading-title', title);
+
+          var baseId = heading.id || slugify(title) || 'section';
+          slugCounts[baseId] = (slugCounts[baseId] || 0) + 1;
+
+          if (!heading.id) {
+            heading.id = slugCounts[baseId] > 1 ? baseId + '-' + slugCounts[baseId] : baseId;
+          }
+
+          if (!heading.querySelector('.section-anchor')) {
+            var anchor = document.createElement('a');
+            anchor.className = 'section-anchor';
+            anchor.href = '#' + heading.id;
+            anchor.setAttribute('aria-label', 'Link to ' + title);
+            anchor.textContent = '#';
+            heading.appendChild(anchor);
+          }
+        });
+
+        if (tocRoot && headings.length > 0) {
+          var list = document.createElement('ol');
+          list.className = 'post-toc__list';
+
+          headings.forEach(function (heading) {
+            var item = document.createElement('li');
+            item.className = 'post-toc__item post-toc__item--' + heading.tagName.toLowerCase();
+
+            var link = document.createElement('a');
+            link.className = 'post-toc__link';
+            link.href = '#' + heading.id;
+            link.textContent = heading.getAttribute('data-heading-title') || heading.textContent.replace(/\#$/, '').trim();
+            link.setAttribute('data-toc-target', heading.id);
+
+            item.appendChild(link);
+            list.appendChild(item);
+          });
+
+          tocRoot.appendChild(list);
+
+          if (tocEmpty) {
+            tocEmpty.hidden = true;
+          }
+        } else if (tocRoot && tocRoot.closest('[data-post-toc]')) {
+          tocRoot.closest('[data-post-toc]').hidden = true;
+        }
+
+        function updateProgress() {
+          if (!progressBar) {
+            return;
+          }
+
+          var articleTop = article.getBoundingClientRect().top + window.scrollY;
+          var articleHeight = article.offsetHeight;
+          var viewportHeight = window.innerHeight;
+          var maxScroll = Math.max(articleHeight - viewportHeight * 0.4, 1);
+          var progress = (window.scrollY - articleTop + viewportHeight * 0.22) / maxScroll;
+          var clamped = Math.min(Math.max(progress, 0), 1);
+
+          progressBar.style.transform = 'scaleX(' + clamped + ')';
+        }
+
+        updateProgress();
+        window.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('resize', updateProgress);
+
+        var tocLinks = Array.prototype.slice.call(document.querySelectorAll('[data-toc-target]'));
+        var codeBlocks = Array.prototype.slice.call(content.querySelectorAll('.highlighter-rouge'));
+
+        codeBlocks.forEach(function (block, index) {
+          if (block.querySelector('.code-copy-button')) {
+            return;
+          }
+
+          var code = block.querySelector('pre code');
+          if (!code) {
+            return;
+          }
+
+          var wrapper = document.createElement('div');
+          wrapper.className = 'code-block-shell';
+          if (block.classList.contains('language-bibtex')) {
+            wrapper.classList.add('code-block-shell--bibtex');
+          }
+          block.parentNode.insertBefore(wrapper, block);
+          wrapper.appendChild(block);
+
+          var button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'code-copy-button';
+          button.setAttribute('aria-label', 'Copy code to clipboard');
+          button.textContent = 'Copy';
+          wrapper.appendChild(button);
+
+          button.addEventListener('click', function () {
+            var text = code.innerText;
+
+            function setCopiedState() {
+              var original = button.textContent;
+              button.textContent = 'Copied';
+              window.setTimeout(function () {
+                button.textContent = original;
+              }, 1400);
+            }
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).then(setCopiedState);
+              return;
+            }
+
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'absolute';
+            textarea.style.left = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            setCopiedState();
+          });
+        });
+
+        if (tocLinks.length === 0 || !('IntersectionObserver' in window)) {
+          return;
+        }
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) {
+              return;
+            }
+
+            tocLinks.forEach(function (link) {
+              link.classList.toggle('is-active', link.getAttribute('data-toc-target') === entry.target.id);
+            });
+          });
+        }, {
+          rootMargin: '-20% 0px -65% 0px',
+          threshold: 0.15
+        });
+
+        headings.forEach(function (heading) {
+          observer.observe(heading);
+        });
+      });
+    </script>
+  </body>
+</html>

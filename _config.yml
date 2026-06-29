@@ -1,0 +1,14 @@
+title: Heejeong Nam
+description: Research notes and project pages by Heejeong Nam.
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+  math_engine: mathjax
+
+sass:
+  style: compressed
