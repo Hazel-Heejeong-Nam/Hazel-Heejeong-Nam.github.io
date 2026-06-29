@@ -87,7 +87,7 @@ We ultimately want a policy.
 The proposal is not to stop at observed effects, but to use them as a better starting point for control. In the 3-step action to transition setup, we use bottom-up strategy, ***from observed effects to latent action, and then from latent action to real action.***
 
 <figure style="--figure-width: min(100%, 34rem);">
-  <img src="{{ '/LAM/figs/reverse.jpg' | relative_url }}" alt="From action to effect." loading="lazy">
+  <img src="{{ '/LAM/figs/reverse.png' | relative_url }}" alt="From action to effect." loading="lazy">
   <figcaption>Bottom-up approach.</figcaption>
 </figure>
 
