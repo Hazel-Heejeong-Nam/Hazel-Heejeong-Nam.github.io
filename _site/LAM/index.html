@@ -11,11 +11,11 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="What LAMs Still Need Before They Can Master Video Games">
     <meta property="og:description" content="Blog post of &quot;Latent Actions from Factorized Transition Effects under Agent Ambiguity (Nam et al., 2026)&quot;">
-    <meta property="og:url" content="/LAM/">
+    <meta property="og:url" content="http://localhost:4000/LAM/">
     
-    <meta property="og:image" content="/LAM/figs/teaser.png">
+    <meta property="og:image" content="http://localhost:4000/LAM/figs/teaser.png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="/LAM/figs/teaser.png">
+    <meta name="twitter:image" content="http://localhost:4000/LAM/figs/teaser.png">
     
     <meta name="twitter:title" content="What LAMs Still Need Before They Can Master Video Games">
     <meta name="twitter:description" content="Blog post of &quot;Latent Actions from Factorized Transition Effects under Agent Ambiguity (Nam et al., 2026)&quot;">
@@ -175,7 +175,7 @@ So the question becomes less about recovering the true action immediately, and m
 The proposal is not to stop at observed effects, but to use them as a better starting point for control. In the 3-step action to transition setup, we use bottom-up strategy, <strong><em>from observed effects to latent action, and then from latent action to real action.</em></strong></p>
 
 <figure style="--figure-width: min(100%, 34rem);">
-  <img src="/LAM/figs/reverse.jpg" alt="From action to effect." loading="lazy" />
+  <img src="/LAM/figs/reverse.png" alt="From action to effect." loading="lazy" />
   <figcaption>Bottom-up approach.</figcaption>
 </figure>
 
@@ -310,6 +310,11 @@ recovered_tokens = inverse_model(x_t, x_t_plus_1)
 <p>This makes the separation sharper. OTF provides reusable observed-transition primitives. DINO provides a reusable visual state space. The remaining learned part is the environment-specific bridge between them: the aggregator and predictor that turn local transition effects into a state-aware latent action.</p>
 
 <h2 id="results-at-a-glance">Results at a Glance</h2>
+
+<figure class="is-medium" style="--figure-width: min(100%, 44rem);">
+  <img src="/LAM/figs/res.png" alt="From action to effect." loading="lazy" />
+  <figcaption>Results.</figcaption>
+</figure>
 
 <ul>
   <li>OTF primitives transfer across visual carriers.

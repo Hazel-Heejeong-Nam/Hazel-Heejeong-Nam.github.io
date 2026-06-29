@@ -198,7 +198,7 @@ This makes the separation sharper. OTF provides reusable observed-transition pri
 
 ## Results at a Glance
 
-<figure class="is-medium" style="--figure-width: min(100%, 30rem);">
+<figure class="is-medium" style="--figure-width: min(100%, 44rem);">
   <img src="{{ '/LAM/figs/res.png' | relative_url }}" alt="From action to effect." loading="lazy">
   <figcaption>Results.</figcaption>
 </figure>
