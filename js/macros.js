@@ -32,7 +32,7 @@ function clickable(text, link) {
 }
 
 function text_button(text, link) {
-  clickable("[" + text + "]", link);
+  clickable(text, link);
 }
 
 function undef() {
@@ -359,7 +359,11 @@ function supp(link) {
 }
 
 function project(link) {
-  text_button("project", link);
+  text_button("website", link);
+}
+
+function website(link) {
+  text_button("website", link);
 }
 
 function bibtex(link) {

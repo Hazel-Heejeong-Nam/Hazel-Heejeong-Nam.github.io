@@ -72,7 +72,7 @@
               <span class="post-meta__item">9 min read</span>
               
               
-              <a class="post-meta__item post-meta__item--logo" href="https://arxiv.org/abs/2602.11389" target="_blank" rel="noopener noreferrer" aria-label="Open arXiv page">
+              <a class="post-meta__item post-meta__item--logo" href="https://drive.google.com/file/d/1i_PVRvexOxqqcCPulda6mcJWwfOKEabM/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Open arXiv page">
                 <span class="post-meta__logo-frame">
                   <img src="/LAM/figs/brand-logo-primary.jpg" alt="arXiv">
                 </span>
@@ -84,8 +84,7 @@
           </header>
 
           <section class="post-content" data-post-content>
-            <!-- <p class="thesis">If a latent action model only sees pixels, it does not directly observe action. It observes a mixture of visual effects. For busy environments like platformers, the more honest first target is a compositional representation of what changed, before we ask the model which change was controllable.</p> -->
-
+            
 <aside class="post-callout post-callout--key-idea">
   
   <div class="post-callout__label">Key idea</div>
@@ -131,23 +130,6 @@
 <h4 id="an-action-is-a-cause-a-frame-transition-is-an-effect"><strong>An action is a cause. A frame transition is an effect.</strong></h4>
 
 <p>By the time the LAM sees the transition, the original action has already been mixed with many other sources of change.</p>
-
-<!-- 
-
-
-
-
-<aside class="post-callout post-callout--intuition">
-  
-  <div class="post-callout__label">Intuition</div>
-  
-  <div class="post-callout__body">
-    
-<p>Think of the observation pair as an image of consequences, not an image of intent. The model gets the aftermath of several causes tangled together in pixel space, then has to guess which one deserves the name “action.”</p>
-
-  </div>
-</aside>
- -->
 
 <figure class="is-medium" style="--figure-width: min(100%, 34rem);">
   <img src="/LAM/figs/3step.png" alt="From action to effect." loading="lazy" />
@@ -206,23 +188,6 @@ The proposal is not to stop at observed effects, but to use them as a better sta
 <p>A useful motion primitive should be as environment-agnostic as possible. “Moving right” should mean roughly the same thing whether the carrier is Mario, Kirby, a robot arm, or a distractor object. The visual appearance may change, but the local transition effect can still be shared.
 For this reason, we do not simply concatenate $x_t$ and $x_{t+1}$ as input. Concatenation would leave too much room for the encoder to memorize appearance and environment-specific details. Instead, we construct a motion input by subtracting or transforming the two frames so that the remaining signal emphasizes change. This motion input has the same spatial shape as the original observation, but contains more direct information about the transition.</p>
 
-<!-- 
-
-
-
-
-<aside class="post-callout post-callout--technical-note">
-  
-  <div class="post-callout__label">Technical note</div>
-  
-  <div class="post-callout__body">
-    
-<p>Rather than concatenate $x_t$ and $x_{t+1}$ directly, OTF can work on a change-focused representation such as a difference image or another motion transform. That pushes appearance information into the conditioning context and lets the codebook spend more of its capacity on transition structure.</p>
-
-  </div>
-</aside>
- -->
-
 <p>The motion input is then divided into small spatial patches. Each patch is encoded into a local transition embedding. During training, the model learns a fixed-size codebook, and each patch embedding is assigned to its nearest code. Each code can be interpreted as a reusable local motion primitive.</p>
 
 <p>The decoder receives these quantized patch codes and reconstructs the motion observation. It also receives the current frame $x_t$ as a reference. $x_t$ provides appearance and spatial support, so the codebook does not need to store everything about the scene. It can focus more on the transition pattern itself.</p>
@@ -254,14 +219,6 @@ For this reason, we do not simply concatenate $x_t$ and $x_{t+1}$ as input. Conc
 
 <p>Again, the goal of a LAM is to provide a useful representation for downstream policy learning. Instead of mapping two consecutive observations directly into a single monolithic embedding, this compositional structure keeps different sources of change separable long enough for the policy to learn which changes are truly action-relevant, without inheriting spurious correlations from the visual transition.</p>
 
-<!-- ```python
-# Sketch of the training interface.
-motion_tokens = otf.encode_transition(x_t, x_t_plus_1)
-z_t = aggregator(x_t, motion_tokens)
-pred_next = forward_model(x_t, z_t)
-recovered_tokens = inverse_model(x_t, x_t_plus_1)
-``` -->
-
 <h3 id="bottom-up-step-3-mapping-latent-changes-to-real-actions">Bottom-up step 3: mapping latent changes to real actions</h3>
 
 <p>The final step is to connect the learned latent action space back to real actions.</p>
@@ -276,23 +233,6 @@ recovered_tokens = inverse_model(x_t, x_t_plus_1)
 <p>In this setup, we use the learned latent action space as the target for behavioral cloning. A policy is trained to predict the latent action embedding from the current observation. Then, using a small action-labeled dataset, we train an action decoder that maps the predicted latent action into the true action space.</p>
 
 <p>This keeps the amount of action supervision small. Most of the structure is learned from observation-only transitions: first as reusable motion primitives, then as state-aware latent actions. The action labels are only used at the final stage, where they tell the model which explanation of the transition corresponds to the real controllable action.</p>
-
-<!-- 
-
-
-
-
-<aside class="post-callout post-callout--caveat">
-  
-  <div class="post-callout__label">Note</div>
-  
-  <div class="post-callout__body">
-    
-<p>This does not mean compositional latents must always outperform monolithic latents on every downstream benchmark. In a fixed environment, a monolithic LAM can exploit stable correlations between agent motion, camera motion, and background dynamics. OTF trades some of that shortcut capacity for a more reusable transition interface, which becomes more valuable when the carrier, morphology, or distractor statistics change.</p>
-
-  </div>
-</aside>
- -->
 
 <h2 id="otf-lam-within-dino-wm">OTF-LAM within DINO-WM?</h2>
 
@@ -343,15 +283,8 @@ recovered_tokens = inverse_model(x_t, x_t_plus_1)
 
 <p>If you want to cite this work, please use the following BibTeX entry:</p>
 
-<div class="language-bibtex highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">@misc</span><span class="p">{</span><span class="nl">nam2026causaljepalearningworldmodels</span><span class="p">,</span>
-      <span class="na">title</span><span class="p">=</span><span class="s">{Causal-JEPA: Learning World Models through Object-Level Latent Masking}</span><span class="p">,</span> 
-      <span class="na">author</span><span class="p">=</span><span class="s">{Heejeong Nam and Quentin Le Lidec and Lucas Maes and Yann LeCun and Randall Balestriero}</span><span class="p">,</span>
-      <span class="na">year</span><span class="p">=</span><span class="s">{2026}</span><span class="p">,</span>
-      <span class="na">eprint</span><span class="p">=</span><span class="s">{2602.11389}</span><span class="p">,</span>
-      <span class="na">archivePrefix</span><span class="p">=</span><span class="s">{arXiv}</span><span class="p">,</span>
-      <span class="na">primaryClass</span><span class="p">=</span><span class="s">{cs.AI}</span><span class="p">,</span>
-      <span class="na">url</span><span class="p">=</span><span class="s">{https://arxiv.org/abs/2602.11389}</span><span class="p">,</span> 
-<span class="p">}</span>
+<div class="language-bibtex highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
 </code></pre></div></div>
 
 <div class="footnotes" role="doc-endnotes">

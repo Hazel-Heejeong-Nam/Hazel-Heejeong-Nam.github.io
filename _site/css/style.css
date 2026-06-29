@@ -1432,7 +1432,33 @@ input[type="button"]:disabled,
 }
 
 .pub-links {
-    display: inline;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.45rem;
+}
+
+.pub-links a.lowkey {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.18rem 0.75rem;
+    border: 1px solid #541e13;
+    border-radius: 999px;
+    background: #fff7f4;
+    color: #541e13;
+    font-size: 0.82em;
+    font-weight: 700;
+    line-height: 1.4;
+    text-transform: lowercase;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pub-links a.lowkey:hover {
+    background: #541e13;
+    border-color: #541e13;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(84, 30, 19, 0.18);
 }
 
 /* Conference Badge */
