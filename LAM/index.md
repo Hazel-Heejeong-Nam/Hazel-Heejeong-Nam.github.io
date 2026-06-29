@@ -87,6 +87,11 @@ This is a lower-level target than action, but it is also more honest. Under agen
 We ultimately want a policy. 
 The proposal is not to stop at observed effects, but to use them as a better starting point for control. In the 3-step action to transition setup, we use bottom-up strategy, ***from observed effects to latent action, and then from latent action to real action.***
 
+<figure style="--figure-width: min(100%, 34rem);">
+  <img src="{{ '/LAM/figs/reverse.jpg' | relative_url }}" alt="From action to effect." loading="lazy">
+  <figcaption>Bottom-up approach.</figcaption>
+</figure>
+
 {% capture bottom_up_box %}
 1. We pretrain environment-agnostic motion primitives as building blocks, asking: what moved, where did it move, and which local visual effects appeared?
 2. We aggregate and abstract those primitives into a state-aware latent action, using the current frame as context to answer: which parts of the frame changed together, and which changed independently?
@@ -185,7 +190,7 @@ This gives us OTF-LAM-DINO.
 
 <figure style="--figure-width: min(70%, 30rem);">
   <img src="{{ '/LAM/figs/dinolam.png' | relative_url }}" alt="From action to effect." loading="lazy">
-  <figcaption>Policy training with latent actions.</figcaption>
+  <figcaption>OTF-LAM with Frozen DINOv2 Features.</figcaption>
 </figure>
 
 In this sense, OTF-LAM-DINO is close in spirit to DINO-WM. Both use frozen visual features as a more stable state space for dynamics learning. The difference is that OTF-LAM-DINO focuses on the action side: it asks how to build an action-like latent from observation-only transitions, while keeping both the visual state representation and the low-level transition vocabulary reusable.
