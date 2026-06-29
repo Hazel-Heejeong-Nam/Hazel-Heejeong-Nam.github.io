@@ -15,7 +15,7 @@ previous_url: /
 previous_title: Return to main site
 ---
 
-<!-- <p class="thesis">If a latent action model only sees pixels, it does not directly observe action. It observes a mixture of visual effects. For busy environments like platformers, the more honest first target is a compositional representation of what changed, before we ask the model which change was controllable.</p> -->
+
 
 {% capture key_idea %}
 Latent Action Models are often evaluated in settings where the acting object is visually obvious. In a game like Mario, the same frame transition mixes player motion, enemy motion, scrolling camera dynamics, particles, and background animation. That makes "the action" an ambiguous target unless we inject stronger assumptions. For busy environments, the more honest first target is a compositional representation of what changed how, before we ask the model which change was controllable.
@@ -58,10 +58,6 @@ To understand what such a representation should look like for a video game, we f
 
 By the time the LAM sees the transition, the original action has already been mixed with many other sources of change.
 
-<!-- {% capture intuition_box %}
-Think of the observation pair as an image of consequences, not an image of intent. The model gets the aftermath of several causes tangled together in pixel space, then has to guess which one deserves the name "action."
-{% endcapture %}
-{% include callout.html type="intuition" content=intuition_box %} -->
 
 <figure class="is-medium" style="--figure-width: min(100%, 34rem);">
   <img src="{{ '/LAM/figs/3step.png' | relative_url }}" alt="From action to effect." loading="lazy">
@@ -115,11 +111,6 @@ A useful motion primitive should be as environment-agnostic as possible. "Moving
 For this reason, we do not simply concatenate $x_t$ and $x_{t+1}$ as input. Concatenation would leave too much room for the encoder to memorize appearance and environment-specific details. Instead, we construct a motion input by subtracting or transforming the two frames so that the remaining signal emphasizes change. This motion input has the same spatial shape as the original observation, but contains more direct information about the transition.
 
 
-<!-- {% capture technical_box %}
-Rather than concatenate $x_t$ and $x_{t+1}$ directly, OTF can work on a change-focused representation such as a difference image or another motion transform. That pushes appearance information into the conditioning context and lets the codebook spend more of its capacity on transition structure.
-{% endcapture %}
-{% include callout.html type="technical-note" content=technical_box %} -->
-
 The motion input is then divided into small spatial patches. Each patch is encoded into a local transition embedding. During training, the model learns a fixed-size codebook, and each patch embedding is assigned to its nearest code. Each code can be interpreted as a reusable local motion primitive.
 
 The decoder receives these quantized patch codes and reconstructs the motion observation. It also receives the current frame $x_t$ as a reference. $x_t$ provides appearance and spatial support, so the codebook does not need to store everything about the scene. It can focus more on the transition pattern itself.
@@ -152,13 +143,6 @@ The aggregator is allowed to become environment-specific. This is necessary beca
 
 Again, the goal of a LAM is to provide a useful representation for downstream policy learning. Instead of mapping two consecutive observations directly into a single monolithic embedding, this compositional structure keeps different sources of change separable long enough for the policy to learn which changes are truly action-relevant, without inheriting spurious correlations from the visual transition.
 
-<!-- ```python
-# Sketch of the training interface.
-motion_tokens = otf.encode_transition(x_t, x_t_plus_1)
-z_t = aggregator(x_t, motion_tokens)
-pred_next = forward_model(x_t, z_t)
-recovered_tokens = inverse_model(x_t, x_t_plus_1)
-``` -->
 
 ### Bottom-up step 3: mapping latent changes to real actions
 
@@ -176,10 +160,6 @@ In this setup, we use the learned latent action space as the target for behavior
 This keeps the amount of action supervision small. Most of the structure is learned from observation-only transitions: first as reusable motion primitives, then as state-aware latent actions. The action labels are only used at the final stage, where they tell the model which explanation of the transition corresponds to the real controllable action.
 
 
-<!-- {% capture caveat_box %}
-This does not mean compositional latents must always outperform monolithic latents on every downstream benchmark. In a fixed environment, a monolithic LAM can exploit stable correlations between agent motion, camera motion, and background dynamics. OTF trades some of that shortcut capacity for a more reusable transition interface, which becomes more valuable when the carrier, morphology, or distractor statistics change.
-{% endcapture %}
-{% include callout.html type="caveat" content=caveat_box %} -->
 
 ## OTF-LAM within DINO-WM?
 
