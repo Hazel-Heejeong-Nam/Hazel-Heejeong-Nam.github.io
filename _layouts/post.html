@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
     <meta name="description" content="{{ page.subtitle | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 | escape }}">
+    {% assign social_title = page.title | default: site.title %}
+    {% assign social_description = page.subtitle | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 200 %}
+    {% assign social_image = page.preview_image | default: page.teaser_image %}
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ social_title | escape }}">
+    <meta property="og:description" content="{{ social_description | escape }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    {% if social_image %}
+    <meta property="og:image" content="{{ social_image | absolute_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ social_image | absolute_url }}">
+    {% else %}
+    <meta name="twitter:card" content="summary">
+    {% endif %}
+    <meta name="twitter:title" content="{{ social_title | escape }}">
+    <meta name="twitter:description" content="{{ social_description | escape }}">
     <meta name="color-scheme" content="light">
     <link rel="icon" href="{{ '/images/hn.jpg' | relative_url }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
