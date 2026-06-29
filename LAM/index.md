@@ -10,7 +10,6 @@ math: true
 toc: true
 arxiv_url: https://arxiv.org/abs/2602.11389
 arxiv_logo: /LAM/figs/brand-logo-primary.jpg
-teaser_image: /LAM/figs/teaser.png
 preview_image: /LAM/figs/teaser.png
 previous_url: /
 previous_title: Return to main site

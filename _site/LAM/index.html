@@ -81,11 +81,6 @@
             </div>
 
             
-            <figure class="post-teaser">
-              <img src="/LAM/figs/teaser.png" alt="What LAMs Still Need Before They Can Master Video Games" loading="eager">
-              
-            </figure>
-            
           </header>
 
           <section class="post-content" data-post-content>
@@ -178,6 +173,11 @@ So the question becomes less about recovering the true action immediately, and m
 
 <p>We ultimately want a policy. 
 The proposal is not to stop at observed effects, but to use them as a better starting point for control. In the 3-step action to transition setup, we use bottom-up strategy, <strong><em>from observed effects to latent action, and then from latent action to real action.</em></strong></p>
+
+<figure style="--figure-width: min(100%, 34rem);">
+  <img src="/LAM/figs/reverse.jpg" alt="From action to effect." loading="lazy" />
+  <figcaption>Bottom-up approach.</figcaption>
+</figure>
 
 <aside class="post-callout post-callout--intuition post-callout--untitled">
   
@@ -302,7 +302,7 @@ recovered_tokens = inverse_model(x_t, x_t_plus_1)
 
 <figure style="--figure-width: min(70%, 30rem);">
   <img src="/LAM/figs/dinolam.png" alt="From action to effect." loading="lazy" />
-  <figcaption>Policy training with latent actions.</figcaption>
+  <figcaption>OTF-LAM with Frozen DINOv2 Features.</figcaption>
 </figure>
 
 <p>In this sense, OTF-LAM-DINO is close in spirit to DINO-WM. Both use frozen visual features as a more stable state space for dynamics learning. The difference is that OTF-LAM-DINO focuses on the action side: it asks how to build an action-like latent from observation-only transitions, while keeping both the visual state representation and the low-level transition vocabulary reusable.</p>
