@@ -124,6 +124,10 @@ body.home-page #skel-layers-wrapper {
     padding-top: 56px;
 }
 
+body.home-page #wrapper {
+    padding: 0;
+}
+
 body.home-page #header {
     background: var(--home-sidebar-bg);
     box-shadow: var(--home-shadow-strong);
@@ -166,12 +170,19 @@ body.home-page #sidePanel {
 }
 
 body.home-page #main>section>.container {
+    max-width: none;
     padding: 1.85rem 1.45rem;
-    width: calc(100% - 2rem);
+    width: auto;
 }
 
 body.home-page #one:before {
     height: 13rem;
     margin: 0.9rem auto -3.8rem;
-    width: calc(100% - 2rem);
+    max-width: none;
+    width: auto;
+}
+
+body.home-page #footer .container {
+    max-width: none;
+    width: auto;
 }

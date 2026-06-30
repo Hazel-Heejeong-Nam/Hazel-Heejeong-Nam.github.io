@@ -2603,8 +2603,9 @@ body.home-page #footer .copyright li:first-child {
 @media screen and (max-width: 980px) {
 
     body.home-page .theme-toggle {
-        left: 1rem;
-        top: 0.9rem;
+        left: 0.9rem;
+        right: auto;
+        top: 4.65rem;
     }
 
     body.home-page #main {
@@ -2651,9 +2652,9 @@ body.home-page #footer .copyright li:first-child {
 @media screen and (max-width: 736px) {
 
     body.home-page .theme-toggle {
-        left: auto;
-        right: 0.9rem;
-        top: 0.55rem;
+        left: 0.85rem;
+        right: auto;
+        top: 4.45rem;
     }
 
     body.home-page .theme-toggle-label {
