@@ -8,7 +8,7 @@ reading_time: 9 min read
 kicker: OTF-LAM
 math: true
 toc: true
-arxiv_url: https://drive.google.com/file/d/1i_PVRvexOxqqcCPulda6mcJWwfOKEabM/view?usp=sharing
+arxiv_url: https://arxiv.org/abs/2606.30544
 arxiv_logo: /LAM/figs/brand-logo-primary.jpg
 preview_image: /LAM/figs/teaser.png
 previous_url: /
@@ -205,8 +205,15 @@ This paper does not claim that compositional latents must always outperform mono
 If you want to cite this work, please use the following BibTeX entry:
 
 ```bibtex
-
-
+@misc{nam2026latentactionsfactorizedtransition,
+      title={Latent Actions from Factorized Transition Effects under Agent Ambiguity}, 
+      author={Heejeong Nam and Chandradithya S Jonnalagadda and Harshit Aggarwal and Eric Xu and Randall Balestriero},
+      year={2026},
+      eprint={2606.30544},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2606.30544}, 
+}
 ```
 
 [^ambiguity]: Inverse ambiguity is structural here, not just a nuisance variable issue. Two visually similar transitions can come from different causes, while a single action can look different depending on state, camera motion, and other entities on screen.
