@@ -25,8 +25,7 @@
         storedTheme = null;
       }
 
-      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var theme = storedTheme || (prefersDark ? 'dark' : 'light');
+      var theme = storedTheme || 'light';
 
       document.documentElement.setAttribute('data-theme', theme);
     })();
@@ -773,12 +772,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       var root = document.documentElement;
       var themeToggle = document.getElementById('theme-toggle');
-      var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
       var galleries = document.querySelectorAll('[data-media-gallery]');
-
-      function getPreferredTheme() {
-        return mediaQuery && mediaQuery.matches ? 'dark' : 'light';
-      }
 
       function updateThemeToggle(theme) {
         if (!themeToggle) {
@@ -811,34 +805,12 @@
       }
 
       if (themeToggle) {
-        applyTheme(root.getAttribute('data-theme') || getPreferredTheme(), false);
+        applyTheme(root.getAttribute('data-theme') || 'light', false);
 
         themeToggle.addEventListener('click', function () {
-          var currentTheme = root.getAttribute('data-theme') || getPreferredTheme();
+          var currentTheme = root.getAttribute('data-theme') || 'light';
           applyTheme(currentTheme === 'dark' ? 'light' : 'dark', true);
         });
-      }
-
-      if (mediaQuery) {
-        var syncWithSystemTheme = function (event) {
-          var savedTheme = null;
-
-          try {
-            savedTheme = localStorage.getItem('site-theme');
-          } catch (error) {
-            savedTheme = null;
-          }
-
-          if (!savedTheme) {
-            applyTheme(event.matches ? 'dark' : 'light', false);
-          }
-        };
-
-        if (typeof mediaQuery.addEventListener === 'function') {
-          mediaQuery.addEventListener('change', syncWithSystemTheme);
-        } else if (typeof mediaQuery.addListener === 'function') {
-          mediaQuery.addListener(syncWithSystemTheme);
-        }
       }
 
       galleries.forEach(function (gallery) {
