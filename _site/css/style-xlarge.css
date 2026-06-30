@@ -38,3 +38,15 @@ textarea {
 #main>section>.container {
     padding: 4em 0 2em 0;
 }
+
+body.home-page #header {
+    width: 22.5em;
+}
+
+body.home-page #wrapper {
+    padding-right: 22.5em;
+}
+
+body.home-page #main>section>.container {
+    padding: 2.75rem;
+}

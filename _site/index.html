@@ -15,6 +15,22 @@
   <meta name="keywords"
     content="Heejeong Nam, Hazel Nam, Yonsei University, 남희정, Brown, Brown University, Yonsei, AI Researcher, Boeing, UCLA, University of California Los Angeles, UCSB, University of California Santa Barbara,
       ,Computer Vision, Representation Learning, Causal Representation Learning, Disentangled Representation Learning, Vision Language Model, VLM, Forecasting, Time-Series" />
+  <script>
+    (function () {
+      var storedTheme = null;
+
+      try {
+        storedTheme = localStorage.getItem('site-theme');
+      } catch (error) {
+        storedTheme = null;
+      }
+
+      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+      document.documentElement.setAttribute('data-theme', theme);
+    })();
+  </script>
   <!-- NOTE: REMOVE THIS BLOCK OR REPLACE IT WITH YOUR OWN ANALYTICS BLOCK! -->
   <!-- OTHERWISE, YOUR TRAFFIC DATA WILL SHOW UP ON MY ANALYTICS DASHBOARD. -->
   <!-- Google tag (gtag.js) -->
@@ -40,7 +56,11 @@
   </noscript>
 </head>
 
-<body>
+<body class="home-page">
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch color theme">
+    <span class="theme-toggle-icon" aria-hidden="true"></span>
+    <span class="theme-toggle-label">Dark mode</span>
+  </button>
   <div id="wrapper">
 
     <!-- Header -->
@@ -158,7 +178,7 @@
             <li>Astronomy / Aerospace Engineering</li>
           </ul>
           </p> -->
-          <p>
+          <p class="about-actions">
             <a href="https://drive.google.com/file/d/1FVrDlogZ5SxPKXyHubF2v-w3g04fBv6X/view?usp=sharing" target='_blank'
               class="button alt icon
                 fa-file-pdf-o small">CV</a>
@@ -183,7 +203,7 @@
           <header class="major">
             <h3>News</h3>
           </header>
-          <div style="height:300px;overflow:auto;">
+          <div class="news-feed">
             <table>
               <tbody>
                 <tr>
@@ -544,7 +564,7 @@
       <section id="five">
         <div class="container">
           <h3>Talks</h3>
-          <table class="invisible">
+          <table class="invisible talks-list">
             <tbody class="invisible">
 
               <tr class="invisible">
@@ -722,7 +742,7 @@
             However, I am very bad at cooking so don't ask me for home-cooked Korean food 😛. I am caffeine addicted, so
             I am always down for a coffee chat.
           </p>
-          <img src="images/dummy/skating.gif" alt="" />
+          <img src="images/dummy/skating.gif" alt="" class="misc-photo" />
           <!-- <p></p> -->
         </div>
       </section>
@@ -750,7 +770,75 @@
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      var root = document.documentElement;
+      var themeToggle = document.getElementById('theme-toggle');
+      var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
       var galleries = document.querySelectorAll('[data-media-gallery]');
+
+      function getPreferredTheme() {
+        return mediaQuery && mediaQuery.matches ? 'dark' : 'light';
+      }
+
+      function updateThemeToggle(theme) {
+        if (!themeToggle) {
+          return;
+        }
+
+        var nextTheme = theme === 'dark' ? 'light' : 'dark';
+        var nextLabel = nextTheme === 'dark' ? 'Dark mode' : 'Light mode';
+
+        themeToggle.setAttribute('aria-label', 'Switch to ' + nextLabel.toLowerCase());
+        themeToggle.setAttribute('data-mode', theme);
+
+        var labelNode = themeToggle.querySelector('.theme-toggle-label');
+        if (labelNode) {
+          labelNode.textContent = nextLabel;
+        }
+      }
+
+      function applyTheme(theme, persist) {
+        root.setAttribute('data-theme', theme);
+        updateThemeToggle(theme);
+
+        if (persist) {
+          try {
+            localStorage.setItem('site-theme', theme);
+          } catch (error) {
+            // Ignore persistence errors so the toggle still works.
+          }
+        }
+      }
+
+      if (themeToggle) {
+        applyTheme(root.getAttribute('data-theme') || getPreferredTheme(), false);
+
+        themeToggle.addEventListener('click', function () {
+          var currentTheme = root.getAttribute('data-theme') || getPreferredTheme();
+          applyTheme(currentTheme === 'dark' ? 'light' : 'dark', true);
+        });
+      }
+
+      if (mediaQuery) {
+        var syncWithSystemTheme = function (event) {
+          var savedTheme = null;
+
+          try {
+            savedTheme = localStorage.getItem('site-theme');
+          } catch (error) {
+            savedTheme = null;
+          }
+
+          if (!savedTheme) {
+            applyTheme(event.matches ? 'dark' : 'light', false);
+          }
+        };
+
+        if (typeof mediaQuery.addEventListener === 'function') {
+          mediaQuery.addEventListener('change', syncWithSystemTheme);
+        } else if (typeof mediaQuery.addListener === 'function') {
+          mediaQuery.addListener(syncWithSystemTheme);
+        }
+      }
 
       galleries.forEach(function (gallery) {
         var track = gallery.querySelector('.media-gallery-track');

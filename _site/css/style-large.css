@@ -24,3 +24,11 @@ textarea {
 #wrapper {
     padding-right: 20em;
 }
+
+body.home-page #header {
+    width: 21.5em;
+}
+
+body.home-page #wrapper {
+    padding-right: 21.5em;
+}

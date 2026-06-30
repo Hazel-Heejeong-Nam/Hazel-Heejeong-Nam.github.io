@@ -118,3 +118,60 @@ textarea {
     background: #000000;
     color: #fff;
 }
+
+body.home-page #skel-layers-wrapper {
+    background: transparent;
+    padding-top: 56px;
+}
+
+body.home-page #header {
+    background: var(--home-sidebar-bg);
+    box-shadow: var(--home-shadow-strong);
+}
+
+body.home-page #header>header {
+    padding: 2.4rem 2rem 1.6rem;
+}
+
+body.home-page #header>nav {
+    padding: 0 1.6rem 1.4rem;
+}
+
+body.home-page #header>footer {
+    padding: 0 1.8rem 1.8rem;
+}
+
+body.home-page #titleBar {
+    backdrop-filter: blur(18px);
+    background: var(--home-sidebar-bg);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+    color: var(--home-sidebar-text);
+}
+
+body.home-page #titleBar .title {
+    color: var(--home-sidebar-text);
+    font-family: "Manrope", sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+body.home-page #titleBar .toggle:before {
+    background: transparent;
+    color: var(--home-sidebar-text);
+}
+
+body.home-page #sidePanel {
+    background: rgba(9, 12, 15, 0.35);
+    backdrop-filter: blur(10px);
+}
+
+body.home-page #main>section>.container {
+    padding: 1.85rem 1.45rem;
+    width: calc(100% - 2rem);
+}
+
+body.home-page #one:before {
+    height: 13rem;
+    margin: 0.9rem auto -3.8rem;
+    width: calc(100% - 2rem);
+}

@@ -70,3 +70,24 @@ input[type="button"],
 .button {
     padding: 0;
 }
+
+body.home-page .theme-toggle {
+    right: 0.75rem;
+}
+
+body.home-page #main>section>.container,
+body.home-page #one:before,
+body.home-page #footer .container {
+    width: calc(100% - 1rem);
+}
+
+body.home-page #main>section>.container {
+    padding: 1.2rem 0.9rem;
+}
+
+body.home-page input[type="submit"],
+body.home-page input[type="reset"],
+body.home-page input[type="button"],
+body.home-page .button {
+    padding: 0.82rem 1rem;
+}
