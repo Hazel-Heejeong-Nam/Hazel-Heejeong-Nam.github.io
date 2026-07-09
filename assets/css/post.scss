@@ -187,6 +187,24 @@ img {
   box-shadow: 0 8px 18px rgba(66, 49, 11, 0.08);
 }
 
+.post-meta__item--github {
+  gap: 0.42rem;
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.post-meta__item--github:hover {
+  transform: translateY(-1px);
+  border-color: var(--line-strong);
+  box-shadow: 0 8px 18px rgba(66, 49, 11, 0.08);
+}
+
+.post-meta__item--github svg {
+  flex: 0 0 auto;
+}
+
 .post-meta__logo-frame {
   display: inline-flex;
   align-items: center;

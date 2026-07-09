@@ -1833,6 +1833,14 @@ body.home-page a:hover {
     color: var(--home-accent-strong) !important;
 }
 
+html[data-theme="dark"] body.home-page .about-brown-wordmark .logo2 {
+    display: none;
+}
+
+html[data-theme="dark"] body.home-page .about-brown-wordmark .dark-brown-text {
+    display: inline;
+}
+
 body.home-page strong,
 body.home-page b {
     color: var(--home-heading);
@@ -1871,6 +1879,21 @@ body.home-page .logo,
 body.home-page .logo2,
 body.home-page .logo3 {
     vertical-align: middle;
+}
+
+body.home-page .about-brown-wordmark {
+    align-items: center;
+    border-bottom: 0;
+    display: inline-flex;
+}
+
+body.home-page .dark-brown-text {
+    color: #ffffff;
+    display: none;
+    font-size: 0.95em;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1;
 }
 
 body.home-page .theme-toggle {
@@ -2437,6 +2460,15 @@ body.home-page .pub-links a.lowkey:hover {
     color: #ffffff !important;
 }
 
+body.home-page .pub-links a.github-link:before {
+    content: "\f09b";
+    font-family: FontAwesome;
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-right: 0.38rem;
+    text-transform: none;
+}
+
 body.home-page .conf-badge {
     background: linear-gradient(135deg, var(--home-accent) 0%, var(--home-accent-strong) 100%);
     border-radius: 999px;
@@ -2580,8 +2612,9 @@ body.home-page #footer .copyright li:first-child {
 @media screen and (max-width: 980px) {
 
     body.home-page .theme-toggle {
-        left: 1rem;
-        top: 0.9rem;
+        left: 0.9rem;
+        right: auto;
+        top: 4.65rem;
     }
 
     body.home-page #main {
@@ -2628,9 +2661,9 @@ body.home-page #footer .copyright li:first-child {
 @media screen and (max-width: 736px) {
 
     body.home-page .theme-toggle {
-        left: auto;
-        right: 0.9rem;
-        top: 0.55rem;
+        left: 0.85rem;
+        right: auto;
+        top: 4.45rem;
     }
 
     body.home-page .theme-toggle-label {

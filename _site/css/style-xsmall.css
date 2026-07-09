@@ -78,7 +78,8 @@ body.home-page .theme-toggle {
 body.home-page #main>section>.container,
 body.home-page #one:before,
 body.home-page #footer .container {
-    width: calc(100% - 1rem);
+    max-width: none;
+    width: auto;
 }
 
 body.home-page #main>section>.container {

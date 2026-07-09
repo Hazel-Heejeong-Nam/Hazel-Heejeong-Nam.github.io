@@ -11,6 +11,7 @@
   <link rel="shortcut icon" href="./images/hn.jpg" />
   <title>Heejeong Nam</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="Research portofolio of Heejeong Nam." />
   <meta name="keywords"
     content="Heejeong Nam, Hazel Nam, Yonsei University, 남희정, Brown, Brown University, Yonsei, AI Researcher, Boeing, UCLA, University of California Los Angeles, UCSB, University of California Santa Barbara,
@@ -25,8 +26,7 @@
         storedTheme = null;
       }
 
-      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var theme = storedTheme || (prefersDark ? 'dark' : 'light');
+      var theme = storedTheme || 'light';
 
       document.documentElement.setAttribute('data-theme', theme);
     })();
@@ -117,8 +117,9 @@
           <p>
             Hello! I am a first year master's student in CS at
             <img src="images/logos/brownlogo.png" alt="Brown University Logo" class="logo" />
-            <a href="https://www.brown.edu/">
+            <a href="https://www.brown.edu/" class="about-brown-wordmark">
               <img src="images/logos/brown-letter.png" alt="Brown University" class="logo2" />
+              <span class="dark-brown-text">Brown</span>
             </a>, working with Prof. <a href="https://galilai-group.github.io/">Randall
               Balestriero</a> and Prof. <a href="https://scholar.google.com/citations?user=EpT-nUAAAAAJ&hl=en">David
               Klindt</a>. Prior to joining Brown, I worked as an AI researcher at Boeing.
@@ -411,7 +412,7 @@
                   <div class="pub-meta-row">
                     <span class="conf-badge">ICMLw 2026</span>
                     <span class="pub-links">
-                      <script>paper("");</script>
+                      <script>paper("https://arxiv.org/abs/2606.30544");</script>
                       <script>website("https://hazel-heejeong-nam.github.io/LAM/");</script>
                     </span>
                   </div>
@@ -772,12 +773,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       var root = document.documentElement;
       var themeToggle = document.getElementById('theme-toggle');
-      var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
       var galleries = document.querySelectorAll('[data-media-gallery]');
-
-      function getPreferredTheme() {
-        return mediaQuery && mediaQuery.matches ? 'dark' : 'light';
-      }
 
       function updateThemeToggle(theme) {
         if (!themeToggle) {
@@ -810,34 +806,12 @@
       }
 
       if (themeToggle) {
-        applyTheme(root.getAttribute('data-theme') || getPreferredTheme(), false);
+        applyTheme(root.getAttribute('data-theme') || 'light', false);
 
         themeToggle.addEventListener('click', function () {
-          var currentTheme = root.getAttribute('data-theme') || getPreferredTheme();
+          var currentTheme = root.getAttribute('data-theme') || 'light';
           applyTheme(currentTheme === 'dark' ? 'light' : 'dark', true);
         });
-      }
-
-      if (mediaQuery) {
-        var syncWithSystemTheme = function (event) {
-          var savedTheme = null;
-
-          try {
-            savedTheme = localStorage.getItem('site-theme');
-          } catch (error) {
-            savedTheme = null;
-          }
-
-          if (!savedTheme) {
-            applyTheme(event.matches ? 'dark' : 'light', false);
-          }
-        };
-
-        if (typeof mediaQuery.addEventListener === 'function') {
-          mediaQuery.addEventListener('change', syncWithSystemTheme);
-        } else if (typeof mediaQuery.addListener === 'function') {
-          mediaQuery.addListener(syncWithSystemTheme);
-        }
       }
 
       galleries.forEach(function (gallery) {

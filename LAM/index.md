@@ -10,6 +10,7 @@ math: true
 toc: true
 arxiv_url: https://arxiv.org/abs/2606.30544
 arxiv_logo: /LAM/figs/brand-logo-primary.jpg
+github_url: https://github.com/Hazel-Heejeong-Nam/lam_agent_ambiguity
 preview_image: /LAM/figs/teaser.png
 previous_url: /
 previous_title: Return to main site
