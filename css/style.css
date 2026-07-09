@@ -2460,6 +2460,15 @@ body.home-page .pub-links a.lowkey:hover {
     color: #ffffff !important;
 }
 
+body.home-page .pub-links a.github-link:before {
+    content: "\f09b";
+    font-family: FontAwesome;
+    font-size: 0.9rem;
+    font-weight: normal;
+    margin-right: 0.38rem;
+    text-transform: none;
+}
+
 body.home-page .conf-badge {
     background: linear-gradient(135deg, var(--home-accent) 0%, var(--home-accent-strong) 100%);
     border-radius: 999px;

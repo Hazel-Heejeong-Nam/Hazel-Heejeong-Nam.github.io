@@ -366,6 +366,10 @@ function website(link) {
   text_button("website", link);
 }
 
+function github(link) {
+  document.write("<a class='lowkey github-link' target='_blank' rel='noopener noreferrer' href='" + link + "'>github</a>");
+}
+
 function bibtex(link) {
   text_button("bibtex", link);
 }
