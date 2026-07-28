@@ -2299,16 +2299,27 @@ body.home-page .news-feed {
     padding-right: 0.3rem;
 }
 
-body.home-page .news-feed::-webkit-scrollbar {
+body.home-page .talks-feed {
+    /* Shows roughly five and a half compact talk cards before scrolling. */
+    max-height: 26rem;
+    overflow-y: auto;
+    padding-right: 0.3rem;
+    scrollbar-color: var(--home-accent-soft) transparent;
+}
+
+body.home-page .news-feed::-webkit-scrollbar,
+body.home-page .talks-feed::-webkit-scrollbar {
     width: 10px;
 }
 
-body.home-page .news-feed::-webkit-scrollbar-thumb {
+body.home-page .news-feed::-webkit-scrollbar-thumb,
+body.home-page .talks-feed::-webkit-scrollbar-thumb {
     background: var(--home-accent-soft);
     border-radius: 999px;
 }
 
-body.home-page .news-feed::-webkit-scrollbar-track {
+body.home-page .news-feed::-webkit-scrollbar-track,
+body.home-page .talks-feed::-webkit-scrollbar-track {
     background: transparent;
 }
 

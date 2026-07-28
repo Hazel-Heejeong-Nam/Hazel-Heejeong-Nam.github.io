@@ -338,6 +338,10 @@ function talk(link) {
   text_button("talk", link);
 }
 
+function invited_talk(link) {
+  text_button("invited talk", link);
+}
+
 function thesis(link) {
   text_button("thesis", link);
 }
