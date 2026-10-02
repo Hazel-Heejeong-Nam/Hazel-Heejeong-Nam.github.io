@@ -16,21 +16,6 @@
   <meta name="keywords"
     content="Heejeong Nam, Hazel Nam, Yonsei University, 남희정, Brown, Brown University, Yonsei, AI Researcher, Boeing, UCLA, University of California Los Angeles, UCSB, University of California Santa Barbara,
       ,Computer Vision, Representation Learning, Causal Representation Learning, Disentangled Representation Learning, Vision Language Model, VLM, Forecasting, Time-Series" />
-  <script>
-    (function () {
-      var storedTheme = null;
-
-      try {
-        storedTheme = localStorage.getItem('site-theme');
-      } catch (error) {
-        storedTheme = null;
-      }
-
-      var theme = storedTheme || 'light';
-
-      document.documentElement.setAttribute('data-theme', theme);
-    })();
-  </script>
   <!-- NOTE: REMOVE THIS BLOCK OR REPLACE IT WITH YOUR OWN ANALYTICS BLOCK! -->
   <!-- OTHERWISE, YOUR TRAFFIC DATA WILL SHOW UP ON MY ANALYTICS DASHBOARD. -->
   <!-- Google tag (gtag.js) -->
@@ -54,50 +39,45 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/style-xlarge.css" />
   </noscript>
+  <link rel="stylesheet" href="css/academic-home.css" />
 </head>
 
 <body class="home-page">
-  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch color theme">
-    <span class="theme-toggle-icon" aria-hidden="true"></span>
-    <span class="theme-toggle-label">Dark mode</span>
-  </button>
+  <!-- Navigation -->
+  <nav id="nav">
+    <a class="site-brand" href="#one">Heejeong Nam</a>
+    <ul>
+      <li><a href="#one" class="active">About</a></li>
+      <li><a href="#two">News</a></li>
+      <li><a href="#three">Publications</a></li>
+      <!-- <li><a href="#four">Videos</a></li> -->
+      <li><a href="#five">Talks</a></li>
+      <li><a href="#six">Media</a></li>
+      <li><a href="#seven">Misc</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <section id="header" class="skel-layers-fixed">
+    <header>
+      <span class="image avatar"><img src="images/avatars/hj2.jpg" alt="" /></span>
+      <h1>Heejeong Nam</h1>
+      <ul class="profile-links" aria-label="Social links">
+        <li><a href="https://www.linkedin.com/in/heejeong-hazel-nam-926963248/" target="_blank"
+            rel="noopener noreferrer" class="icon fa-linkedin" aria-label="LinkedIn"><span
+              class="label">LinkedIn</span></a></li>
+        <li><a href="https://github.com/Hazel-Heejeong-Nam" target="_blank" rel="noopener noreferrer"
+            class="icon fa-github" aria-label="GitHub"><span class="label">GitHub</span></a></li>
+        <li><a href="https://www.youtube.com/channel/UCUEb04h81GwJBRffz6fWTdA" target="_blank" rel="noopener noreferrer"
+            class="icon fa-youtube-play" aria-label="YouTube"><span class="label">YouTube</span></a></li>
+        <li><a href="#" class="profile-link-placeholder" aria-label="X (link coming soon)"
+            title="X link coming soon">X</a></li>
+      </ul>
+      <p><img src="images/logos/brownlogo.png" alt="Brown University Logo" class="logo" /> Brown University</p>
+    </header>
+  </section>
+
   <div id="wrapper">
-
-    <!-- Header -->
-    <section id="header" class="skel-layers-fixed">
-      <header>
-        <span class="image avatar"><img src="images/avatars/hj2.jpg" alt="" /></span>
-        <h1>Heejeong Nam
-        </h1>
-        </h2>
-        <p><img src="images/logos/brownlogo.png" alt="Brown University Logo" class="logo" /> Brown University</p>
-      </header>
-      <nav id="nav">
-        <ul>
-          <li><a href="#one" class="active">About</a></li>
-          <li><a href="#two">News</a></li>
-          <li><a href="#three">Publications</a></li>
-          <!-- <li><a href="#four">Videos</a></li> -->
-          <li><a href="#five">Talks</a></li>
-          <li><a href="#six">Media</a></li>
-          <li><a href="#seven">Misc</a></li>
-
-        </ul>
-      </nav>
-      <footer>
-        <ul class="icons">
-          <li><a href="https://github.com/Hazel-Heejeong-Nam" target='_blank' class="icon fa-github"><span
-                class="label">GitHub</span></a></li>
-          <li><a href="https://www.linkedin.com/in/heejeong-hazel-nam-926963248/" target='_blank'
-              class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
-          <!-- <li><a href="https://twitter.com/xiuming_zhang" target='_blank'
-                class="icon fa-twitter"><span
-                  class="label">Twitter</span></a></li> -->
-          <li><a href="https://www.youtube.com/channel/UCUEb04h81GwJBRffz6fWTdA" target='_blank'
-              class="icon fa-youtube-play"><span class="label">YouTube</span></a></li>
-        </ul>
-      </footer>
-    </section>
 
     <!-- Main -->
     <div id="main">
@@ -369,8 +349,8 @@
           <header class="major">
             <h3>Selected Publications</h3>
             <!-- <p>* indicates equal contribution.</p>-->
-            <p><br>Full list available <a
-                href="https://scholar.google.com/citations?user=UU8NCg8AAAAJ&hl=en&oi=sra">here</a></br></p>
+            <p class="publication-list-note">Full list available <a
+                href="https://scholar.google.com/citations?user=UU8NCg8AAAAJ&hl=en&oi=sra">here</a>.</p>
           </header>
           <div class="table-wrapper">
             <div class="features">
@@ -560,6 +540,26 @@
             <table class="invisible talks-list">
               <tbody class="invisible">
 
+
+                <tr class="invisible">
+                  <td>
+                    <b>
+                      [Upcoming] Guest Lecture @ University of Pittsburgh
+                    </b>,
+                    Nov, 2026
+                  </td>
+                </tr>
+
+                <tr class="invisible">
+                  <td>
+                    <b>
+                      [Upcoming] Guest Lecture @ Brown University
+                    </b>,
+                    Oct, 2026
+                  </td>
+                </tr>
+
+
                 <tr class="invisible">
                   <td>
                     <b>
@@ -644,8 +644,7 @@
           <!-- Extend by duplicating one media-card block and swapping iframe / link card / img. -->
           <div class="media-gallery" data-media-gallery>
             <div class="media-gallery-header">
-              <p class="media-gallery-kicker">Click each card to visit website. Swipe or use the arrows to move one card
-                at a time.</p>
+              <p class="media-gallery-kicker">Selected talks and features.</p>
               <div class="media-gallery-controls" aria-label="Media gallery controls">
                 <button type="button" class="media-gallery-button" data-media-nav="prev"
                   aria-label="Show previous media item">
@@ -786,48 +785,13 @@
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var root = document.documentElement;
-      var themeToggle = document.getElementById('theme-toggle');
       var galleries = document.querySelectorAll('[data-media-gallery]');
 
-      function updateThemeToggle(theme) {
-        if (!themeToggle) {
-          return;
-        }
-
-        var nextTheme = theme === 'dark' ? 'light' : 'dark';
-        var nextLabel = nextTheme === 'dark' ? 'Dark mode' : 'Light mode';
-
-        themeToggle.setAttribute('aria-label', 'Switch to ' + nextLabel.toLowerCase());
-        themeToggle.setAttribute('data-mode', theme);
-
-        var labelNode = themeToggle.querySelector('.theme-toggle-label');
-        if (labelNode) {
-          labelNode.textContent = nextLabel;
-        }
-      }
-
-      function applyTheme(theme, persist) {
-        root.setAttribute('data-theme', theme);
-        updateThemeToggle(theme);
-
-        if (persist) {
-          try {
-            localStorage.setItem('site-theme', theme);
-          } catch (error) {
-            // Ignore persistence errors so the toggle still works.
-          }
-        }
-      }
-
-      if (themeToggle) {
-        applyTheme(root.getAttribute('data-theme') || 'light', false);
-
-        themeToggle.addEventListener('click', function () {
-          var currentTheme = root.getAttribute('data-theme') || 'light';
-          applyTheme(currentTheme === 'dark' ? 'light' : 'dark', true);
+      document.querySelectorAll('.profile-link-placeholder').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          event.preventDefault();
         });
-      }
+      });
 
       galleries.forEach(function (gallery) {
         var track = gallery.querySelector('.media-gallery-track');

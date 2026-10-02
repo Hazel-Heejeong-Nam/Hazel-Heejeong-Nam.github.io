@@ -146,14 +146,14 @@ body.home-page #header>footer {
 }
 
 body.home-page #titleBar {
-    backdrop-filter: blur(18px);
-    background: var(--home-sidebar-bg);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
-    color: var(--home-sidebar-text);
+    backdrop-filter: none;
+    background: var(--ink);
+    box-shadow: none;
+    color: var(--cream);
 }
 
 body.home-page #titleBar .title {
-    color: var(--home-sidebar-text);
+    color: var(--cream);
     font-family: "Manrope", sans-serif;
     font-weight: 800;
     letter-spacing: -0.02em;
@@ -161,12 +161,12 @@ body.home-page #titleBar .title {
 
 body.home-page #titleBar .toggle:before {
     background: transparent;
-    color: var(--home-sidebar-text);
+    color: var(--cream);
 }
 
 body.home-page #sidePanel {
-    background: rgba(9, 12, 15, 0.35);
-    backdrop-filter: blur(10px);
+    background: var(--ink);
+    backdrop-filter: none;
 }
 
 body.home-page #main>section>.container {
