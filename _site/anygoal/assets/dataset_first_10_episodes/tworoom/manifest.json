@@ -1,0 +1,67 @@
+{
+  "dataset_id": "tworoom",
+  "dataset": "/grid/klindt/home/nam/.stable_worldmodel/datasets/tworoom.h5",
+  "fps": 10,
+  "episodes": [
+    {
+      "episode": 0,
+      "start_frame": 0,
+      "num_frames": 61,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_000.gif"
+    },
+    {
+      "episode": 1,
+      "start_frame": 61,
+      "num_frames": 78,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_001.gif"
+    },
+    {
+      "episode": 2,
+      "start_frame": 139,
+      "num_frames": 81,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_002.gif"
+    },
+    {
+      "episode": 3,
+      "start_frame": 220,
+      "num_frames": 88,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_003.gif"
+    },
+    {
+      "episode": 4,
+      "start_frame": 308,
+      "num_frames": 94,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_004.gif"
+    },
+    {
+      "episode": 5,
+      "start_frame": 402,
+      "num_frames": 99,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_005.gif"
+    },
+    {
+      "episode": 6,
+      "start_frame": 501,
+      "num_frames": 101,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_006.gif"
+    },
+    {
+      "episode": 7,
+      "start_frame": 602,
+      "num_frames": 101,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_007.gif"
+    },
+    {
+      "episode": 8,
+      "start_frame": 703,
+      "num_frames": 101,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_008.gif"
+    },
+    {
+      "episode": 9,
+      "start_frame": 804,
+      "num_frames": 101,
+      "gif": "paper/results/dataset_first_10_episodes/tworoom/episode_009.gif"
+    }
+  ]
+}

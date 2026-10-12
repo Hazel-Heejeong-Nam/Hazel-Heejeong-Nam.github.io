@@ -1,0 +1,67 @@
+{
+  "dataset_id": "avoidt",
+  "dataset": "/grid/klindt/home/nam/.stable_worldmodel/datasets/avoidt_expert_test.h5",
+  "fps": 10,
+  "episodes": [
+    {
+      "episode": 0,
+      "start_frame": 0,
+      "num_frames": 26,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_000.gif"
+    },
+    {
+      "episode": 1,
+      "start_frame": 26,
+      "num_frames": 27,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_001.gif"
+    },
+    {
+      "episode": 2,
+      "start_frame": 53,
+      "num_frames": 26,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_002.gif"
+    },
+    {
+      "episode": 3,
+      "start_frame": 79,
+      "num_frames": 29,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_003.gif"
+    },
+    {
+      "episode": 4,
+      "start_frame": 108,
+      "num_frames": 26,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_004.gif"
+    },
+    {
+      "episode": 5,
+      "start_frame": 134,
+      "num_frames": 26,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_005.gif"
+    },
+    {
+      "episode": 6,
+      "start_frame": 160,
+      "num_frames": 26,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_006.gif"
+    },
+    {
+      "episode": 7,
+      "start_frame": 186,
+      "num_frames": 27,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_007.gif"
+    },
+    {
+      "episode": 8,
+      "start_frame": 213,
+      "num_frames": 28,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_008.gif"
+    },
+    {
+      "episode": 9,
+      "start_frame": 241,
+      "num_frames": 26,
+      "gif": "paper/results/dataset_first_10_episodes/avoidt/episode_009.gif"
+    }
+  ]
+}

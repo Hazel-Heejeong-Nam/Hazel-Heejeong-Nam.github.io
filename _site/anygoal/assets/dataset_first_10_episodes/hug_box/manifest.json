@@ -1,0 +1,68 @@
+{
+  "dataset_id": "hug_box",
+  "dataset": "/grid/klindt/home/nam/.stable_worldmodel/datasets/avoid_peg_test.h5",
+  "fps": 10,
+  "format": "gif",
+  "episodes": [
+    {
+      "episode": 0,
+      "start_frame": 0,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_000.gif"
+    },
+    {
+      "episode": 1,
+      "start_frame": 200,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_001.gif"
+    },
+    {
+      "episode": 2,
+      "start_frame": 400,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_002.gif"
+    },
+    {
+      "episode": 3,
+      "start_frame": 600,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_003.gif"
+    },
+    {
+      "episode": 4,
+      "start_frame": 800,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_004.gif"
+    },
+    {
+      "episode": 5,
+      "start_frame": 1000,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_005.gif"
+    },
+    {
+      "episode": 6,
+      "start_frame": 1200,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_006.gif"
+    },
+    {
+      "episode": 7,
+      "start_frame": 1400,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_007.gif"
+    },
+    {
+      "episode": 8,
+      "start_frame": 1600,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_008.gif"
+    },
+    {
+      "episode": 9,
+      "start_frame": 1800,
+      "num_frames": 200,
+      "video": "paper/results/dataset_first_10_episodes/hug_box/episode_009.gif"
+    }
+  ]
+}

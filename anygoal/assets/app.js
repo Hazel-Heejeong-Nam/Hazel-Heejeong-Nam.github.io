@@ -645,6 +645,7 @@ print(model.capabilities)`)}
 const taskPages = {
   "/tasks/avoidt": {
     title: "AvoidT",
+    gifDirectory: "avoidt",
     subtitle: "Move the PushT agent to a sampled corner target while the physical T remains an obstacle.",
     id: "avoidt",
     family: "PushT",
@@ -658,6 +659,7 @@ const taskPages = {
   },
   "/tasks/stackt": {
     title: "StackT",
+    gifDirectory: "stackt",
     subtitle: "Rotate and move a physical T so its head overlays a visible goal T, forming a plus-like stack.",
     id: "stackt",
     family: "PushT",
@@ -671,6 +673,7 @@ const taskPages = {
   },
   "/tasks/pusht-antigoal": {
     title: "PushT Antigoal",
+    gifDirectory: "pusht-antigoal",
     subtitle: "Move the physical T toward an invisible corner target while the canonical visible PushT goal remains a decoy.",
     id: "pusht-antigoal",
     family: "PushT",
@@ -684,6 +687,7 @@ const taskPages = {
   },
   "/tasks/cubehop": {
     title: "CubeHop",
+    gifDirectory: "cubehop",
     subtitle: "Move and rotate the end effector between floor targets and elevated waypoints around a cube.",
     id: "cubehop",
     family: "Cube",
@@ -697,6 +701,7 @@ const taskPages = {
   },
   "/tasks/cubediagonal": {
     title: "CubeDiagonal",
+    gifDirectory: "cubediagonal",
     subtitle: "Solve the original single-cube task using a diagonal grasp across opposite vertical cube edges.",
     id: "cubediagonal",
     family: "Cube",
@@ -710,6 +715,7 @@ const taskPages = {
   },
   "/tasks/avoid-peg": {
     title: "Avoid Peg",
+    gifDirectory: "hug_box",
     subtitle: "Move the manipulator around the target box while avoiding contact with the peg.",
     id: "avoid_peg",
     family: "Insert Peg",
@@ -723,6 +729,7 @@ const taskPages = {
   },
   "/tasks/extractpeg": {
     title: "ExtractPeg",
+    gifDirectory: "extractpeg",
     subtitle: "Reverse insertion: grasp the inserted peg, extract it, carry it through a waypoint, and release it at a sampled destination.",
     id: "extractpeg",
     family: "Insert Peg",
@@ -736,6 +743,7 @@ const taskPages = {
   },
   "/tasks/tworoom-route": {
     title: "TwoRoom Route",
+    gifDirectory: "tworoom_route",
     subtitle: "Follow one of eight start–waypoint–goal routes without rendering the target.",
     id: "tworoom_route",
     family: "TwoRoom",
@@ -749,10 +757,23 @@ const taskPages = {
   },
 };
 
+function taskGifGrid(task) {
+  const label = `${task.title} example trajectories`;
+  const gifs = Array.from({ length: 8 }, (_, episode) => {
+    const fileName = `episode_${String(episode).padStart(3, "0")}.gif`;
+    const source = `assets/dataset_first_10_episodes/${task.gifDirectory}/${fileName}`;
+    const alt = `${task.title} environment, episode ${episode + 1}`;
+    return `<img src="${source}" alt="${escapeHtml(alt)}" loading="lazy" />`;
+  }).join("");
+
+  return `<div class="task-gif-grid" aria-label="${escapeHtml(label)}">${gifs}</div>`;
+}
+
 for (const [path, task] of Object.entries(taskPages)) {
   pages[path] = {
     title: task.title,
     subtitle: task.subtitle,
+    gifDirectory: task.gifDirectory,
     sections: [
       ["specification", "Task specification", html`
         <p>${task.task}</p>
@@ -889,6 +910,7 @@ function renderDoc(path) {
     <div class="eyebrow">${group}</div>
     <h1>${page.title}</h1>
     <p class="lead">${page.subtitle}</p>
+    ${page.gifDirectory ? taskGifGrid(page) : ""}
   </header>
   ${page.sections.map(([id, title, body], index) => section(id, title, index + 1, body)).join("")}
   ${pager(path)}`;

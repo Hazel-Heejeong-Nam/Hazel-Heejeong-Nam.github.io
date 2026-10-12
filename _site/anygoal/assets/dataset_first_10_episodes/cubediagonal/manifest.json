@@ -1,0 +1,67 @@
+{
+  "dataset_id": "cubediagonal",
+  "dataset": "/grid/klindt/home/nam/.stable_worldmodel/datasets/cube_diagonal_expert_test.h5",
+  "fps": 10,
+  "episodes": [
+    {
+      "episode": 0,
+      "start_frame": 0,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_000.gif"
+    },
+    {
+      "episode": 1,
+      "start_frame": 201,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_001.gif"
+    },
+    {
+      "episode": 2,
+      "start_frame": 402,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_002.gif"
+    },
+    {
+      "episode": 3,
+      "start_frame": 603,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_003.gif"
+    },
+    {
+      "episode": 4,
+      "start_frame": 804,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_004.gif"
+    },
+    {
+      "episode": 5,
+      "start_frame": 1005,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_005.gif"
+    },
+    {
+      "episode": 6,
+      "start_frame": 1206,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_006.gif"
+    },
+    {
+      "episode": 7,
+      "start_frame": 1407,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_007.gif"
+    },
+    {
+      "episode": 8,
+      "start_frame": 1608,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_008.gif"
+    },
+    {
+      "episode": 9,
+      "start_frame": 1809,
+      "num_frames": 201,
+      "gif": "paper/results/dataset_first_10_episodes/cubediagonal/episode_009.gif"
+    }
+  ]
+}

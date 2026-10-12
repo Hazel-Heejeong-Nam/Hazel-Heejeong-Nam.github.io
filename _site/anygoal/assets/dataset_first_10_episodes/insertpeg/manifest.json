@@ -1,0 +1,67 @@
+{
+  "dataset_id": "insertpeg",
+  "dataset": "/grid/klindt/home/nam/.stable_worldmodel/datasets/manipulator_insert_peg_weak_expert_train.h5",
+  "fps": 10,
+  "episodes": [
+    {
+      "episode": 0,
+      "start_frame": 0,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_000.gif"
+    },
+    {
+      "episode": 1,
+      "start_frame": 1000,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_001.gif"
+    },
+    {
+      "episode": 2,
+      "start_frame": 2000,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_002.gif"
+    },
+    {
+      "episode": 3,
+      "start_frame": 3000,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_003.gif"
+    },
+    {
+      "episode": 4,
+      "start_frame": 4000,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_004.gif"
+    },
+    {
+      "episode": 5,
+      "start_frame": 5000,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_005.gif"
+    },
+    {
+      "episode": 6,
+      "start_frame": 6000,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_006.gif"
+    },
+    {
+      "episode": 7,
+      "start_frame": 7000,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_007.gif"
+    },
+    {
+      "episode": 8,
+      "start_frame": 8000,
+      "num_frames": 250,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_008.gif"
+    },
+    {
+      "episode": 9,
+      "start_frame": 8250,
+      "num_frames": 1000,
+      "gif": "paper/results/dataset_first_10_episodes/insertpeg/episode_009.gif"
+    }
+  ]
+}

@@ -100,6 +100,8 @@ kbd { border: 1px solid var(--border); background: var(--bg); padding: 2px 5px; 
 .eyebrow::before { content: ""; width: 18px; height: 1px; background: currentColor; }
 h1 { margin: 0; max-width: 760px; font-size: clamp(40px, 5vw, 64px); line-height: 1.04; letter-spacing: -.055em; }
 .lead { max-width: 680px; margin: 22px 0 0; color: var(--muted); font-size: 18px; line-height: 1.75; letter-spacing: -.015em; }
+.task-gif-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; margin-top: 28px; }
+.task-gif-grid img { display: block; width: 100%; height: auto; }
 .status-note { display: inline-flex; align-items: center; gap: 8px; margin-top: 28px; padding: 8px 11px; border: 1px solid var(--border); border-radius: 7px; background: var(--surface); color: var(--muted); font-size: 12px; }
 .status-note::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #f5a623; box-shadow: 0 0 0 3px color-mix(in srgb, #f5a623 18%, transparent); }
 .doc-section { margin-top: 64px; }

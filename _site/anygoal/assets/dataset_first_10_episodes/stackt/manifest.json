@@ -1,0 +1,67 @@
+{
+  "dataset_id": "stackt",
+  "dataset": "/grid/klindt/home/nam/.stable_worldmodel/datasets/stackt_v2_expert_test.h5",
+  "fps": 10,
+  "episodes": [
+    {
+      "episode": 0,
+      "start_frame": 0,
+      "num_frames": 93,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_000.gif"
+    },
+    {
+      "episode": 1,
+      "start_frame": 93,
+      "num_frames": 45,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_001.gif"
+    },
+    {
+      "episode": 2,
+      "start_frame": 138,
+      "num_frames": 37,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_002.gif"
+    },
+    {
+      "episode": 3,
+      "start_frame": 175,
+      "num_frames": 65,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_003.gif"
+    },
+    {
+      "episode": 4,
+      "start_frame": 240,
+      "num_frames": 102,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_004.gif"
+    },
+    {
+      "episode": 5,
+      "start_frame": 342,
+      "num_frames": 97,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_005.gif"
+    },
+    {
+      "episode": 6,
+      "start_frame": 439,
+      "num_frames": 128,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_006.gif"
+    },
+    {
+      "episode": 7,
+      "start_frame": 567,
+      "num_frames": 26,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_007.gif"
+    },
+    {
+      "episode": 8,
+      "start_frame": 593,
+      "num_frames": 111,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_008.gif"
+    },
+    {
+      "episode": 9,
+      "start_frame": 704,
+      "num_frames": 140,
+      "gif": "paper/results/dataset_first_10_episodes/stackt/episode_009.gif"
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "dataset_id": "pusht-antigoal",
+  "dataset": "/grid/klindt/home/nam/.stable_worldmodel/datasets/push_t_antigoal_v3_expert_test.h5",
+  "fps": 10,
+  "episodes": [
+    {
+      "episode": 0,
+      "start_frame": 0,
+      "num_frames": 65,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_000.gif"
+    },
+    {
+      "episode": 1,
+      "start_frame": 65,
+      "num_frames": 91,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_001.gif"
+    },
+    {
+      "episode": 2,
+      "start_frame": 156,
+      "num_frames": 64,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_002.gif"
+    },
+    {
+      "episode": 3,
+      "start_frame": 220,
+      "num_frames": 49,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_003.gif"
+    },
+    {
+      "episode": 4,
+      "start_frame": 269,
+      "num_frames": 67,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_004.gif"
+    },
+    {
+      "episode": 5,
+      "start_frame": 336,
+      "num_frames": 51,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_005.gif"
+    },
+    {
+      "episode": 6,
+      "start_frame": 387,
+      "num_frames": 105,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_006.gif"
+    },
+    {
+      "episode": 7,
+      "start_frame": 492,
+      "num_frames": 52,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_007.gif"
+    },
+    {
+      "episode": 8,
+      "start_frame": 544,
+      "num_frames": 61,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_008.gif"
+    },
+    {
+      "episode": 9,
+      "start_frame": 605,
+      "num_frames": 52,
+      "gif": "paper/results/dataset_first_10_episodes/pusht-antigoal/episode_009.gif"
+    }
+  ]
+}
