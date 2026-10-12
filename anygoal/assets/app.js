@@ -138,10 +138,10 @@ pip install 'anygoal[all]'           # data + evaluation + training`)}
       ["requirements", "Runtime requirements", html`
         <p>The package metadata supports Python 3.10 and newer. The repository's exact reproducibility environment targets Python 3.10 and CUDA 12.8 and is pinned in ${code("requirements.txt")}.</p>
         ${table(["Use case", "Recommended setup"], [
-          ["Library user", `${code("pip install anygoal")} or one of the extras above`],
-          ["Exact repository reproduction", `${code("python3.10 -m venv .venv")} followed by ${code("pip install -r requirements.txt")}`],
-          ["Contributor", "Editable source install plus the project's development tools"],
-        ])}
+        ["Library user", `${code("pip install anygoal")} or one of the extras above`],
+        ["Exact repository reproduction", `${code("python3.10 -m venv .venv")} followed by ${code("pip install -r requirements.txt")}`],
+        ["Contributor", "Editable source install plus the project's development tools"],
+      ])}
       `],
       ["sources", "Third-party model sources", html`
         <p>AnyGoal does not redistribute the upstream LeWM, Sensorimotor, DriftWorld, or IRASim repositories in its wheel. Install only the source trees required for your experiment:</p>
@@ -217,11 +217,11 @@ anygoal data validate /path/to/cube_single_expert.h5 --dataset cube`)}
       ["generated", "Generated tasks", html`
         <p>The eight AnyGoal variants have in-package collectors and scripted policies. Several collectors deliberately depend on a base dataset to constrain actions, states, or episode support.</p>
         ${bullets([
-          `${code("avoidt")} and ${code("tworoom_route")} can be generated without a base reference file.`,
-          `${code("stackt")} and ${code("pusht-antigoal")} use PushT reference support.`,
-          `${code("cubehop")} and ${code("cubediagonal")} use the Cube reference artifact.`,
-          `${code("avoid_peg")} and ${code("extractpeg")} use the Insert Peg reference artifact.`,
-        ])}
+        `${code("avoidt")} and ${code("tworoom_route")} can be generated without a base reference file.`,
+        `${code("stackt")} and ${code("pusht-antigoal")} use PushT reference support.`,
+        `${code("cubehop")} and ${code("cubediagonal")} use the Cube reference artifact.`,
+        `${code("avoid_peg")} and ${code("extractpeg")} use the Insert Peg reference artifact.`,
+      ])}
       `],
       ["identity", "Identity and validation", html`
         <p>Collection stamps ${code("anygoal_dataset_id")} in the HDF5 root. Training and public evaluation infer a task from the canonical filename or HDF5 attributes and reject a conflicting explicit ${code("task")}.</p>
@@ -239,10 +239,10 @@ anygoal data validate /path/to/cube_single_expert.h5 --dataset cube`)}
       `],
       ["boundary", "What AnyGoal standardizes", html`
         ${bullets([
-          "Dataset and model IDs, aliases, supported families, and profile lookup.",
-          "Episode sampling, action-block alignment, evaluation seeds, and result records.",
-          "The call into each model's original trainer, checkpoint loader, rollout adapter, and planner.",
-        ])}
+        "Dataset and model IDs, aliases, supported families, and profile lookup.",
+        "Episode sampling, action-block alignment, evaluation seeds, and result records.",
+        "The call into each model's original trainer, checkpoint loader, rollout adapter, and planner.",
+      ])}
         <p>AnyGoal does not pretend that every model computes the same internal quantity. Rollout results always record their ${code("error_space")}, and preprocessing remains owned by the adapter.</p>
       `],
       ["sources", "Source ownership", html`
@@ -284,11 +284,11 @@ print(path)`)}
       `],
       ["safety", "Artifact safety", html`
         ${bullets([
-          "Collectors validate counts, paths, and required reference artifacts before the main run.",
-          "Outputs are commonly written to a temporary HDF5 file and atomically moved into place.",
-          "Existing output paths are refused by default.",
-          "The canonical dataset ID is stamped after collection for later task checks.",
-        ])}
+        "Collectors validate counts, paths, and required reference artifacts before the main run.",
+        "Outputs are commonly written to a temporary HDF5 file and atomically moved into place.",
+        "Existing output paths are refused by default.",
+        "The canonical dataset ID is stamped after collection for later task checks.",
+      ])}
       `],
       ["defaults", "Publication defaults", html`
         <p>Most collectors default to 400 accepted episodes. Use the task pages for the exact balancing rule, publication seed, reference data, and task-specific filters. Do not assume one collector's options apply to another.</p>
@@ -309,18 +309,18 @@ anygoal models install irasim`)}
       `],
       ["resolution", "Resolution order", html`
         ${steps([
-          ["Explicit override", `A model-specific environment variable such as ${code("DRIFTWORLD_SOURCE_ROOT")} wins.`],
-          ["Managed cache", `${code("ANYGOAL_SOURCE_ROOT")} defaults to ${code("~/.cache/anygoal/sources")}.`],
-          ["Development submodule", `A source checkout's ${code("worldmodels/")} submodule is recognized for repository development.`],
-        ])}
+        ["Explicit override", `A model-specific environment variable such as ${code("DRIFTWORLD_SOURCE_ROOT")} wins.`],
+        ["Managed cache", `${code("ANYGOAL_SOURCE_ROOT")} defaults to ${code("~/.cache/anygoal/sources")}.`],
+        ["Development submodule", `A source checkout's ${code("worldmodels/")} submodule is recognized for repository development.`],
+      ])}
       `],
       ["variables", "Supported overrides", html`
         ${table(["Model", "Environment variable"], [
-          ["LeWM", code("LEWM_SOURCE_ROOT")],
-          ["Sensorimotor", code("SENSORIMOTOR_SOURCE_ROOT")],
-          ["DriftWorld", code("DRIFTWORLD_SOURCE_ROOT")],
-          ["IRASim", code("IRASIM_SOURCE_ROOT")],
-        ])}
+        ["LeWM", code("LEWM_SOURCE_ROOT")],
+        ["Sensorimotor", code("SENSORIMOTOR_SOURCE_ROOT")],
+        ["DriftWorld", code("DRIFTWORLD_SOURCE_ROOT")],
+        ["IRASim", code("IRASIM_SOURCE_ROOT")],
+      ])}
       `],
       ["behavior", "Installer behavior", html`
         <p>The installer clones with filtered blobs, checks out a detached pinned revision, and then moves the completed checkout into the cache. It refuses to replace an existing destination or an incompatible explicitly configured checkout.</p>
@@ -364,13 +364,13 @@ print(run.elapsed_seconds)`)}
       `],
       ["result", "TrainingResult", html`
         ${table(["Field", "Meaning"], [
-          [code("model_id / task_id"), "Canonical registry IDs"],
-          [code("data"), "Resolved local HDF5 path"],
-          [code("run_directory"), "Directory containing the selected checkpoint"],
-          [code("checkpoint / config"), "Exact reload artifacts"],
-          [code("command"), "Native command that ran"],
-          [code("elapsed_seconds"), "Wall-clock training duration"],
-        ])}
+        [code("model_id / task_id"), "Canonical registry IDs"],
+        [code("data"), "Resolved local HDF5 path"],
+        [code("run_directory"), "Directory containing the selected checkpoint"],
+        [code("checkpoint / config"), "Exact reload artifacts"],
+        [code("command"), "Native command that ran"],
+        [code("elapsed_seconds"), "Wall-clock training duration"],
+      ])}
       `],
     ],
   },
@@ -380,12 +380,12 @@ print(run.elapsed_seconds)`)}
     sections: [
       ["protocol", "Default protocol", html`
         ${table(["Setting", "Default", "Meaning"], [
-          [code("history_length"), "3", "Observed context frames"],
-          [code("frame_skip"), "5", "Environment steps per model action block"],
-          [code("horizons"), "15, 25", "Autoregressive environment-step horizons"],
-          [code("num_episodes"), "100", "Sampled eligible episodes"],
-          [code("batch_size"), "32", "Evaluation batch size"],
-        ])}
+        [code("history_length"), "3", "Observed context frames"],
+        [code("frame_skip"), "5", "Environment steps per model action block"],
+        [code("horizons"), "15, 25", "Autoregressive environment-step horizons"],
+        [code("num_episodes"), "100", "Sampled eligible episodes"],
+        [code("batch_size"), "32", "Evaluation batch size"],
+      ])}
         <p>The short-horizon result is one action block, so the default is a 5-step MSE. Longer horizons report cumulative, mean-step, terminal, and start-weighted cumulative MSE.</p>
       `],
       ["python", "Python interface", html`
@@ -443,12 +443,12 @@ print(result[0].metrics)`)}
       `],
       ["defaults", "Default evaluation protocol", html`
         ${table(["Argument", "Default"], [
-          [code("num_evals"), "50 trials"],
-          [code("goal_offset_steps"), "25 dataset steps"],
-          [code("eval_budget"), "50 environment steps"],
-          [code("start_selection"), code("random")],
-          [code("seed"), "0 (controls start-point sampling)"],
-        ])}
+        [code("num_evals"), "50 trials"],
+        [code("goal_offset_steps"), "25 dataset steps"],
+        [code("eval_budget"), "50 environment steps"],
+        [code("start_selection"), code("random")],
+        [code("seed"), "0 (controls start-point sampling)"],
+      ])}
         <p>Solver randomness remains controlled by the supplied policy. The policy's ${code("horizon × action_block")} may not exceed the evaluation budget.</p>
       `],
       ["outputs", "Results and artifacts", html`
@@ -491,11 +491,11 @@ matrices:
       `],
       ["results", "Result types", html`
         ${table(["Type", "Module", "Purpose"], [
-          [code("TrainingPlan / TrainingResult"), code("anygoal.training"), "Resolved native command and completed training artifact"],
-          [code("RolloutResult / HorizonMetrics"), code("anygoal.rollout"), "Typed rollout metrics plus raw protocol output"],
-          [code("PlanningResult"), code("anygoal.planning"), "Planning metrics and exact sampled trials"],
-          [code("ValidationReport"), code("anygoal.types"), "Non-mutating HDF5 validation result"],
-        ])}
+        [code("TrainingPlan / TrainingResult"), code("anygoal.training"), "Resolved native command and completed training artifact"],
+        [code("RolloutResult / HorizonMetrics"), code("anygoal.rollout"), "Typed rollout metrics plus raw protocol output"],
+        [code("PlanningResult"), code("anygoal.planning"), "Planning metrics and exact sampled trials"],
+        [code("ValidationReport"), code("anygoal.types"), "Non-mutating HDF5 validation result"],
+      ])}
       `],
       ["datasets", "Dataset utilities", html`
         <p>${code("anygoal.datasets")} lazily exports ${code("validate_hdf5")}, state adapters for the four task families, and fixed z-score/min-max transforms used by the toy predictors.</p>
@@ -517,15 +517,15 @@ if not report.valid:
     sections: [
       ["commands", "Command map", html`
         ${table(["Command", "Purpose"], [
-          [code("anygoal list datasets|models|visualizers"), "Inspect registered integrations"],
-          [code("anygoal models list|status|install"), "Inspect or fetch pinned upstream source"],
-          [code("anygoal config show"), "Print merged configuration"],
-          [code("anygoal data validate"), "Check common HDF5 invariants"],
-          [code("anygoal collect"), "Run a generated dataset collector"],
-          [code("anygoal train"), "Run a verified training profile"],
-          [code("anygoal eval rollout|planning"), "Run packaged reproduction entry points"],
-          [code("anygoal reproduce"), "Expand a matrix manifest"],
-        ])}
+        [code("anygoal list datasets|models|visualizers"), "Inspect registered integrations"],
+        [code("anygoal models list|status|install"), "Inspect or fetch pinned upstream source"],
+        [code("anygoal config show"), "Print merged configuration"],
+        [code("anygoal data validate"), "Check common HDF5 invariants"],
+        [code("anygoal collect"), "Run a generated dataset collector"],
+        [code("anygoal train"), "Run a verified training profile"],
+        [code("anygoal eval rollout|planning"), "Run packaged reproduction entry points"],
+        [code("anygoal reproduce"), "Expand a matrix manifest"],
+      ])}
       `],
       ["examples", "Representative usage", html`
         ${codeBlock("terminal", `anygoal list datasets
@@ -567,12 +567,12 @@ anygoal config show --site ~/.config/anygoal/site.yaml`)}
       `],
       ["paths", "Filesystem roots", html`
         ${table(["Variable", "Default"], [
-          [code("ANYGOAL_DATA_ROOT"), code("~/.stable_worldmodel/datasets")],
-          [code("ANYGOAL_CHECKPOINT_ROOT"), code("~/.cache/anygoal/checkpoints")],
-          [code("ANYGOAL_OUTPUT_ROOT"), code("./outputs")],
-          [code("ANYGOAL_SOURCE_ROOT"), code("~/.cache/anygoal/sources")],
-          [code("ANYGOAL_CACHE_ROOT"), code("~/.cache/anygoal")],
-        ])}
+        [code("ANYGOAL_DATA_ROOT"), code("~/.stable_worldmodel/datasets")],
+        [code("ANYGOAL_CHECKPOINT_ROOT"), code("~/.cache/anygoal/checkpoints")],
+        [code("ANYGOAL_OUTPUT_ROOT"), code("./outputs")],
+        [code("ANYGOAL_SOURCE_ROOT"), code("~/.cache/anygoal/sources")],
+        [code("ANYGOAL_CACHE_ROOT"), code("~/.cache/anygoal")],
+      ])}
       `],
       ["wandb", "Weights & Biases defaults", html`
         <p>The package default disables W&amp;B. The site file may set entity, project, mode, directory, tags, and resume behavior for runners that consume those settings. Configuration alone never uploads an artifact unless the selected runner enables logging.</p>
@@ -596,17 +596,17 @@ print(model.capabilities)`)}
       `],
       ["specs", "Specification objects", html`
         ${table(["Type", "Carries"], [
-          [code("DatasetSpec"), "ID, aliases, family, filename, environment, schema, source, collector, seed"],
-          [code("ModelSpec"), "Capabilities, families, native runners, profile locations, config and seed styles"],
-          [code("VisualizerSpec"), "Input/output contract and optional runner"],
-        ])}
+        [code("DatasetSpec"), "ID, aliases, family, filename, environment, schema, source, collector, seed"],
+        [code("ModelSpec"), "Capabilities, families, native runners, profile locations, config and seed styles"],
+        [code("VisualizerSpec"), "Input/output contract and optional runner"],
+      ])}
       `],
       ["plugins", "Entry-point groups", html`
         ${table(["Group", "Extension"], [
-          [code("anygoal.datasets"), "DatasetSpec-compatible object"],
-          [code("anygoal.models"), "ModelSpec-compatible object"],
-          [code("anygoal.visualizers"), "VisualizerSpec-compatible object"],
-        ])}
+        [code("anygoal.datasets"), "DatasetSpec-compatible object"],
+        [code("anygoal.models"), "ModelSpec-compatible object"],
+        [code("anygoal.visualizers"), "VisualizerSpec-compatible object"],
+      ])}
         <p>Entry points are loaded when the registry is constructed. Duplicate canonical IDs or aliases are rejected, as are unknown model capabilities and malformed source declarations.</p>
       `],
       ["principle", "Extension principle", html`
@@ -620,20 +620,20 @@ print(model.capabilities)`)}
     sections: [
       ["hdf5", "Common HDF5 layout", html`
         ${bullets([
-          `${code("action")} and ${code("pixels")} are required top-level arrays.`,
-          `${code("state")} or ${code("proprio")} may provide task-specific low-dimensional observations.`,
-          "Leading dimensions for action, pixels, state/proprio, and episode indices must agree.",
-          `${code("ep_len")} must sum to the row count when present; otherwise ${code("episode")} identifies boundaries.`,
-        ])}
+        `${code("action")} and ${code("pixels")} are required top-level arrays.`,
+        `${code("state")} or ${code("proprio")} may provide task-specific low-dimensional observations.`,
+        "Leading dimensions for action, pixels, state/proprio, and episode indices must agree.",
+        `${code("ep_len")} must sum to the row count when present; otherwise ${code("episode")} identifies boundaries.`,
+      ])}
         <p>Task-specific training and planning add stricter column checks. Passing the common validator is necessary, not sufficient, for every model/task pair.</p>
       `],
       ["protocols", "Adapter protocols", html`
         ${table(["Protocol", "Minimum responsibility"], [
-          [code("DatasetAdapter"), "Declare ID/family/schema and validate a path"],
-          [code("ModelAdapter"), "Declare capabilities and validate dataset/task compatibility"],
-          [code("RolloutAdapter"), "Return per-example, per-step rollout errors"],
-          [code("PlanningAdapter"), "Return candidate costs for an observation and goal"],
-        ])}
+        [code("DatasetAdapter"), "Declare ID/family/schema and validate a path"],
+        [code("ModelAdapter"), "Declare capabilities and validate dataset/task compatibility"],
+        [code("RolloutAdapter"), "Return per-example, per-step rollout errors"],
+        [code("PlanningAdapter"), "Return candidate costs for an observation and goal"],
+      ])}
       `],
       ["reproducibility", "Reproducibility rules", html`
         <p>Seeds, episode indices, start positions, frame skip, history length, action blocks, normalization, and error space are part of the result—not incidental implementation details. Existing artifacts are never overwritten unless the caller opts in.</p>
@@ -757,13 +757,13 @@ for (const [path, task] of Object.entries(taskPages)) {
       ["specification", "Task specification", html`
         <p>${task.task}</p>
         ${table(["Property", "Value"], [
-          ["Dataset ID", code(task.id)],
-          ["Family", task.family],
-          ["Gymnasium environment", code(task.env)],
-          ["Canonical file", code(task.file)],
-          ["Publication seed", code(task.seed)],
-          ["Default full collection", task.count],
-        ])}
+        ["Dataset ID", code(task.id)],
+        ["Family", task.family],
+        ["Gymnasium environment", code(task.env)],
+        ["Canonical file", code(task.file)],
+        ["Publication seed", code(task.seed)],
+        ["Default full collection", task.count],
+      ])}
       `],
       ["collection", "Collect", html`
         ${codeBlock("terminal", task.command)}
@@ -837,7 +837,7 @@ function pager(path) {
 function renderHome() {
   main.innerHTML = html`<div class="home-hero">
     <div class="eyebrow">AnyGoal v0.1.0</div>
-    <h1>World models,<br /><span>tested beyond the training goal.</span></h1>
+    <h1>AnyGoal,<br /><span>a compositional generalization suite for world model research.</span></h1>
     <p class="lead">AnyGoal is an installable benchmark for collecting state–action recombination tasks and evaluating world models through open-loop rollout error and closed-loop planning.</p>
     <div class="hero-actions">
       <a class="primary-action" href="#/quick-start">Get started</a>
@@ -865,10 +865,10 @@ function renderHome() {
   `)}
   ${section("install", "Choose an install", 3, html`
     ${table(["Command", "Includes"], [
-      [code("pip install anygoal"), "Data I/O, collectors, validation, simulation environments"],
-      [code("pip install 'anygoal[eval]'"), "Default data install plus rollout and planning dependencies"],
-      [code("pip install 'anygoal[all]'"), "Data, evaluation, and training"],
-    ])}
+    [code("pip install anygoal"), "Data I/O, collectors, validation, simulation environments"],
+    [code("pip install 'anygoal[eval]'"), "Default data install plus rollout and planning dependencies"],
+    [code("pip install 'anygoal[all]'"), "Data, evaluation, and training"],
+  ])}
     ${callout("Upstream models stay upstream", `The wheel does not vendor third-party model repositories. Use ${code("anygoal models install <id>")} to fetch a pinned original checkout only when an integration needs it.`)}
   `)}
   ${section("start", "Start here", 4, html`<div class="card-grid">
@@ -878,7 +878,7 @@ function renderHome() {
     <a class="doc-card" href="#/reference/python"><small>Reference</small><h3>Python API →</h3><p>The stable public surface and typed results.</p></a>
   </div>`)}
   ${pager("/")}`;
-  document.title = "AnyGoal — World models, tested beyond the goal";
+  document.title = "AnyGoal";
 }
 
 function renderDoc(path) {
