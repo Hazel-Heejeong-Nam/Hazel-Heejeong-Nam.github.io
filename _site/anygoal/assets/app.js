@@ -769,6 +769,17 @@ function taskGifGrid(task) {
   return `<div class="task-gif-grid" aria-label="${escapeHtml(label)}">${gifs}</div>`;
 }
 
+function homeTaskGifGrid() {
+  const label = "AnyGoal task examples";
+  const gifs = Object.values(taskPages).map((task) => {
+    const source = `assets/dataset_first_10_episodes/${task.gifDirectory}/episode_000.gif`;
+    const alt = `${task.title} environment, first episode`;
+    return `<img src="${source}" alt="${escapeHtml(alt)}" loading="lazy" />`;
+  }).join("");
+
+  return `<div class="task-gif-grid" aria-label="${label}">${gifs}</div>`;
+}
+
 for (const [path, task] of Object.entries(taskPages)) {
   pages[path] = {
     title: task.title,
@@ -858,41 +869,22 @@ function pager(path) {
 function renderHome() {
   main.innerHTML = html`<div class="home-hero">
     <div class="eyebrow">AnyGoal v0.1.0</div>
-    <h1>AnyGoal,<br /><span>a compositional generalization suite for world model research.</span></h1>
-    <p class="lead">AnyGoal is an installable benchmark for collecting state–action recombination tasks and evaluating world models through open-loop rollout error and closed-loop planning.</p>
+    <h1>AnyGoal</h1>
+    <h2><br /><span>a compositional generalization suite for world model research.</span></h2>
+    ${homeTaskGifGrid()}
     <div class="hero-actions">
       <a class="primary-action" href="#/quick-start">Get started</a>
       <a class="secondary-action" href="https://github.com/galilai-group/AnyGoal">View source</a>
     </div>
     <div class="install-strip"><code>pip install anygoal</code><button type="button" data-copy="pip install anygoal">Copy</button></div>
-  </div>
-  ${section("purpose", "What AnyGoal measures", 1, html`
-    <p>Training trajectories entangle states, actions, and goals. AnyGoal constructs controlled tasks that recombine those ingredients, then asks two complementary questions:</p>
-    <div class="concept-grid">
-      <article><span>01</span><h3>Can the model predict?</h3><p>Open-loop rollout evaluation compares model-native predictions at one-block, 15-step, and 25-step horizons.</p></article>
-      <article><span>02</span><h3>Can the model plan?</h3><p>Dataset future states become reachable goals for model-predictive control in the actual simulator.</p></article>
-    </div>
-  `)}
-  ${section("workflow", "From base data to evaluation", 2, html`
-    <div class="workflow">
-      <div><span>1</span><strong>Base data</strong><small>PushT · Cube · Insert Peg · TwoRoom</small></div>
-      <i>→</i>
-      <div><span>2</span><strong>AnyGoal task</strong><small>Collect a supported recombination</small></div>
-      <i>→</i>
-      <div><span>3</span><strong>World model</strong><small>Original source + explicit checkpoint</small></div>
-      <i>→</i>
-      <div><span>4</span><strong>Evaluate</strong><small>Rollout error · planning success</small></div>
-    </div>
-  `)}
-  ${section("install", "Choose an install", 3, html`
     ${table(["Command", "Includes"], [
-    [code("pip install anygoal"), "Data I/O, collectors, validation, simulation environments"],
-    [code("pip install 'anygoal[eval]'"), "Default data install plus rollout and planning dependencies"],
-    [code("pip install 'anygoal[all]'"), "Data, evaluation, and training"],
-  ])}
+      [code("pip install anygoal"), "Data I/O, collectors, validation, simulation environments"],
+      [code("pip install 'anygoal[eval]'"), "Default data install plus rollout and planning dependencies"],
+      [code("pip install 'anygoal[all]'"), "Data, evaluation, and training"],
+    ])}
     ${callout("Upstream models stay upstream", `The wheel does not vendor third-party model repositories. Use ${code("anygoal models install <id>")} to fetch a pinned original checkout only when an integration needs it.`)}
-  `)}
-  ${section("start", "Start here", 4, html`<div class="card-grid">
+  </div>
+  ${section("start", "Start here", 3, html`<div class="card-grid">
     <a class="doc-card" href="#/quick-start"><small>Guide</small><h3>Quick start →</h3><p>Collect, validate, and resolve your first evaluation.</p></a>
     <a class="doc-card" href="#/datasets"><small>Catalog</small><h3>Datasets →</h3><p>Four base tasks and eight AnyGoal variants.</p></a>
     <a class="doc-card" href="#/models"><small>Integrations</small><h3>Models →</h3><p>Capabilities, source ownership, and error spaces.</p></a>
