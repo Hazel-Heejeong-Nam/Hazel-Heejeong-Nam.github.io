@@ -42,7 +42,7 @@ const groups = [
       ["/reference/cli", "CLI"],
       ["/reference/configuration", "Configuration"],
       ["/reference/registry", "Registry & extensions"],
-      ["/reference/contracts", "Data contracts"],
+      ["/reference/contracts", "Data Contracts"],
     ],
   },
 ];
@@ -172,10 +172,20 @@ anygoal list models
 anygoal models list`)}
         <p>The catalog is the source of truth for canonical IDs, aliases, task families, filenames, model capabilities, and runner profiles.</p>
       `],
-      ["collect", "2. Collect and validate a task", html`
-        ${codeBlock("terminal", `anygoal collect avoidt --num-episodes 400 --num-parallel 8
-anygoal data validate ~/.stable_worldmodel/datasets/avoidt_test.h5 --dataset avoidt`)}
-        <p>Generated datasets default to ${code("$STABLEWM_HOME/datasets")} or ${code("~/.stable_worldmodel/datasets")} when the environment variable is unset. Collectors refuse to overwrite an existing artifact unless you opt in.</p>
+      ["artifacts", "2. Download artifacts and evaluate", html`
+        <p>Download all published checkpoints and datasets.</p>
+        ${codeBlock("terminal", `anygoal artifacts download --checkpoints --all
+anygoal artifacts download --datasets --all`)}
+        <p>Download the specific dataset and checkpoint.</p>
+        ${codeBlock("terminal", `anygoal artifacts download \
+  --model driftworld \
+  --dataset cubehop`)}
+        <p>Alternatively, download artifacts during evaluation.</p>
+        ${codeBlock("terminal", `anygoal eval planning \
+  --model driftworld \
+  --dataset cubehop \
+  --download`)}
+        <p>AnyGoal resolves published model checkpoints and datasets from Hugging Face. Use the targeted download first for a single evaluation, or download the complete published artifact set for offline experiments.</p>
       `],
       ["evaluate", "3. Resolve an evaluation before running it", html`
         ${codeBlock("terminal", `anygoal models install driftworld
@@ -616,28 +626,12 @@ print(model.capabilities)`)}
   },
   "/reference/contracts": {
     title: "Data contracts",
-    subtitle: "The common HDF5 checks and adapter protocols that keep task identity, temporal alignment, and model I/O explicit.",
+    subtitle: "We use HDF5 format following the Stable-Worldmodel implementation.",
     sections: [
-      ["hdf5", "Common HDF5 layout", html`
-        ${bullets([
-        `${code("action")} and ${code("pixels")} are required top-level arrays.`,
-        `${code("state")} or ${code("proprio")} may provide task-specific low-dimensional observations.`,
-        "Leading dimensions for action, pixels, state/proprio, and episode indices must agree.",
-        `${code("ep_len")} must sum to the row count when present; otherwise ${code("episode")} identifies boundaries.`,
-      ])}
-        <p>Task-specific training and planning add stricter column checks. Passing the common validator is necessary, not sufficient, for every model/task pair.</p>
+      ["hdf5", "Upstream Stable-WorldModel", html`
+        <p>TBD.</p>
       `],
-      ["protocols", "Adapter protocols", html`
-        ${table(["Protocol", "Minimum responsibility"], [
-        [code("DatasetAdapter"), "Declare ID/family/schema and validate a path"],
-        [code("ModelAdapter"), "Declare capabilities and validate dataset/task compatibility"],
-        [code("RolloutAdapter"), "Return per-example, per-step rollout errors"],
-        [code("PlanningAdapter"), "Return candidate costs for an observation and goal"],
-      ])}
-      `],
-      ["reproducibility", "Reproducibility rules", html`
-        <p>Seeds, episode indices, start positions, frame skip, history length, action blocks, normalization, and error space are part of the result—not incidental implementation details. Existing artifacts are never overwritten unless the caller opts in.</p>
-      `],
+
     ],
   },
 };
@@ -868,7 +862,6 @@ function pager(path) {
 
 function renderHome() {
   main.innerHTML = html`<div class="home-hero">
-    <div class="eyebrow">AnyGoal v0.1.0</div>
     <h1>AnyGoal</h1>
     <h2><br /><span>a compositional generalization suite for world model research.</span></h2>
     ${homeTaskGifGrid()}
@@ -878,10 +871,10 @@ function renderHome() {
     </div>
     <div class="install-strip"><code>pip install anygoal</code><button type="button" data-copy="pip install anygoal">Copy</button></div>
     ${table(["Command", "Includes"], [
-      [code("pip install anygoal"), "Data I/O, collectors, validation, simulation environments"],
-      [code("pip install 'anygoal[eval]'"), "Default data install plus rollout and planning dependencies"],
-      [code("pip install 'anygoal[all]'"), "Data, evaluation, and training"],
-    ])}
+    [code("pip install anygoal"), "Data I/O, collectors, validation, simulation environments"],
+    [code("pip install 'anygoal[eval]'"), "Default data install plus rollout and planning dependencies"],
+    [code("pip install 'anygoal[all]'"), "Data, evaluation, and training"],
+  ])}
     ${callout("Upstream models stay upstream", `The wheel does not vendor third-party model repositories. Use ${code("anygoal models install <id>")} to fetch a pinned original checkout only when an integration needs it.`)}
   </div>
   ${section("start", "Start here", 3, html`<div class="card-grid">
