@@ -9,6 +9,7 @@ const groups = [
       ["/quick-start", "Quick start"],
       ["/datasets", "Dataset catalog"],
       ["/models", "Model integrations"],
+      ["/stable-stack", "Built on StableWM"],
     ],
   },
   {
@@ -59,14 +60,25 @@ function code(value) {
   return `<code>${escapeHtml(value)}</code>`;
 }
 
+function languageForLabel(label) {
+  const normalized = label.toLowerCase();
+  if (normalized === "terminal") return "bash";
+  if (normalized.endsWith(".py")) return "python";
+  if (normalized.endsWith(".yaml") || normalized.endsWith(".yml")) return "yaml";
+  return "none";
+}
+
 function codeBlock(label, value) {
-  return html`<div class="code-block">
-    <div class="code-top">
-      <span class="code-dots"><i></i><i></i><i></i></span>
-      <span>${escapeHtml(label)}</span>
-      <button class="copy-button" type="button">Copy</button>
-    </div>
-    <pre><code>${escapeHtml(value.trim())}</code></pre>
+  const compact = label.toLowerCase() === "terminal" || label.toLowerCase().endsWith(".py");
+  return html`<div class="code-block${compact ? " compact-code" : ""}">
+    ${compact
+      ? `<button class="copy-button symbol-copy" type="button" aria-label="Copy code" title="Copy code"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="1.5"></rect><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path></svg></button>`
+      : `<div class="code-top">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span>${escapeHtml(label)}</span>
+        <button class="copy-button" type="button">Copy</button>
+      </div>`}
+    <pre><code class="language-${languageForLabel(label)}">${escapeHtml(value.trim())}</code></pre>
   </div>`;
 }
 
@@ -104,7 +116,7 @@ const datasetRows = [
   [code("cube"), "Cube", code("cube_single_expert.h5"), "External base data"],
   [code("cubehop"), "Cube", code("cube_hop_test.h5"), "Generated"],
   [code("cubediagonal"), "Cube", code("cube_diagonal_test.h5"), "Generated"],
-  [code("insertpeg"), "Insert Peg", code("insert_peg_weak_expert_train.h5"), "External base data"],
+  [code("insertpeg"), "Insert Peg", code("manipulator_insert_peg_weak_expert_train.h5"), "External base data"],
   [code("avoid_peg"), "Insert Peg", code("avoid_peg_test.h5"), "Generated"],
   [code("extractpeg"), "Insert Peg", code("extract_peg_test.h5"), "Generated"],
   [code("tworoom"), "TwoRoom", code("tworoom.h5"), "External base data"],
@@ -151,7 +163,7 @@ anygoal models install irasim
 anygoal models install lewm
 anygoal models install sensorimotor
 # or: anygoal models install --all`)}
-        <p>The installer checks out the exact revisions in ${code("anygoal/resources/sources.yaml")} under ${code("~/.cache/anygoal/sources")} and does not run a hidden package installation.</p>
+        <p>The installer checks out the exact revisions in ${code("anygoal/resources/sources.yaml")} under ${code("$ANYGOAL_HOME/sources")} (default ${code("~/.anygoal/sources")}) and does not run a hidden package installation.</p>
       `],
       ["verify", "Verify the install", html`
         ${codeBlock("terminal", `anygoal --version
@@ -267,6 +279,29 @@ anygoal models status irasim`)}
       `],
     ],
   },
+  "/stable-stack": {
+    title: "Built on Stable World-Model",
+    subtitle: "AnyGoal adds tasks and evaluation protocols while keeping the established Stable World-Model stack underneath.",
+    sections: [
+      ["boundary", "What comes from where", html`
+        ${table(["Layer", "Owner"], [
+        ["Worlds & environments", "Stable World-Model base environments; AnyGoal task variants and registration"],
+        ["Dataset I/O", `Stable World-Model ${code("HDF5Dataset")}; AnyGoal collection, identity, and validation`],
+        ["Planning", `Stable World-Model ${code("World")}, solver, cost, and policy; AnyGoal trial selection and task metrics`],
+        ["Model training", "Original model code plus Stable Pretraining where required; AnyGoal runners and profiles"],
+      ])}
+      `],
+      ["data", "Shared data contract", html`
+        <p>AnyGoal reads and writes the same trajectory HDF5 layout used by Stable World-Model. Paths or existing ${code("HDF5Dataset")} objects work directly in training, rollout, and planning.</p>
+      `],
+      ["planning", "A thin planning layer", html`
+        <p>${code("anygoal.plan")} keeps Stable World-Model's model, cost, solver, and policy behavior. It only selects deterministic dataset trials, restores task state, and records benchmark results.</p>
+      `],
+      ["training", "Training support", html`
+        <p>Stable Pretraining supplies training components for LeWM, Sensorimotor, PreJEPA, and toy-predictor integrations. It is optional unless those workflows need it.</p>
+      `],
+    ],
+  },
   "/guides/collection": {
     title: "Collect data",
     subtitle: "Use one registry ID from Python or the CLI; AnyGoal dispatches to the matching in-package collector.",
@@ -320,7 +355,7 @@ anygoal models install irasim`)}
       ["resolution", "Resolution order", html`
         ${steps([
         ["Explicit override", `A model-specific environment variable such as ${code("DRIFTWORLD_SOURCE_ROOT")} wins.`],
-        ["Managed cache", `${code("ANYGOAL_SOURCE_ROOT")} defaults to ${code("~/.cache/anygoal/sources")}.`],
+        ["Managed checkout", `${code("ANYGOAL_SOURCE_ROOT")} defaults to ${code("$ANYGOAL_HOME/sources")} (${code("~/.anygoal/sources")}).`],
         ["Development submodule", `A source checkout's ${code("worldmodels/")} submodule is recognized for repository development.`],
       ])}
       `],
@@ -529,6 +564,7 @@ if not report.valid:
         ${table(["Command", "Purpose"], [
         [code("anygoal list datasets|models|visualizers"), "Inspect registered integrations"],
         [code("anygoal models list|status|install"), "Inspect or fetch pinned upstream source"],
+        [code("anygoal artifacts download"), "Download published datasets and checkpoints"],
         [code("anygoal config show"), "Print merged configuration"],
         [code("anygoal data validate"), "Check common HDF5 invariants"],
         [code("anygoal collect"), "Run a generated dataset collector"],
@@ -578,10 +614,11 @@ anygoal config show --site ~/.config/anygoal/site.yaml`)}
       ["paths", "Filesystem roots", html`
         ${table(["Variable", "Default"], [
         [code("ANYGOAL_DATA_ROOT"), code("~/.stable_worldmodel/datasets")],
-        [code("ANYGOAL_CHECKPOINT_ROOT"), code("~/.cache/anygoal/checkpoints")],
+        [code("ANYGOAL_HOME"), code("~/.anygoal")],
+        [code("ANYGOAL_CHECKPOINT_ROOT"), code("$ANYGOAL_HOME/checkpoints")],
         [code("ANYGOAL_OUTPUT_ROOT"), code("./outputs")],
-        [code("ANYGOAL_SOURCE_ROOT"), code("~/.cache/anygoal/sources")],
-        [code("ANYGOAL_CACHE_ROOT"), code("~/.cache/anygoal")],
+        [code("ANYGOAL_SOURCE_ROOT"), code("$ANYGOAL_HOME/sources")],
+        [code("ANYGOAL_CACHE_ROOT"), code("$ANYGOAL_HOME/cache")],
       ])}
       `],
       ["wandb", "Weights & Biases defaults", html`
@@ -626,12 +663,19 @@ print(model.capabilities)`)}
   },
   "/reference/contracts": {
     title: "Data contracts",
-    subtitle: "We use HDF5 format following the Stable-Worldmodel implementation.",
+    subtitle: "AnyGoal keeps Stable World-Model's HDF5 trajectory contract so datasets remain interoperable.",
     sections: [
-      ["hdf5", "Upstream Stable-WorldModel", html`
-        <p>TBD.</p>
+      ["hdf5", "Stable World-Model HDF5", html`
+        <p>${code("action")} and ${code("pixels")} are required. Optional state, proprioception, goals, and task-specific fields keep one shared leading time dimension.</p>
+        <p>Episode boundaries use ${code("ep_len")} or ${code("episode")}. AnyGoal adds only the ${code("anygoal_dataset_id")} root attribute for task identity.</p>
       `],
-
+      ["interop", "Direct interoperability", html`
+        <p>Training, rollout, and planning accept an HDF5 path or a Stable World-Model ${code("HDF5Dataset")}. AnyGoal does not introduce another dataset container.</p>
+      `],
+      ["validation", "Validation", html`
+        ${codeBlock("terminal", `anygoal data validate /path/to/dataset.h5 --dataset avoidt`)}
+        <p>Validation is non-mutating and checks required keys, row counts, episode bookkeeping, and optional task identity.</p>
+      `],
     ],
   },
 };
@@ -845,7 +889,7 @@ function renderNavigation(path) {
 
 function section(id, title, index, body) {
   return html`<section class="doc-section" id="${id}">
-    <div class="section-heading"><h2>${title}</h2><span class="section-index">${String(index).padStart(2, "0")}</span></div>
+    <div class="section-heading"><h2>${title}</h2></div>
     <div class="section-body">${body}</div>
   </section>`;
 }
@@ -877,7 +921,25 @@ function renderHome() {
   ])}
     ${callout("Upstream models stay upstream", `The wheel does not vendor third-party model repositories. Use ${code("anygoal models install <id>")} to fetch a pinned original checkout only when an integration needs it.`)}
   </div>
-  ${section("start", "Start here", 3, html`<div class="card-grid">
+  ${section("foundation", "Built on a stable foundation", 1, html`
+    <p>AnyGoal extends the Stable stack; it does not replace it.</p>
+    <div class="foundation-grid">
+      <article class="foundation-card">
+        <div><span class="dependency-name">Stable World-Model</span><span class="dependency-version">v0.1.1</span></div>
+        <p>Environments, HDF5 data I/O, world abstraction, solvers, costs, and policies.</p>
+        <small>Supported range: &gt;=0.1.1,&lt;0.2.0</small>
+        <a href="https://github.com/galilai-group/stable-worldmodel" target="_blank" rel="noreferrer">GitHub repository <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="foundation-card">
+        <div><span class="dependency-name">Stable Pretraining</span><span class="dependency-version">v0.1.7</span></div>
+        <p>Optional training components used by selected model integrations.</p>
+        <small>Supported range: &gt;=0.1.7,&lt;0.2</small>
+        <a href="https://github.com/galilai-group/stable-pretraining" target="_blank" rel="noreferrer">GitHub repository <span aria-hidden="true">↗</span></a>
+      </article>
+    </div>
+    <a class="text-link" href="#/stable-stack">See how AnyGoal uses the Stable stack →</a>
+  `)}
+  ${section("start", "Start here", 2, html`<div class="card-grid">
     <a class="doc-card" href="#/quick-start"><small>Guide</small><h3>Quick start →</h3><p>Collect, validate, and resolve your first evaluation.</p></a>
     <a class="doc-card" href="#/datasets"><small>Catalog</small><h3>Datasets →</h3><p>Four base tasks and eight AnyGoal variants.</p></a>
     <a class="doc-card" href="#/models"><small>Integrations</small><h3>Models →</h3><p>Capabilities, source ownership, and error spaces.</p></a>
@@ -889,10 +951,7 @@ function renderHome() {
 
 function renderDoc(path) {
   const page = pages[path];
-  const navigationPage = flatPages.find((item) => item.path === path);
-  const group = navigationPage ? navigationPage.group : "Documentation";
   main.innerHTML = html`<header class="doc-header">
-    <div class="eyebrow">${group}</div>
     <h1>${page.title}</h1>
     <p class="lead">${page.subtitle}</p>
     ${page.gifDirectory ? taskGifGrid(page) : ""}
@@ -907,9 +966,22 @@ function bindCopyButtons() {
     button.addEventListener("click", async () => {
       const value = button.dataset.copy || button.closest(".code-block").querySelector("code").innerText;
       await navigator.clipboard.writeText(value);
-      const original = button.textContent;
-      button.textContent = "Copied";
-      setTimeout(() => { button.textContent = original; }, 1200);
+      const originalText = button.textContent;
+      const originalLabel = button.getAttribute("aria-label");
+      const originalTitle = button.getAttribute("title");
+      if (button.classList.contains("symbol-copy")) {
+        button.setAttribute("aria-label", "Copied");
+        button.setAttribute("title", "Copied");
+      } else {
+        button.textContent = "Copied";
+      }
+      setTimeout(() => {
+        button.textContent = originalText;
+        if (originalLabel === null) button.removeAttribute("aria-label");
+        else button.setAttribute("aria-label", originalLabel);
+        if (originalTitle === null) button.removeAttribute("title");
+        else button.setAttribute("title", originalTitle);
+      }, 1200);
     });
   });
 }
@@ -928,6 +1000,7 @@ function render() {
       document.getElementById(link.dataset.anchor).scrollIntoView();
     }),
   );
+  if (window.Prism) Prism.highlightAllUnder(main);
   bindCopyButtons();
   document.body.classList.remove("menu-open");
   document.querySelector("#menu-toggle").setAttribute("aria-expanded", "false");

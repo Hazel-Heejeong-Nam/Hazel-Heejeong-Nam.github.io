@@ -60,14 +60,25 @@ function code(value) {
   return `<code>${escapeHtml(value)}</code>`;
 }
 
+function languageForLabel(label) {
+  const normalized = label.toLowerCase();
+  if (normalized === "terminal") return "bash";
+  if (normalized.endsWith(".py")) return "python";
+  if (normalized.endsWith(".yaml") || normalized.endsWith(".yml")) return "yaml";
+  return "none";
+}
+
 function codeBlock(label, value) {
-  return html`<div class="code-block">
-    <div class="code-top">
-      <span class="code-dots"><i></i><i></i><i></i></span>
-      <span>${escapeHtml(label)}</span>
-      <button class="copy-button" type="button">Copy</button>
-    </div>
-    <pre><code>${escapeHtml(value.trim())}</code></pre>
+  const compact = label.toLowerCase() === "terminal" || label.toLowerCase().endsWith(".py");
+  return html`<div class="code-block${compact ? " compact-code" : ""}">
+    ${compact
+      ? `<button class="copy-button symbol-copy" type="button" aria-label="Copy code" title="Copy code"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="1.5"></rect><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path></svg></button>`
+      : `<div class="code-top">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span>${escapeHtml(label)}</span>
+        <button class="copy-button" type="button">Copy</button>
+      </div>`}
+    <pre><code class="language-${languageForLabel(label)}">${escapeHtml(value.trim())}</code></pre>
   </div>`;
 }
 
@@ -878,7 +889,7 @@ function renderNavigation(path) {
 
 function section(id, title, index, body) {
   return html`<section class="doc-section" id="${id}">
-    <div class="section-heading"><h2>${title}</h2><span class="section-index">${String(index).padStart(2, "0")}</span></div>
+    <div class="section-heading"><h2>${title}</h2></div>
     <div class="section-body">${body}</div>
   </section>`;
 }
@@ -940,10 +951,7 @@ function renderHome() {
 
 function renderDoc(path) {
   const page = pages[path];
-  const navigationPage = flatPages.find((item) => item.path === path);
-  const group = navigationPage ? navigationPage.group : "Documentation";
   main.innerHTML = html`<header class="doc-header">
-    <div class="eyebrow">${group}</div>
     <h1>${page.title}</h1>
     <p class="lead">${page.subtitle}</p>
     ${page.gifDirectory ? taskGifGrid(page) : ""}
@@ -958,9 +966,22 @@ function bindCopyButtons() {
     button.addEventListener("click", async () => {
       const value = button.dataset.copy || button.closest(".code-block").querySelector("code").innerText;
       await navigator.clipboard.writeText(value);
-      const original = button.textContent;
-      button.textContent = "Copied";
-      setTimeout(() => { button.textContent = original; }, 1200);
+      const originalText = button.textContent;
+      const originalLabel = button.getAttribute("aria-label");
+      const originalTitle = button.getAttribute("title");
+      if (button.classList.contains("symbol-copy")) {
+        button.setAttribute("aria-label", "Copied");
+        button.setAttribute("title", "Copied");
+      } else {
+        button.textContent = "Copied";
+      }
+      setTimeout(() => {
+        button.textContent = originalText;
+        if (originalLabel === null) button.removeAttribute("aria-label");
+        else button.setAttribute("aria-label", originalLabel);
+        if (originalTitle === null) button.removeAttribute("title");
+        else button.setAttribute("title", originalTitle);
+      }, 1200);
     });
   });
 }
@@ -979,6 +1000,7 @@ function render() {
       document.getElementById(link.dataset.anchor).scrollIntoView();
     }),
   );
+  if (window.Prism) Prism.highlightAllUnder(main);
   bindCopyButtons();
   document.body.classList.remove("menu-open");
   document.querySelector("#menu-toggle").setAttribute("aria-expanded", "false");
