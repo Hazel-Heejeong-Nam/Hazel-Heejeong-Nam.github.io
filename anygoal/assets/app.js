@@ -20,7 +20,7 @@ const groups = [
       ["/guides/training", "Train a model"],
       ["/guides/rollout", "Rollout evaluation"],
       ["/guides/planning", "Planning evaluation"],
-      ["/guides/reproduction", "Reproduce a matrix"],
+      ["/guides/reproduction", "Generate commands"],
     ],
   },
   {
@@ -42,7 +42,7 @@ const groups = [
       ["/reference/python", "Python API"],
       ["/reference/cli", "CLI"],
       ["/reference/configuration", "Configuration"],
-      ["/reference/registry", "Registry & extensions"],
+      ["/reference/registry", "Registry"],
       ["/reference/contracts", "Data Contracts"],
     ],
   },
@@ -69,9 +69,9 @@ function languageForLabel(label) {
 }
 
 function codeBlock(label, value) {
-  const compact = label.toLowerCase() === "terminal" || label.toLowerCase().endsWith(".py");
-  return html`<div class="code-block${compact ? " compact-code" : ""}">
-    ${compact
+  const terminal = label.toLowerCase() === "terminal";
+  return html`<div class="code-block${terminal ? " terminal-code" : ""}">
+    ${terminal
       ? `<button class="copy-button symbol-copy" type="button" aria-label="Copy code" title="Copy code"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="1.5"></rect><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path></svg></button>`
       : `<div class="code-top">
         <span class="code-dots"><i></i><i></i><i></i></span>
@@ -126,7 +126,7 @@ const datasetRows = [
 const modelRows = [
   [code("lewm"), "LeWM", "Original source checkout", "latent"],
   [code("sensorimotor"), "Sensorimotor WM", "Original source checkout", "latent"],
-  [code("prejepa"), "PreJEPA / DINO-WM alias", "Packaged runner", "latent (non-action modalities)"],
+  [code("prejepa"), "PreJEPA / DINO-WM alias", "Packaged runner", "latent"],
   [code("driftworld"), "DriftWorld", "Original source checkout", "normalized pixels"],
   [code("irasim"), "IRASim", "Original source checkout", "normalized pixels"],
   [code("toy-adaln"), "AdaLN predictor", "AnyGoal native", "normalized state"],
@@ -188,11 +188,11 @@ anygoal models list`)}
         <p>Download all published checkpoints and datasets.</p>
         ${codeBlock("terminal", `anygoal artifacts download --checkpoints --all
 anygoal artifacts download --datasets --all`)}
-        <p>Download the specific dataset and checkpoint.</p>
+        <p>Or, download the specific dataset and checkpoint.</p>
         ${codeBlock("terminal", `anygoal artifacts download \
   --model driftworld \
   --dataset cubehop`)}
-        <p>Alternatively, download artifacts during evaluation.</p>
+        <p>If you don't want to download manually, download artifacts during evaluation.</p>
         ${codeBlock("terminal", `anygoal eval planning \
   --model driftworld \
   --dataset cubehop \
@@ -203,7 +203,6 @@ anygoal artifacts download --datasets --all`)}
         ${codeBlock("terminal", `anygoal models install driftworld
 anygoal eval rollout --model driftworld --dataset avoidt --seed 0 --dry-run
 anygoal eval planning --model driftworld --dataset avoidt --seed 0 --dry-run`)}
-        ${callout("Dry runs are deliberate", "The CLI evaluation commands are reproduction entry points backed by packaged model/task configs. Use a dry run first to inspect the exact module, checkpoint override, and configuration that will execute.")}
       `],
       ["python", "4. Use explicit paths from Python", html`
         ${codeBlock("example.py", `import anygoal
@@ -219,7 +218,6 @@ result = anygoal.evaluate_rollout(
 
 print(result[0].five_step_mse)
 print(result[0].horizons[25].terminal_mse)`)}
-        <p>The Python API is the direct interface for custom dataset and checkpoint paths. A sequence of seeds returns a dictionary keyed by seed; a scalar seed returns one result.</p>
       `],
     ],
   },
@@ -236,19 +234,6 @@ print(result[0].horizons[25].terminal_mse)`)}
         ${codeBlock("terminal", `anygoal data validate /path/to/pusht_expert_train.h5 --dataset pusht
 anygoal data validate /path/to/cube_single_expert.h5 --dataset cube`)}
       `],
-      ["generated", "Generated tasks", html`
-        <p>The eight AnyGoal variants have in-package collectors and scripted policies. Several collectors deliberately depend on a base dataset to constrain actions, states, or episode support.</p>
-        ${bullets([
-        `${code("avoidt")} and ${code("tworoom_route")} can be generated without a base reference file.`,
-        `${code("stackt")} and ${code("pusht-antigoal")} use PushT reference support.`,
-        `${code("cubehop")} and ${code("cubediagonal")} use the Cube reference artifact.`,
-        `${code("avoid_peg")} and ${code("extractpeg")} use the Insert Peg reference artifact.`,
-      ])}
-      `],
-      ["identity", "Identity and validation", html`
-        <p>Collection stamps ${code("anygoal_dataset_id")} in the HDF5 root. Training and public evaluation infer a task from the canonical filename or HDF5 attributes and reject a conflicting explicit ${code("task")}.</p>
-        <p>The common validator is non-mutating. It checks the file extension, required ${code("action")} and ${code("pixels")} columns, leading dimensions, and episode bookkeeping through ${code("ep_len")} or ${code("episode")}.</p>
-      `],
     ],
   },
   "/models": {
@@ -259,24 +244,13 @@ anygoal data validate /path/to/cube_single_expert.h5 --dataset cube`)}
         ${table(["Model ID", "Integration", "Code origin", "Rollout error space"], modelRows)}
         <p>Every current catalog entry declares ${code("train")}, ${code("rollout")}, and ${code("plan")} capabilities for the PushT, Cube, TwoRoom, and Insert Peg families.</p>
       `],
-      ["boundary", "What AnyGoal standardizes", html`
-        ${bullets([
-        "Dataset and model IDs, aliases, supported families, and profile lookup.",
-        "Episode sampling, action-block alignment, evaluation seeds, and result records.",
-        "The call into each model's original trainer, checkpoint loader, rollout adapter, and planner.",
-      ])}
-        <p>AnyGoal does not pretend that every model computes the same internal quantity. Rollout results always record their ${code("error_space")}, and preprocessing remains owned by the adapter.</p>
-      `],
       ["sources", "Source ownership", html`
         <p>The managed source installer clones original upstream repositories at pinned commits. This keeps attribution and repository history intact and lets integrations import the authors' implementations without vendoring them into AnyGoal.</p>
         ${codeBlock("terminal", `anygoal models status lewm
 anygoal models status sensorimotor
 anygoal models status driftworld
 anygoal models status irasim`)}
-      `],
-      ["checkpoints", "Checkpoints are separate", html`
-        ${callout("No automatic checkpoint download", "A source checkout is not a trained checkpoint. Pass an explicit checkpoint or use a verified packaged profile whose path is configured in your environment. Public checkpoint URLs, licenses, and hashes must be supplied before a release can promise automatic retrieval.", "warning")}
-      `],
+      `]
     ],
   },
   "/stable-stack": {
@@ -304,7 +278,7 @@ anygoal models status irasim`)}
   },
   "/guides/collection": {
     title: "Collect data",
-    subtitle: "Use one registry ID from Python or the CLI; AnyGoal dispatches to the matching in-package collector.",
+    subtitle: "Collect data from AnyGoal environments.",
     sections: [
       ["api", "Python interface", html`
         ${codeBlock("example.py", `from anygoal import collect
@@ -352,13 +326,6 @@ anygoal models install driftworld
 anygoal models install irasim`)}
         <p>Each status is ${code("missing")}, ${code("ready")}, or ${code("unverified")}. ${code("ready")} means the checkout's current commit exactly matches the source manifest revision.</p>
       `],
-      ["resolution", "Resolution order", html`
-        ${steps([
-        ["Explicit override", `A model-specific environment variable such as ${code("DRIFTWORLD_SOURCE_ROOT")} wins.`],
-        ["Managed checkout", `${code("ANYGOAL_SOURCE_ROOT")} defaults to ${code("$ANYGOAL_HOME/sources")} (${code("~/.anygoal/sources")}).`],
-        ["Development submodule", `A source checkout's ${code("worldmodels/")} submodule is recognized for repository development.`],
-      ])}
-      `],
       ["variables", "Supported overrides", html`
         ${table(["Model", "Environment variable"], [
         ["LeWM", code("LEWM_SOURCE_ROOT")],
@@ -381,7 +348,7 @@ anygoal models install irasim`)}
         <p>Training profiles are registered for the four base tasks: ${code("pusht")}, ${code("cube")}, ${code("tworoom")}, and ${code("insertpeg")}. AnyGoal variants are evaluation targets, not separate verified training profiles.</p>
         ${callout("Official checkpoint warning", "For LeWM and PreJEPA on PushT, Cube, and TwoRoom, the AnyGoal experiments used official released checkpoints. Retraining can be useful, but a newly trained checkpoint is not guaranteed to reproduce reported numbers.", "warning")}
       `],
-      ["cli", "Inspect, then launch", html`
+      ["cli", "Dry-run before launch", html`
         ${codeBlock("terminal", `anygoal train driftworld \
   --data /data/pusht_expert_train.h5 \
   --task pusht \
@@ -453,14 +420,11 @@ print(seed_zero.horizons[25].terminal_mse)`)}
         <p>Episodes are selected reproducibly from those long enough for the requested context and horizon. The primary aggregate gives every sampled episode equal weight. Raw JSON also contains start-weighted values, per-episode summaries, selected indices, and a sampling digest.</p>
         ${callout("Short-only fallback", "If too few episodes support all long horizons but enough support one action block, short-horizon evaluation still runs and the unavailable long-horizon metrics include a reason.")}
       `],
-      ["space", "Compare like with like", html`
-        <p>Latent autoregressive models, video models, and true-state toy predictors do not share a universal MSE scale. Always group or label results by ${code("error_space")}; do not rank models across latent, normalized-pixel, and normalized-state spaces as though the values were interchangeable.</p>
-      `],
     ],
   },
   "/guides/planning": {
     title: "Planning evaluation",
-    subtitle: "Evaluate a caller-built Stable Worldmodel policy on deterministic future-state goals sampled from an HDF5 trajectory dataset.",
+    subtitle: "MPC planning with Stable-Worldmodel.",
     sections: [
       ["ownership", "Division of responsibility", html`
         <p>You construct the model, objective, solver, and ${code("WorldModelPolicy")}. AnyGoal selects trials, restores task states, installs dataset future states as goals, runs ${code("World.evaluate")}, and attaches task-specific metrics.</p>
@@ -502,7 +466,7 @@ print(result[0].metrics)`)}
     ],
   },
   "/guides/reproduction": {
-    title: "Reproduce a matrix",
+    title: "Generate commands",
     subtitle: "Expand a versioned manifest into explicit model × dataset × seed evaluation commands.",
     sections: [
       ["manifest", "Manifest format", html`
@@ -516,9 +480,6 @@ matrices:
       ["expand", "Expand commands", html`
         ${codeBlock("terminal", `anygoal reproduce scripts/analysis/manifest.yaml`)}
         <p>The command prints every resolved ${code("anygoal eval ...")} command. It intentionally does not choose a local scheduler or execute a cluster job; pipe or translate the output into the workflow system you control.</p>
-      `],
-      ["analysis", "Research analysis boundary", html`
-        <p>Counterfactual analyses, statistical aggregation, plotting, and publication visualizations live under ${code("scripts/analysis/")}. They are research workflows rather than stable library API and are not imported by ${code("anygoal")}.</p>
       `],
     ],
   },
@@ -583,12 +544,6 @@ anygoal train lewm --data /data/pusht_expert_train.h5 --task pusht --dry-run
 anygoal eval rollout --model lewm --dataset avoidt --seed 0 --dry-run
 anygoal eval planning --model lewm --dataset avoidt --seed 0 --dry-run`)}
       `],
-      ["evaluation", "CLI evaluation boundary", html`
-        <p>${code("anygoal eval")} resolves a registered model/task combination to its packaged runner and configuration. It is suited to exact project reproduction. It does not expose the full explicit-path surface of the Python APIs; use ${code("anygoal.evaluate_rollout")} or ${code("anygoal.plan")} for arbitrary HDF5 and policy objects.</p>
-      `],
-      ["visualizers", "Visualizer extensions", html`
-        <p>The CLI retains a registry-based ${code("visualize")} extension point, but AnyGoal currently ships no built-in visualizers. Analysis plots live in ${code("scripts/analysis/")}. An external package may register a visualizer entry point, after which it appears in ${code("anygoal list visualizers")}.</p>
-      `],
     ],
   },
   "/reference/configuration": {
@@ -627,7 +582,7 @@ anygoal config show --site ~/.config/anygoal/site.yaml`)}
     ],
   },
   "/reference/registry": {
-    title: "Registry & extensions",
+    title: "Registry",
     subtitle: "One packaged YAML catalog resolves stable IDs to datasets, model capabilities, runners, configs, and optional external integrations.",
     sections: [
       ["lookup", "Lookup", html`
@@ -656,14 +611,11 @@ print(model.capabilities)`)}
       ])}
         <p>Entry points are loaded when the registry is constructed. Duplicate canonical IDs or aliases are rejected, as are unknown model capabilities and malformed source declarations.</p>
       `],
-      ["principle", "Extension principle", html`
-        <p>Add metadata and an adapter, not a model-name conditional in the CLI. Scientific integrations must document observation keys, action convention, history, frame skip, preprocessing, normalization ownership, and native output space.</p>
-      `],
     ],
   },
   "/reference/contracts": {
     title: "Data contracts",
-    subtitle: "AnyGoal keeps Stable World-Model's HDF5 trajectory contract so datasets remain interoperable.",
+    subtitle: "AnyGoal keeps Stable World-Model's HDF5 trajectory contract.",
     sections: [
       ["hdf5", "Stable World-Model HDF5", html`
         <p>${code("action")} and ${code("pixels")} are required. Optional state, proprioception, goals, and task-specific fields keep one shared leading time dimension.</p>
@@ -919,7 +871,7 @@ function renderHome() {
     [code("pip install 'anygoal[eval]'"), "Default data install plus rollout and planning dependencies"],
     [code("pip install 'anygoal[all]'"), "Data, evaluation, and training"],
   ])}
-    ${callout("Upstream models stay upstream", `The wheel does not vendor third-party model repositories. Use ${code("anygoal models install <id>")} to fetch a pinned original checkout only when an integration needs it.`)}
+    ${callout("Third-party models", `The wheel does not vendor third-party model repositories. Use ${code("anygoal models install <id>")} to fetch a pinned original checkout only when an integration needs it.`)}
   </div>
   ${section("foundation", "Built on a stable foundation", 1, html`
     <p>AnyGoal extends the Stable stack; it does not replace it.</p>
