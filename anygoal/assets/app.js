@@ -240,6 +240,7 @@ print(result[0].horizons[25].terminal_mse)`)}
       `],
       ["base", "Base datasets", html`
         <p>${code("pusht")}, ${code("cube")}, ${code("insertpeg")}, and ${code("tworoom")} are external artifacts. AnyGoal does not reconstruct them through ${code("collect")}; obtain the published HDF5 files, keep their canonical names when practical, and validate them locally.</p>
+        <p>The Insert Peg base dataset comes from <a href="https://huggingface.co/datasets/OpenDILabCommunity/rl_unplugged_dm_control_suite">RL Unplugged's DM Control Suite dataset on Hugging Face</a> (${code("manipulator_insert_peg.npy")}). It was converted to the Stable World-Model HDF5 format for use with AnyGoal.</p>
         <p>Download the PushT, Cube, and TwoRoom archives from their official LeWM Hugging Face dataset repositories, then extract them into AnyGoal's configured data directory:</p>
         ${codeBlock("terminal", `hf download quentinll/lewm-pusht pusht_expert_train.h5.zst \
   --repo-type dataset --local-dir "$(anygoal config path data)"
@@ -767,7 +768,7 @@ function taskGifGrid(task) {
   const label = `${task.title} example trajectories`;
   const gifs = Array.from({ length: 8 }, (_, episode) => {
     const fileName = `episode_${String(episode).padStart(3, "0")}.gif`;
-    const source = `assets/dataset_first_10_episodes/${task.gifDirectory}/${fileName}`;
+    const source = `../assets/dataset_first_10_episodes/${task.gifDirectory}/${fileName}`;
     const alt = `${task.title} environment, episode ${episode + 1}`;
     return `<img src="${source}" alt="${escapeHtml(alt)}" loading="lazy" />`;
   }).join("");
@@ -778,7 +779,7 @@ function taskGifGrid(task) {
 function homeTaskGifGrid() {
   const label = "AnyGoal task examples";
   const gifs = Object.values(taskPages).map((task) => {
-    const source = `assets/dataset_first_10_episodes/${task.gifDirectory}/episode_000.gif`;
+    const source = `../assets/dataset_first_10_episodes/${task.gifDirectory}/episode_000.gif`;
     const alt = `${task.title} environment, first episode`;
     return `<img src="${source}" alt="${escapeHtml(alt)}" loading="lazy" />`;
   }).join("");
@@ -889,6 +890,7 @@ function renderHome() {
     <div class="hero-actions">
       <a class="primary-action" href="#/quick-start">Get started</a>
       <a class="secondary-action" href="https://github.com/galilai-group/AnyGoal">View source</a>
+      <a class="secondary-action" href="../paper/">Paper summary</a>
     </div>
     <div class="install-strip"><code>pip install anygoal</code><button type="button" data-copy="pip install anygoal">Copy</button></div>
     ${table(["Command", "Includes"], [

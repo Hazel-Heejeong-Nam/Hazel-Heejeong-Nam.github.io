@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AnyGoal paper summary and task gallery">
+  <title>AnyGoal | Paper Summary</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="../../vague/assets/css/bulma.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h1 class="title is-1 publication-title">AnyGoal</h1>
+        <h2 class="title is-2 publication-subtitle">A compositional generalization suite for world model research</h2>
+        <div class="publication-links">
+          <a class="button is-normal is-rounded is-dark" href="../docs/">Documentation</a>
+          <a class="button is-normal is-rounded is-dark" href="https://github.com/galilai-group/AnyGoal">Code</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="task-gallery" aria-label="AnyGoal task demonstrations">
+    <div class="gallery-row" id="gallery-forward"></div>
+    <div class="gallery-row gallery-row-reverse" id="gallery-reverse"></div>
+  </section>
+
+  <section class="section summary-section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Overview</h2>
+      <p>AnyGoal brings together manipulation and navigation tasks to study how world models generalize across goals and task compositions. The moving gallery above shows the first episode from each environment.</p>
+      <div class="columns summary-columns">
+        <div class="column"><h3 class="title is-5">Tasks</h3><p>Explore twelve environments spanning PushT, Cube, peg manipulation, and TwoRoom navigation, including recombined task variants.</p></div>
+        <div class="column"><h3 class="title is-5">Evaluation</h3><p>Use the benchmark's datasets and evaluation tools to compare model behavior across distinct goals.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const taskRows = [
+      ["pusht", "PushT"], ["pusht-antigoal", "PushT Antigoal"], ["avoidt", "AvoidT"],
+      ["cube", "Cube"], ["cubediagonal", "Cube Diagonal"], ["cubehop", "Cube Hop"],
+      ["insertpeg", "Insert Peg"], ["extractpeg", "Extract Peg"], ["hug_box", "Hug Box"],
+      ["stackt", "StackT"], ["tworoom", "TwoRoom"], ["tworoom_route", "TwoRoom Route"]
+    ];
+    const makeCard = ([id, label]) => {
+      const card = document.createElement("figure");
+      card.className = "task-card";
+      const image = document.createElement("img");
+      image.src = `../assets/dataset_first_10_episodes/${id}/episode_000.gif`;
+      image.alt = `${label} first episode`;
+      image.loading = "lazy";
+      const caption = document.createElement("figcaption");
+      caption.textContent = label;
+      card.append(image, caption);
+      return card;
+    };
+    [taskRows.slice(0, 6), taskRows.slice(6)].forEach((tasks, index) => {
+      const row = document.getElementById(index ? "gallery-reverse" : "gallery-forward");
+      const track = document.createElement("div");
+      track.className = "gallery-track";
+      for (let copy = 0; copy < 2; copy++) {
+        const group = document.createElement("div");
+        group.className = "gallery-group";
+        if (copy) group.setAttribute("aria-hidden", "true");
+        tasks.forEach(task => group.append(makeCard(task)));
+        track.append(group);
+      }
+      row.append(track);
+    });
+  </script>
+</body>
+</html>
