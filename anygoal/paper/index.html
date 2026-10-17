@@ -9,6 +9,13 @@
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="../../vague/assets/css/bulma.min.css">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    window.MathJax = {
+      tex: { displayMath: [['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 
 <body>
@@ -217,50 +224,140 @@
 
       <section class="paper-section" id="findings">
         <h2>What the results show</h2>
-        <div class="finding-grid">
-          <article>
-            <h3>Dynamics can fail with oracle states</h3>
-            <p>Removing visual abstraction does not eliminate goal-shift failure. Contact-rich variants show larger
-              prediction-error increases and more consistent planning degradation than free-space variants.</p>
-          </article>
-          <article>
-            <h3>Visual models face another challenge</h3>
-            <p>Familiar physical factors can form novel visual combinations. End-to-end models may fail where
-              oracle-state predictors remain stable, implicating representation learning as well as dynamics.</p>
-          </article>
-          <article>
-            <h3>Representation geometry matters</h3>
-            <p>In TwoRoom, goal-shifted observations remain visually familiar, yet end-to-end models degrade while
-              oracle-state predictors stay stable. Familiar images need not yield a useful latent geometry.</p>
-          </article>
-          <article>
-            <h3>Prediction and planning can diverge</h3>
-            <p>Free-space tasks may offer many successful trajectories and tolerate imperfect predictions. Contact-rich
-              tasks often demand more precise interaction models, so both measures are needed.</p>
-          </article>
-        </div>
-        <figure class="figure-placeholder"><span>Figure 4 placeholder</span>
-          <figcaption>Oracle-state and end-to-end rollout error and planning results</figcaption>
+
+
+        <p>Straight to the point, the models are not robust to goal shifts, i.e., they are not doing compositional
+          generalization well.</p>
+        <figure class="paper-figure" style="--figure-width: 100%;">
+          <img src="../assets/fig/res_e2e.png"
+            alt="Push-T versus Avoid-T planning performance and action-sensitivity analysis" loading="lazy">
         </figure>
-        <figure class="paper-figure">
-          <img src="../assets/fig/tworoomfig_cropped.png"
-            alt="TwoRoom model results and latent-space visualizations under the route goal shift" loading="lazy">
-          <figcaption>Figure 5. TwoRoom results and latent-space geometry.</figcaption>
+        <p>From the figure above, we can see that the end-to-end models tend to exhibit larger prediction MSE errors and
+          lower planning performance under goal shifts.</p>
+        <p>However, evaluating end-to-end models still cannot answer where the failures originate. This motivates us to
+          investigate whether the predictor itself (i.e., dynamics learner) is failing even when the oracle states are
+          available.</p>
+
+        <figure class="paper-figure" style="--figure-width: 100%;">
+          <img src="../assets/fig/res_toy.png"
+            alt="Push-T versus Avoid-T planning performance and action-sensitivity analysis" loading="lazy">
         </figure>
+
+        <p>From the figure above, we can see that the toy model exhibits somewhat different behavior under goal shifts,
+          especially in terms of interaction patterns. Free-space tasks like Avoid-T, Avoid-Peg, and Cube-Hop tends to
+          perform better (often better than the base task), implying that combining learned dynamics within
+          combinatorial gap is pretty easy in these cases.
+          However, in contact-rich tasks like Stack-T, Extract-Peg, and Cube-Diagonal, the toy model exhibits larger
+          prediction MSE errors and lower planning performance under goal shifts. Furthermore, based on the fact that
+          these discrepancies are not observed in the end-to-end models, we can conclude that the failures in end-to-end
+          models are also coming from representation learning as well as the dynamics learning.</p>
+
+        <p>We have more explanation about the findings in our paper.</p>
+
       </section>
 
       <section class="paper-section" id="outlook">
-        <h2>Toward reusable world models</h2>
-        <p>Compositional generalization requires two things: identifying action-conditioned dynamics from goal-directed
-          trajectories, and applying those dynamics to unseen combinations. Sparse local mechanisms offer one favorable
-          setting: a global state–action combination may be new while each local mechanism still receives familiar
-          inputs.</p>
-        <p>This is a sufficient condition under appropriate identification and coverage assumptions, not a complete
-          solution. Learning reusable mechanisms, discovering interaction regimes, and handling genuinely new local
-          interactions remain open challenges.</p>
+        <h2>Toward World Models That Generalize Compositionally</h2>
+
+        <p>
+          Our experiments show that even with access to the true physical state,
+          world models struggle with unseen goals, especially in contact-rich
+          environments. What would it take to build world models that generalize
+          more reliably?
+        </p>
+
+        <p>We identify two key challenges.</p>
+
+        <p>
+          <strong>1. Learning reusable mechanisms.</strong>
+          Accurately predicting training trajectories does not guarantee that a model
+          has learned how actions affect the world. Identifying reusable dynamics
+          becomes especially difficult when action effects depend on physical
+          configurations and interaction regimes, such as contact or grasping.
+        </p>
+        <p>
+          <strong>2. Generalizing to unseen combinations.</strong>
+          Even correctly learned mechanisms may behave unpredictably on novel
+          state–action combinations. Successful generalization therefore requires
+          additional structure, particularly when physical interactions are involved.
+        </p>
+
+        <p>One promising direction is to exploit sparse local mechanisms.
+          One favorable case arises when each physical factor depends on only a small
+          subset of the state and action variables within a given interaction regime.
+          This means a test configuration can be
+          <strong>globally unseen but locally familiar.</strong>
+        </p>
+        <p>
+          <strong>
+            The key insight is that a world model does not need to observe every
+            possible global configuration if it can correctly learn and reuse the
+            local mechanisms that govern each factor.
+          </strong>
+          This provides one possible sufficient condition for compositional
+          generalization, rather than a complete solution. Identifying those
+          mechanisms and handling genuinely new interactions remain open challenges.
+        </p>
       </section>
     </main>
   </div>
+
+  <section class="citation-panel" id="bibtex" aria-labelledby="bibtex-title">
+    <div class="citation-panel__header">
+      <div>
+        <p class="citation-panel__eyebrow">Citation</p>
+        <h2 id="bibtex-title">BibTeX</h2>
+      </div>
+      <button class="citation-copy-button" type="button" data-copy-bibtex>Copy</button>
+    </div>
+    <pre class="citation-code"><code id="bibtex-entry">@misc{nam2026causaljepalearningworldmodels,
+      title={Causal-JEPA: Learning World Models through Object-Level Latent Masking},
+      author={Heejeong Nam and Quentin Le Lidec and Lucas Maes and Yann LeCun and Randall Balestriero},
+      year={2026},
+      eprint={2602.11389},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2602.11389},
+}</code></pre>
+    <p class="citation-copy-status" data-copy-status role="status" aria-live="polite"></p>
+  </section>
+
+  <script>
+    const copyButton = document.querySelector('[data-copy-bibtex]');
+    const bibtexEntry = document.querySelector('#bibtex-entry');
+    const copyStatus = document.querySelector('[data-copy-status]');
+
+    copyButton.addEventListener('click', async () => {
+      const text = bibtexEntry.textContent;
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const copyArea = document.createElement('textarea');
+          copyArea.value = text;
+          copyArea.setAttribute('readonly', '');
+          copyArea.style.position = 'fixed';
+          copyArea.style.opacity = '0';
+          document.body.appendChild(copyArea);
+          copyArea.select();
+          if (!document.execCommand('copy')) {
+            throw new Error('Clipboard copy was rejected.');
+          }
+          copyArea.remove();
+        }
+
+        copyButton.textContent = 'Copied';
+        copyStatus.textContent = 'BibTeX copied to clipboard.';
+        window.setTimeout(() => {
+          copyButton.textContent = 'Copy';
+          copyStatus.textContent = '';
+        }, 2000);
+      } catch (error) {
+        copyStatus.textContent = 'Copy failed. Please select the BibTeX text manually.';
+      }
+    });
+  </script>
 
 </body>
 
