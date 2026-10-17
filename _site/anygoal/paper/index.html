@@ -1,76 +1,267 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="AnyGoal paper summary and task gallery">
+  <meta name="description" content="AnyGoal paper summary">
   <title>AnyGoal | Paper Summary</title>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="../../vague/assets/css/bulma.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
   <section class="hero">
     <div class="hero-body">
       <div class="container is-max-desktop has-text-centered">
+        <a class="home-link" href="../">← Project home</a>
         <h1 class="title is-1 publication-title">AnyGoal</h1>
-        <h2 class="title is-2 publication-subtitle">A compositional generalization suite for world model research</h2>
+        <h2 class="title is-2 publication-subtitle">On world model generalization beyond expert rollouts</h2>
+        <div class="publication-authors" aria-label="Authors">
+          <span>Heejeong Nam<sup>1,2</sup></span>
+          <span>Divyat Mahajan<sup>3</sup></span>
+          <span>Quentin Le Lidec<sup>4</sup></span>
+          <span>Randall Balestriero<sup>1</sup></span>
+          <span>David Klindt<sup>2</sup></span>
+        </div>
+        <div class="publication-affiliations" aria-label="Affiliations">
+          <span><sup>1</sup> Brown University</span>
+          <span><sup>2</sup> Cold Spring Harbor Laboratory</span>
+          <span><sup>3</sup> Mila, Université de Montréal</span>
+          <span><sup>4</sup> New York University</span>
+        </div>
         <div class="publication-links">
-          <a class="button is-normal is-rounded is-dark" href="../docs/">Documentation</a>
-          <a class="button is-normal is-rounded is-dark" href="https://github.com/galilai-group/AnyGoal">Code</a>
+          <a class="button is-normal is-rounded is-dark" href="../docs/">Library Docs</a>
+          <a class="button is-normal is-rounded is-dark" href="https://github.com/galilai-group/AnyGoal">GitHub</a>
+          <!-- Replace this placeholder with the AnyGoal paper URL when published. -->
+          <a class="button is-normal is-rounded is-dark" href="https://arxiv.org/">arXiv</a>
+          <a class="button is-normal is-rounded is-dark"
+            href="https://huggingface.co/collections/HazelNam/anygoal">Hugging Face</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="task-gallery" aria-label="AnyGoal task demonstrations">
-    <div class="gallery-row" id="gallery-forward"></div>
-    <div class="gallery-row gallery-row-reverse" id="gallery-reverse"></div>
-  </section>
+  <div class="paper-layout">
+    <aside class="section-nav" aria-label="Paper sections">
+      <p>On this page</p>
+      <nav>
+        <a href="#overview">Overview</a>
+        <a href="#problem">The problem</a>
+        <a href="#goal-shifts">Goal shifts</a>
+        <a href="#benchmark">Benchmark</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#findings">Findings</a>
+        <a href="#outlook">Outlook</a>
+      </nav>
+    </aside>
 
-  <section class="section summary-section">
-    <div class="container is-max-desktop">
-      <h2 class="title is-3 has-text-centered">Overview</h2>
-      <p>AnyGoal brings together manipulation and navigation tasks to study how world models generalize across goals and task compositions. The moving gallery above shows the first episode from each environment.</p>
-      <div class="columns summary-columns">
-        <div class="column"><h3 class="title is-5">Tasks</h3><p>Explore twelve environments spanning PushT, Cube, peg manipulation, and TwoRoom navigation, including recombined task variants.</p></div>
-        <div class="column"><h3 class="title is-5">Evaluation</h3><p>Use the benchmark's datasets and evaluation tools to compare model behavior across distinct goals.</p></div>
-      </div>
-    </div>
-  </section>
+    <main class="paper-content">
+      <section class="statement-panel" id="overview" aria-labelledby="overview-title">
+        <h2 id="overview-title">Why AnyGoal?</h2>
+        <p>A world model should be more than a predictor of what an expert usually does.
+          It should model how the environment responds to actions, including actions taken for goals that were not
+          practiced during training.</p>
+        <p>AnyGoal provides a benchmark to measure this capability, motivated by how human learners generalize
+          from limited experience. We <i>neither</i> introduce a new visual factor to the problem, <i>nor</i> do we
+          change the
+          underlying dynamics of the environment. We only challenge the model's ability to reuse its knowledge
+          compositionally from the training data.</p>
 
-  <script>
-    const taskRows = [
-      ["pusht", "PushT"], ["pusht-antigoal", "PushT Antigoal"], ["avoidt", "AvoidT"],
-      ["cube", "Cube"], ["cubediagonal", "Cube Diagonal"], ["cubehop", "Cube Hop"],
-      ["insertpeg", "Insert Peg"], ["extractpeg", "Extract Peg"], ["hug_box", "Hug Box"],
-      ["stackt", "StackT"], ["tworoom", "TwoRoom"], ["tworoom_route", "TwoRoom Route"]
-    ];
-    const makeCard = ([id, label]) => {
-      const card = document.createElement("figure");
-      card.className = "task-card";
-      const image = document.createElement("img");
-      image.src = `../assets/dataset_first_10_episodes/${id}/episode_000.gif`;
-      image.alt = `${label} first episode`;
-      image.loading = "lazy";
-      const caption = document.createElement("figcaption");
-      caption.textContent = label;
-      card.append(image, caption);
-      return card;
-    };
-    [taskRows.slice(0, 6), taskRows.slice(6)].forEach((tasks, index) => {
-      const row = document.getElementById(index ? "gallery-reverse" : "gallery-forward");
-      const track = document.createElement("div");
-      track.className = "gallery-track";
-      for (let copy = 0; copy < 2; copy++) {
-        const group = document.createElement("div");
-        group.className = "gallery-group";
-        if (copy) group.setAttribute("aria-hidden", "true");
-        tasks.forEach(task => group.append(makeCard(task)));
-        track.append(group);
-      }
-      row.append(track);
-    });
-  </script>
+
+        <h2>What do we have in AnyGoal?</h2>
+        <ul class="overview-list">
+          <li>Goal variants for Push-T, TwoRoom, OGBench Cube, and DMC Manipulator.</li>
+          <li>Unified evaluation of <b>JEPA</b> and <b>Generative-World-Models</b>. (<a
+              href="https://arxiv.org/abs/2603.19312">LeWM</a>, <a
+              href="https://arxiv.org/abs/2606.20104">Sensorimotor-WM</a>, <a
+              href="https://arxiv.org/abs/2411.04983">DINO-WM</a>, <a
+              href="https://arxiv.org/abs/2607.15065">DriftWorld</a>, and <a
+              href="https://arxiv.org/abs/2406.14540">IRASim</a>)</li>
+          <li>Oracle states for every goal, so researchers can study dynamics without having to solve visual abstraction
+            first.</li>
+          <li>A <a href="../docs/">documented library</a> for AnyGoal episode collection, training, and evaluation
+            across models (5 end-to-end world models and 3 oracle-state predictors)</li>
+        </ul>
+
+      </section>
+
+
+      <section class="paper-section" id="problem">
+        <h2>The problem: learning the world or the goal?</h2>
+        <p>Expert demonstrations are shaped by a goal. A robot trained to push a block toward a target, for example,
+          usually approaches the block. A model can learn that behavioral regularity without learning the result of an
+          arbitrary action.</p>
+        <p>Change the goal from pushing the block to avoiding it, and the environment and action space remain the same.
+          The model must now handle state–action combinations that expert rollouts rarely visited. In Push-T, models
+          that plan successfully for the original goal degrade sharply on Avoid-T.</p>
+        <figure class="paper-figure" style="--figure-width: 45%;">
+          <img src="../assets/fig/1.png"
+            alt="Push-T versus Avoid-T planning performance and action-sensitivity analysis" loading="lazy">
+        </figure>
+
+        <p>Why does it happen? It is because the model is easily learning shortcut solutions that work for the original
+          goal but fail when the goal changes.
+          As we mentioned earlier, the agent is usually approaching the block in Push-T. Our hypothesis was that if we
+          give an action that moves the agent away from the block when they are far away (which means strongly deviating
+          from the expert trajectory),
+          the model will ignore it and still predict that the agent will approach the block. We tested this hypothesis
+          by performing an action-sensitivity analysis, which confirmed that the model is indeed ignoring actions that
+          deviate from the expert trajectory.
+        </p>
+        <figure class="paper-figure" style="--figure-width: 45%;">
+          <img src="../assets/fig/2.png"
+            alt="Push-T versus Avoid-T planning performance and action-sensitivity analysis" loading="lazy">
+        </figure>
+        <p> Figure above shows that if the agent is far from the block, the model is way less sensitive to the action.
+          This is observed across different scenarios. More details can be found in the paper.</p> Similar patterns of
+        action ignoring are observed in <a
+          href="https://the-puzzler.github.io/blog/la-leworldmodel/">la-le-worldmodel</a>.</p>
+      </section>
+
+      <section class="paper-section" id="goal-shifts">
+        <h2>Compositional Generalization: Familiar components, unseen combinations</h2>
+        <p>
+          A central question in AnyGoal is whether world models can generalize to new goals
+          while preserving the same visual factors and underlying physical rules.
+          This directly tests their ability to compositionally generalize across
+          the states and actions that vary within the training dataset.
+        </p>
+
+        <figure class="paper-figure" style="--figure-width: 30%;">
+          <img class="figure-image-narrow" src="../assets/fig/compv3_cropped.png"
+            alt="Diagram of the combinatorial space and the gap beyond observed training combinations" loading="lazy">
+        </figure>
+        <p>
+          Compositional generalization is the ability to predict novel combinations of familiar components.
+          In the figure, the <strong>combinatorial space</strong> contains all combinations of individually observed
+          factors,
+          while the training data cover only a subset of them.
+          AnyGoal targets the <strong>combinatorial gap</strong>, where test combinations are unseen during training
+          even though each factor remains within its training support.
+        </p>
+        <figure class="paper-figure">
+          <img src="../assets/fig/3.png"
+            alt="Factor-wise marginal support compared with joint state-action overlap across goal-shifted tasks"
+            loading="lazy">
+        </figure>
+        <p>To ensure that test tasks introduce no unseen state factors or actions, we apply three support criteria using
+          oracle states available in simulation. A factor is considered in-distribution only if it passes all three
+          checks.</p>
+      </section>
+
+      <section class="paper-section" id="benchmark">
+        <h2>The AnyGoal benchmark</h2>
+        <p>World models train only on the original base tasks. Eight goal-shifted variants are reserved for evaluation.
+        </p>
+        <div class="table-container">
+          <table class="table is-fullwidth is-striped">
+            <thead>
+              <tr>
+                <th>Base environment</th>
+                <th>Training goal</th>
+                <th>Unseen goals</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TwoRoom</td>
+                <td>Navigate through a narrow passage</td>
+                <td>TR-Route</td>
+              </tr>
+              <tr>
+                <td>Push-T</td>
+                <td>Push a T-shaped block to a target pose</td>
+                <td>Avoid-T, Stack-T, Push-T Antigoal</td>
+              </tr>
+              <tr>
+                <td>Manipulator Insert-Peg</td>
+                <td>Insert a peg into a target slot</td>
+                <td>Avoid-Peg, Extract-Peg</td>
+              </tr>
+              <tr>
+                <td>OGBench Cube</td>
+                <td>Pick and place a cube</td>
+                <td>Cube-Hop, Cube-Diagonal</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Each precollected benchmark provides 400 evaluation episodes. We also provide a data collection tool with
+          anygoal library, allowing researchers to collect more data for their own experiments.</p>
+        <figure class="paper-figure">
+          <img src="../assets/fig/dataset_introduce_cropped.png"
+            alt="TwoRoom, Push-T, Insert-Peg, and Cube base tasks alongside their unseen-goal variants" loading="lazy">
+          <figcaption>Figure 3. Base tasks and the AnyGoal variants.</figcaption>
+        </figure>
+      </section>
+
+      <section class="paper-section" id="evaluation">
+        <h2>Evaluating under goal shifts</h2>
+        <p>We compare JEPA-style and generative world models with predictors that receive oracle physical states. Each
+          model is evaluated on its base task and the corresponding AnyGoal variants.</p>
+        <div class="measure-grid">
+          <div>
+            <h3>Rollout prediction</h3>
+            <p>How accurately does the model predict future transitions under supplied actions?</p>
+          </div>
+          <div>
+            <h3>MPC planning</h3>
+            <p>Can the model support action selection that reaches the new goal?</p>
+          </div>
+        </div>
+        <p>These measures are complementary: low prediction error and successful planning do not always move together.
+        </p>
+      </section>
+
+      <section class="paper-section" id="findings">
+        <h2>What the results show</h2>
+        <div class="finding-grid">
+          <article>
+            <h3>Dynamics can fail with oracle states</h3>
+            <p>Removing visual abstraction does not eliminate goal-shift failure. Contact-rich variants show larger
+              prediction-error increases and more consistent planning degradation than free-space variants.</p>
+          </article>
+          <article>
+            <h3>Visual models face another challenge</h3>
+            <p>Familiar physical factors can form novel visual combinations. End-to-end models may fail where
+              oracle-state predictors remain stable, implicating representation learning as well as dynamics.</p>
+          </article>
+          <article>
+            <h3>Representation geometry matters</h3>
+            <p>In TwoRoom, goal-shifted observations remain visually familiar, yet end-to-end models degrade while
+              oracle-state predictors stay stable. Familiar images need not yield a useful latent geometry.</p>
+          </article>
+          <article>
+            <h3>Prediction and planning can diverge</h3>
+            <p>Free-space tasks may offer many successful trajectories and tolerate imperfect predictions. Contact-rich
+              tasks often demand more precise interaction models, so both measures are needed.</p>
+          </article>
+        </div>
+        <figure class="figure-placeholder"><span>Figure 4 placeholder</span>
+          <figcaption>Oracle-state and end-to-end rollout error and planning results</figcaption>
+        </figure>
+        <figure class="paper-figure">
+          <img src="../assets/fig/tworoomfig_cropped.png"
+            alt="TwoRoom model results and latent-space visualizations under the route goal shift" loading="lazy">
+          <figcaption>Figure 5. TwoRoom results and latent-space geometry.</figcaption>
+        </figure>
+      </section>
+
+      <section class="paper-section" id="outlook">
+        <h2>Toward reusable world models</h2>
+        <p>Compositional generalization requires two things: identifying action-conditioned dynamics from goal-directed
+          trajectories, and applying those dynamics to unseen combinations. Sparse local mechanisms offer one favorable
+          setting: a global state–action combination may be new while each local mechanism still receives familiar
+          inputs.</p>
+        <p>This is a sufficient condition under appropriate identification and coverage assumptions, not a complete
+          solution. Learning reusable mechanisms, discovering interaction regimes, and handling genuinely new local
+          interactions remain open challenges.</p>
+      </section>
+    </main>
+  </div>
+
 </body>
+
 </html>

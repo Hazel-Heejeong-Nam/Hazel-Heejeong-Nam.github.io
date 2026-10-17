@@ -887,11 +887,6 @@ function renderHome() {
     <h1>AnyGoal</h1>
     <h2><br /><span>a compositional generalization suite for world model research.</span></h2>
     ${homeTaskGifGrid()}
-    <div class="hero-actions">
-      <a class="primary-action" href="#/quick-start">Get started</a>
-      <a class="secondary-action" href="https://github.com/galilai-group/AnyGoal">View source</a>
-      <a class="secondary-action" href="../paper/">Paper summary</a>
-    </div>
     <div class="install-strip"><code>pip install anygoal</code><button type="button" data-copy="pip install anygoal">Copy</button></div>
     ${table(["Command", "Includes"], [
     [code("pip install anygoal"), "Data I/O, collectors, validation, simulation environments"],

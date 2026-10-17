@@ -18,7 +18,9 @@
   <link rel="stylesheet" href="assets/landing.css" />
 </head>
 <body>
-  <div class="ambient" aria-hidden="true"></div>
+  <div class="gif-background" aria-hidden="true">
+    <div class="gif-wall" id="gif-wall"></div>
+  </div>
   <main class="landing">
     <h1>AnyGoal</h1>
     <p class="subtitle">
@@ -27,14 +29,72 @@
     </p>
     <nav class="links" aria-label="Project links">
       <a class="link primary" href="paper/">Paper Overview <span aria-hidden="true">↗</span></a>
-      <a class="link" href="docs/#/installation"><code>pip install anygoal</code> <span aria-hidden="true">↗</span></a>
+      <a class="link" href="docs/">Library Docs <span aria-hidden="true">↗</span></a>
       <a class="link" href="https://github.com/galilai-group/AnyGoal">GitHub <span aria-hidden="true">↗</span></a>
       <!-- Replace this placeholder with the AnyGoal paper URL when published. -->
       <a class="link" href="https://arxiv.org/">arXiv <span aria-hidden="true">↗</span></a>
-      <a class="link" href="https://huggingface.co/galilai-group">Hugging Face <span aria-hidden="true">↗</span></a>
+      <a class="link" href="https://huggingface.co/collections/HazelNam/anygoal">Hugging Face <span aria-hidden="true">↗</span></a>
     </nav>
   </main>
   <script>
+    const gifDirectories = [
+      "avoidt", "cube", "cubediagonal", "cubehop", "extractpeg", "hug_box",
+      "insertpeg", "pusht", "pusht-antigoal", "stackt", "tworoom", "tworoom_route",
+    ];
+    const gifWall = document.querySelector("#gif-wall");
+    const gifBackground = document.querySelector(".gif-background");
+    const title = document.querySelector("h1");
+    const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let tileCount = 0;
+
+    function shuffle(items) {
+      for (let index = items.length - 1; index > 0; index--) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [items[index], items[randomIndex]] = [items[randomIndex], items[index]];
+      }
+      return items;
+    }
+
+    const gifSources = shuffle(gifDirectories.map((directory) => {
+      const episode = String(Math.floor(Math.random() * 10)).padStart(3, "0");
+      return `assets/dataset_first_10_episodes/${directory}/episode_${episode}.gif`;
+    }));
+
+    function layoutGifWall() {
+      const tileSize = Math.min(210, Math.max(130, innerWidth * 0.16));
+      const columns = Math.ceil(innerWidth / (tileSize + 2)) + 1;
+      const rows = Math.ceil(innerHeight / (tileSize + 2)) + 1;
+      const needed = columns * rows;
+      gifWall.style.gridTemplateColumns = `repeat(${columns}, ${tileSize}px)`;
+      gifWall.style.gridAutoRows = `${tileSize}px`;
+
+      if (needed !== tileCount) {
+        const tiles = document.createDocumentFragment();
+        const orderedSources = [];
+        while (orderedSources.length < needed) orderedSources.push(...shuffle([...gifSources]));
+        while (gifWall.firstChild) gifWall.removeChild(gifWall.firstChild);
+        for (let index = 0; index < needed; index++) {
+          const image = document.createElement("img");
+          image.src = orderedSources[index];
+          image.alt = "";
+          image.decoding = "async";
+          image.setAttribute("fetchpriority", "low");
+          tiles.appendChild(image);
+        }
+        gifWall.appendChild(tiles);
+        tileCount = needed;
+      }
+
+      const bounds = title.getBoundingClientRect();
+      gifBackground.style.setProperty("--focus-x", `${bounds.left + bounds.width / 2}px`);
+      gifBackground.style.setProperty("--focus-y", `${bounds.top + bounds.height / 2}px`);
+    }
+
+    if (!reduceMotion) {
+      layoutGifWall();
+      addEventListener("resize", layoutGifWall);
+    }
+
     const phrases = [
       "beyond expert rollout",
       "world model generalization to unseen goal",
@@ -42,7 +102,7 @@
       "dissecting goal bias",
     ];
 
-    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (!reduceMotion) {
       const typedText = document.querySelector("#typed-text");
       let phraseIndex = 0;
       let characterIndex = 0;

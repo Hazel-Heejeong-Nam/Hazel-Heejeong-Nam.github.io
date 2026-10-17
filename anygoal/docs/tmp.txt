@@ -1,0 +1,229 @@
+
+
+## 1. The Problem: Learning the World or Learning the Goal?
+
+A world model should predict the consequences of an action, regardless of the goal that motivated it.
+
+However, expert demonstrations contain strong behavioral biases. Actions are not sampled independently of states. Instead, they are selected to accomplish a particular task.
+
+Consider a robot trained to push a block toward a target. When the robot is far from the block, expert demonstrations almost always show it moving toward the block.
+
+A world model trained on these trajectories may learn that the robot *typically approaches the block*, rather than learning what happens under an arbitrary supplied action.
+
+**What if we change the goal from pushing the block to avoiding it?**
+
+The environment, objects, and available actions remain the same. Yet the world model may fail because the new goal requires state–action combinations rarely encountered in expert rollouts.
+
+In our Push-T example, world models that achieve substantial planning success on the original task suffer sharp degradation when evaluated on Avoid-T.
+
+Targeted action interventions also reveal reduced model sensitivity in behaviorally biased regions, suggesting that the models can rely on expert-rollout regularities rather than reusable action-conditioned dynamics.
+
+**[Figure 1 — Push-T vs. Avoid-T teaser and action sensitivity]**
+
+---
+
+## 2. What Should World Models Generalize To?
+
+### Familiar Components, Unseen Combinations
+
+A world model cannot realistically observe every possible combination of states and actions during training.
+
+But should it need to?
+
+We argue that a fundamental generalization requirement is to **recombine familiar physical factors and actions in configurations not observed during training**.
+
+Suppose the training data contain several physical factors, such as agent position, object position, and action. Each factor may be individually familiar, while their particular combination is novel.
+
+We define the *combinatorial space* as the Cartesian product of the marginal training supports.
+
+\[
+\mathcal C^\times
+=
+\left(
+\prod_{k=1}^{K}\mathcal Z_k^{\mathrm{tr}}
+\right)
+\times
+\mathcal A^{\mathrm{tr}}.
+\]
+
+The *combinatorial gap* consists of combinations in this space that are absent or weakly covered by the joint training distribution.
+
+AnyGoal targets this gap.
+
+Rather than testing extrapolation to entirely new physical factors or actions, we evaluate whether learned dynamics remain valid under **new combinations of already observed factors**.
+
+A goal shift changes which state–action combinations are visited, while preserving the underlying environment dynamics.
+
+**[Figure 2 — Combinatorial space and training/test support diagram]**
+
+---
+
+## 3. Introducing AnyGoal
+
+### A Controlled Benchmark for Unseen Goals
+
+AnyGoal evaluates world models on new goals within familiar environments.
+
+It builds on four widely used world-model tasks.
+
+| Base environment | Training goal | Example unseen goals |
+|---|---|---|
+| **TwoRoom** | Navigate through a narrow passage | TR-Route |
+| **Push-T** | Push a T-shaped block to a target pose | Avoid-T, Stack-T, Push-T Antigoal |
+| **Manipulator Insert-Peg** | Insert a peg into a target slot | Avoid-Peg, Extract-Peg |
+| **OGBench Cube** | Pick and place a cube | Cube-Hop, Cube-Diagonal |
+
+Together, these environments provide **eight goal-shifted variants**, spanning free-space navigation and contact-rich manipulation.
+
+Each variant changes the behavioral objective without changing the environment's underlying dynamics.
+
+Crucially, **world models are trained only on the original base tasks**. The AnyGoal variants are used exclusively for evaluating generalization.
+
+AnyGoal provides 400 evaluation episodes per variant, together with tools for generating additional datasets.
+
+**[Figure 3 — AnyGoal task overview]**
+
+### Controlled Shifts, Not Arbitrary OOD Tests
+
+How do we know that an unseen goal is not simply introducing unfamiliar states or actions?
+
+AnyGoal explicitly checks whether each task-relevant factor remains marginally within the training distribution.
+
+We use three complementary support checks.
+
+- **Range**, verifying coverage within observed coordinate ranges.
+- **Mahalanobis distance**, measuring consistency with the reference distribution's covariance structure.
+- **Kernel density estimation**, checking empirical distributional coverage.
+
+All eight variants pass the prescribed factor-wise support checks.
+
+However, when we examine the **joint state–action distribution**, many variants have substantially less overlap with the corresponding training distribution.
+
+This is the distinction AnyGoal is designed to capture.
+
+**Individual factors remain familiar, but their combinations can be novel.**
+
+**[Figure 4 — Marginal support verification and joint distribution overlap]**
+
+---
+
+## 4. Evaluating World Models Under Goal Shifts
+
+We evaluate world models across different learning objectives, prediction spaces, and representation architectures.
+
+Our model suite includes JEPA-style world models, generative world models, and predictors operating directly on oracle physical states.
+
+We examine two complementary measures.
+
+**Rollout prediction error** measures how accurately a world model predicts future transitions under supplied actions.
+
+**MPC planning success** measures whether the learned model supports downstream planning toward the evaluation goal.
+
+Models are evaluated on both their original training tasks and AnyGoal variants, allowing us to measure performance changes relative to each model's base-task performance.
+
+This distinction matters because accurate rollout prediction and successful planning do not always agree.
+
+**[Optional figure — Evaluation setup or model families]**
+
+---
+
+## 5. What Do the Results Tell Us?
+
+### Finding 1. Dynamics Fail Even with Oracle States
+
+Is goal-shift failure primarily a problem of visual representation?
+
+To investigate this, we evaluate **oracle-state predictors** that receive task-relevant physical state variables directly, removing the need to infer them from images.
+
+The results show that visual abstraction is not the only source of failure.
+
+Even with oracle states, models can exhibit substantial degradation in rollout prediction and planning under unseen goals.
+
+However, the failures are not uniform.
+
+Free-space variants often preserve or improve planning performance relative to the base task. In contrast, contact-rich variants exhibit much larger prediction-error increases and consistent planning degradation.
+
+These results suggest that **interaction complexity is an important factor in dynamics generalization**.
+
+**[Figure 5 — Oracle-state rollout error and planning results]**
+
+### Finding 2. End-to-End World Models Face Additional Representation Challenges
+
+The difficulty becomes greater when world models must learn directly from visual observations.
+
+AnyGoal controls generalization at the level of physical factors. Yet recombining familiar factors can produce visual observations that were not encountered together during training.
+
+An encoder that correctly represents training observations may not recover the same underlying factors from these novel combinations.
+
+As a result, end-to-end world models can fail even in cases where oracle-state predictors remain stable.
+
+Our results indicate that **goal-shift failures can arise from both dynamics prediction and representation learning**.
+
+**[Figure 6 — End-to-end world-model performance]**
+
+### Finding 3. Representation Geometry Matters, Even Without Visual Shift
+
+TwoRoom provides a particularly informative example.
+
+Here, the agent position is the only changing physical factor. The goal-shifted positions remain within the training support, so the corresponding observations remain visually familiar.
+
+Nevertheless, end-to-end models degrade while oracle-state predictors remain stable.
+
+Our representation analysis suggests that learned latent spaces can organize the same underlying physical states with substantially different geometries.
+
+Such differences can affect both prediction and planning.
+
+This means that **familiar observations do not guarantee representations suitable for generalization**.
+
+**[Figure 7 — TwoRoom results and latent-space visualization]**
+
+### Finding 4. Prediction Accuracy and Planning Success Are Not Interchangeable
+
+Rollout prediction evaluates the accuracy of predicted trajectories, while MPC planning only needs to find an action sequence that reaches the goal.
+
+Free-space tasks may admit many successful trajectories, allowing planning to tolerate imperfect predictions.
+
+Contact-rich tasks often allow fewer viable action sequences because success depends on correctly modeling object interactions.
+
+We therefore observe cases where rollout error and planning performance diverge, particularly in free-space variants.
+
+These differences reinforce the importance of evaluating world models through **both prediction and downstream control**.
+
+---
+
+## 6. Toward World Models That Generalize Compositionally
+
+What would make compositional generalization possible?
+
+Our results motivate two distinct challenges.
+
+**Identifying reusable dynamics.** A model must learn action-conditioned mechanisms from goal-directed trajectories without relying solely on behavior-policy regularities. This becomes especially difficult when action effects vary with physical state and interaction regime.
+
+**Generalizing beyond training combinations.** Even correctly identified mechanisms need not generalize to unseen state–action compositions without additional structural assumptions.
+
+We outline one favorable theoretical setting based on **sparse local mechanisms**.
+
+Suppose each next-state factor depends only on a small subset of the current state and action variables within a fixed interaction regime.
+
+Then a globally novel state–action composition need not require extrapolating every local mechanism.
+
+\[
+\mathcal C^{\mathrm{te}}
+\not\subseteq
+\mathcal C^{\mathrm{tr}},
+\qquad
+\mathcal U_k^{\mathrm{te}}
+\subseteq
+\mathcal U_k^{\mathrm{tr}}
+\quad \forall k.
+\]
+
+In other words, **the global combination can be new even when every local mechanism receives familiar inputs**.
+
+Under appropriate identification and local-coverage assumptions, such structure provides a sufficient condition for compositional generalization.
+
+This is not a complete solution. Identifying reusable mechanisms, discovering interaction regimes, and handling genuinely new local interactions remain important open problems.
+
+**[Optional figure — Sparse local mechanisms and recombination]**
+
+---
