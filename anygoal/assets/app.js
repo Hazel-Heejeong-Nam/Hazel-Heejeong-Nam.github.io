@@ -149,7 +149,7 @@ pip install 'anygoal[all]'           # data + evaluation + training`)}
         ${callout("Dependency rule", `${code("eval")} includes the default data functionality; ${code("all")} includes data, evaluation, and training. You do not need to combine extras manually.`)}
       `],
       ["requirements", "Runtime requirements", html`
-        <p>The package metadata supports Python 3.10 and newer. The repository's exact reproducibility environment targets Python 3.10 and CUDA 12.8 and is pinned in ${code("requirements.txt")}.</p>
+        <p>The package metadata supports Python 3.10 and 3.11. The repository's exact reproducibility environment targets Python 3.10 and CUDA 12.8 and is pinned in ${code("requirements.txt")}.</p>
         ${table(["Use case", "Recommended setup"], [
         ["Library user", `${code("uv pip install anygoal")} or one of the extras above`],
         ["Exact repository reproduction", `${code("python3.10 -m venv .venv")} followed by ${code("pip install -r requirements.txt")}`],
@@ -218,13 +218,12 @@ anygoal eval planning --model lewm --dataset pusht --seed 0
 anygoal eval planning --model lewm --dataset avoidt --seed 0`)}
         <p>Add ${code("--dry-run")} to inspect the resolved planning command before running it.</p>
         <h3>Python API</h3>
-        <p>Supply a loaded world model as ${code("model")}; the Python API lets you build the cost, solver, and policy explicitly.</p>
+        <p>Supply a loaded, cost-capable world model as ${code("model")}; the Python API lets you build the solver and policy explicitly.</p>
         ${codeBlock("example.py", `import anygoal
-from stable_worldmodel.planning import CEMSolver, GoalMSE, ShootingCostEvaluator
 from stable_worldmodel.policy import PlanConfig, WorldModelPolicy
+from stable_worldmodel.solver import CEMSolver
 
-cost = ShootingCostEvaluator(model=model, objective=GoalMSE())
-solver = CEMSolver(cost=cost, num_samples=300, n_steps=30, device="cuda")
+solver = CEMSolver(model=model, num_samples=300, n_steps=30, device="cuda")
 policy = WorldModelPolicy(
     solver=solver,
     config=PlanConfig(horizon=5, receding_horizon=5, action_block=5),
@@ -480,15 +479,14 @@ print(seed_zero.horizons[25].terminal_mse)`)}
     subtitle: "MPC planning with Stable-Worldmodel.",
     sections: [
       ["ownership", "Division of responsibility", html`
-        <p>You construct the model, objective, solver, and ${code("WorldModelPolicy")}. AnyGoal selects trials, restores task states, installs dataset future states as goals, runs ${code("World.evaluate")}, and attaches task-specific metrics.</p>
+        <p>You construct the cost-capable model, solver, and ${code("WorldModelPolicy")}. AnyGoal selects trials, restores task states, installs dataset future states as goals, runs ${code("World.evaluate")}, and attaches task-specific metrics.</p>
       `],
       ["example", "Python interface", html`
         ${codeBlock("example.py", `import anygoal
-from stable_worldmodel.planning import CEMSolver, GoalMSE, ShootingCostEvaluator
 from stable_worldmodel.policy import PlanConfig, WorldModelPolicy
+from stable_worldmodel.solver import CEMSolver
 
-cost = ShootingCostEvaluator(model=model, objective=GoalMSE())
-solver = CEMSolver(cost=cost, num_samples=300, n_steps=30, device="cuda")
+solver = CEMSolver(model=model, num_samples=300, n_steps=30, device="cuda")
 policy = WorldModelPolicy(
     solver=solver,
     config=PlanConfig(horizon=5, receding_horizon=5, action_block=5),
