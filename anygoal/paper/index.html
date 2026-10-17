@@ -153,6 +153,14 @@
             alt="Factor-wise marginal support compared with joint state-action overlap across goal-shifted tasks"
             loading="lazy">
         </figure>
+        <div class="equation">
+          \[
+          \mathcal C^{\mathrm{te}}\not\subseteq\mathcal C^{\mathrm{tr}},
+          \qquad
+          \mathcal U_k^{\mathrm{te}}\subseteq\mathcal U_k^{\mathrm{tr}}
+          \quad \forall k.
+          \]
+        </div>
         <p>To ensure that test tasks introduce no unseen state factors or actions, we apply three support criteria using
           oracle states available in simulation. A factor is considered in-distribution only if it passes all three
           checks.</p>

@@ -70,8 +70,9 @@ function languageForLabel(label) {
 
 function codeBlock(label, value) {
   const terminal = label.toLowerCase() === "terminal";
-  return html`<div class="code-block${terminal ? " terminal-code" : ""}">
-    ${terminal
+  const compact = terminal || languageForLabel(label) === "python";
+  return html`<div class="code-block${compact ? " compact-code" : ""}${terminal ? " terminal-code" : ""}">
+    ${compact
       ? `<button class="copy-button symbol-copy" type="button" aria-label="Copy code" title="Copy code"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="9" y="9" width="10" height="10" rx="1.5"></rect><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path></svg></button>`
       : `<div class="code-top">
         <span class="code-dots"><i></i><i></i><i></i></span>
@@ -150,9 +151,8 @@ pip install 'anygoal[all]'           # data + evaluation + training`)}
       ["requirements", "Runtime requirements", html`
         <p>The package metadata supports Python 3.10 and newer. The repository's exact reproducibility environment targets Python 3.10 and CUDA 12.8 and is pinned in ${code("requirements.txt")}.</p>
         ${table(["Use case", "Recommended setup"], [
-        ["Library user", `${code("pip install anygoal")} or one of the extras above`],
+        ["Library user", `${code("uv pip install anygoal")} or one of the extras above`],
         ["Exact repository reproduction", `${code("python3.10 -m venv .venv")} followed by ${code("pip install -r requirements.txt")}`],
-        ["Contributor", "Editable source install plus the project's development tools"],
       ])}
       `],
       ["sources", "Third-party model sources", html`
@@ -170,59 +170,88 @@ anygoal models install sensorimotor
 anygoal list datasets
 anygoal list models
 anygoal models list`)}
-        <p>Importing ${code("anygoal")} registers the shipped Gymnasium environments. Heavy training and evaluator dependencies are imported lazily only when their APIs are called.</p>
       `],
     ],
   },
   "/quick-start": {
     title: "Quick start",
-    subtitle: "Collect an AnyGoal task dataset, validate it, inspect a model command, and use the public Python API.",
+    subtitle: "Find your paths, install model sources and artifacts, then evaluate with the CLI or Python API.",
     sections: [
-      ["discover", "1. Discover registered components", html`
+      ["paths", "1. Find configuration paths", html`
+        ${codeBlock("terminal", `anygoal config path home
+anygoal config path data
+anygoal config path checkpoints
+anygoal config path outputs
+anygoal config path sources
+anygoal config path cache`)}
+      `],
+      ["discover", "2. Discover registered components", html`
         ${codeBlock("terminal", `anygoal list datasets
-anygoal list models
-anygoal models list`)}
+anygoal list models`)}
         <p>The catalog is the source of truth for canonical IDs, aliases, task families, filenames, model capabilities, and runner profiles.</p>
       `],
-      ["artifacts", "2. Download artifacts and evaluate", html`
+      ["sources", "3. Install model sources", html`
+        ${codeBlock("terminal", `anygoal models list
+anygoal models install driftworld
+anygoal models install irasim
+anygoal models install lewm
+anygoal models install sensorimotor`)}
+      `],
+      ["artifacts", "4. Download artifacts", html`
         <p>Download all published checkpoints and datasets.</p>
         ${codeBlock("terminal", `anygoal artifacts download --checkpoints --all
 anygoal artifacts download --datasets --all`)}
-        <p>Or, download the specific dataset and checkpoint.</p>
-        ${codeBlock("terminal", `anygoal artifacts download \
-  --model driftworld \
-  --dataset cubehop`)}
+        <p>For the LeWM examples below, download the checkpoint and both datasets.</p>
+        ${codeBlock("terminal", `anygoal artifacts download --model lewm
+anygoal artifacts download --dataset pusht
+anygoal artifacts download --dataset avoidt`)}
         <p>If you don't want to download manually, download artifacts during evaluation.</p>
-        ${codeBlock("terminal", `anygoal eval planning \
-  --model driftworld \
-  --dataset cubehop \
-  --download`)}
+        ${codeBlock("terminal", `anygoal eval planning --model lewm --dataset avoidt --seed 0 --download`)}
         <p>AnyGoal resolves published model checkpoints and datasets from Hugging Face. Use the targeted download first for a single evaluation, or download the complete published artifact set for offline experiments.</p>
       `],
-      ["evaluate", "3. Resolve an evaluation before running it", html`
-        ${codeBlock("terminal", `anygoal models install driftworld
-anygoal eval rollout --model driftworld --dataset avoidt --seed 0 --dry-run
-anygoal eval planning --model driftworld --dataset avoidt --seed 0 --dry-run`)}
+      ["planning", "5. Planning evaluation", html`
+        <h3>CLI</h3>
+        ${codeBlock("terminal", `# plan with a base dataset
+anygoal eval planning --model lewm --dataset pusht --seed 0
+
+# plan with an anygoal dataset
+anygoal eval planning --model lewm --dataset avoidt --seed 0`)}
+        <p>Add ${code("--dry-run")} to inspect the resolved planning command before running it.</p>
+        <h3>Python API</h3>
+        <p>Supply a loaded world model as ${code("model")}; the Python API lets you build the cost, solver, and policy explicitly.</p>
+        ${codeBlock("example.py", `import anygoal
+from stable_worldmodel.planning import CEMSolver, GoalMSE, ShootingCostEvaluator
+from stable_worldmodel.policy import PlanConfig, WorldModelPolicy
+
+cost = ShootingCostEvaluator(model=model, objective=GoalMSE())
+solver = CEMSolver(cost=cost, num_samples=300, n_steps=30, device="cuda")
+policy = WorldModelPolicy(
+    solver=solver,
+    config=PlanConfig(horizon=5, receding_horizon=5, action_block=5),
+)
+result = anygoal.plan(
+    policy,
+    data="/path/to/avoidt_test.h5",
+    seed=0,
+)
+print(result.metrics)`)}
       `],
-      ["python", "4. Use explicit paths from Python", html`
+      ["rollout", "6. Rollout evaluation", html`
+        <h3>CLI</h3>
+        ${codeBlock("terminal", `anygoal eval rollout --model lewm --dataset avoidt --seed 0`)}
+        <p>Add ${code("--dry-run")} to inspect the resolved rollout command before running it.</p>
+        <h3>Python API</h3>
         ${codeBlock("example.py", `import anygoal
 from anygoal.artifacts import download_dataset
-from stable_worldmodel.data import HDF5Dataset
-
-# To make a custom dataset instead:
-# dataset_path = anygoal.collect("avoidt", num_episodes=400, seed=0)
-dataset_path = download_dataset("avoidt")
-dataset = HDF5Dataset(path=dataset_path, keys_to_cache=["action"])
 
 result = anygoal.evaluate_rollout(
-    "driftworld",
-    data=dataset,
-    checkpoint="/path/to/checkpoint.pth",
-    seed=[0, 1, 2],
+    "lewm",
+    data=download_dataset("avoidt"),
+    seed=0,
 )
 
-print(result[0].five_step_mse)
-print(result[0].horizons[25].terminal_mse)`)}
+print(result.short_horizon_mse)
+print(result.horizons[25].terminal_mse)`)}
       `],
     ],
   },
@@ -653,7 +682,7 @@ const taskPages = {
   "/tasks/avoidt": {
     title: "AvoidT",
     gifDirectory: "avoidt",
-    subtitle: "Move the PushT agent to a sampled corner target while the physical T remains an obstacle.",
+    subtitle: "The agent must avoid touching the T and move to one of four corner regions.",
     id: "avoidt",
     family: "PushT",
     env: "anygoal/AvoidT-v1",
@@ -681,7 +710,7 @@ const taskPages = {
   "/tasks/pusht-antigoal": {
     title: "PushT Antigoal",
     gifDirectory: "pusht-antigoal",
-    subtitle: "Move the physical T toward an invisible corner target while the canonical visible PushT goal remains a decoy.",
+    subtitle: "Move the physical T toward one of four corners, with rotation opposite to the original goal rotation. It reverses the dominant goal bias in the base dataset.",
     id: "pusht-antigoal",
     family: "PushT",
     env: "anygoal/PushTAntigoal-v3",
@@ -695,7 +724,7 @@ const taskPages = {
   "/tasks/cubehop": {
     title: "CubeHop",
     gifDirectory: "cubehop",
-    subtitle: "Move and rotate the end effector between floor targets and elevated waypoints around a cube.",
+    subtitle: "The end-effector moves between waypoint and target positions while gradually changing its yaw.",
     id: "cubehop",
     family: "Cube",
     env: "anygoal/CubeHop-v0",
@@ -887,7 +916,11 @@ function renderHome() {
     <h1>AnyGoal</h1>
     <h2><br /><span>a compositional generalization suite for world model research.</span></h2>
     ${homeTaskGifGrid()}
-    <div class="install-strip"><code>pip install anygoal</code><button type="button" data-copy="pip install anygoal">Copy</button></div>
+    <h2><br />Installation</h2>
+    ${codeBlock("terminal", `uv venv --python 3.10
+source .venv/bin/activate
+uv pip install 'anygoal[eval]'
+anygoal --version`)}
     ${table(["Command", "Includes"], [
     [code("pip install anygoal"), "Data I/O, collectors, validation, simulation environments"],
     [code("pip install 'anygoal[eval]'"), "Default data install plus rollout and planning dependencies"],
