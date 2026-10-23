@@ -54,6 +54,8 @@
       <li><a href="#two">News</a></li>
       <li><a href="#six">Media</a></li>
       <li><a href="#seven">Misc</a></li>
+      <li><a href="https://drive.google.com/file/d/1FVrDlogZ5SxPKXyHubF2v-w3g04fBv6X/view?usp=sharing" target="_blank"
+          rel="noopener noreferrer">CV</a></li>
     </ul>
   </nav>
 
@@ -70,16 +72,44 @@
             class="icon fa-github" aria-label="GitHub"><span class="label">GitHub</span></a></li>
         <li><a href="https://www.youtube.com/channel/UCUEb04h81GwJBRffz6fWTdA" target="_blank" rel="noopener noreferrer"
             class="icon fa-youtube-play" aria-label="YouTube"><span class="label">YouTube</span></a></li>
+        <li><a href="https://scholar.google.com/citations?user=UU8NCg8AAAAJ&hl=en&oi=sra" target="_blank"
+            rel="noopener noreferrer" aria-label="Google Scholar"><span class="ai ai-google-scholar"
+              aria-hidden="true"></span></a></li>
         <li><a href="https://x.com/hazel_heejeong" target="_blank" rel="noopener noreferrer" aria-label="X">X</a></li>
+        <li><a href="mailto:heejeong_nam@brown.edu" class="icon fa-envelope-o" aria-label="Email"><span
+              class="label">Email</span></a></li>
       </ul>
       <p><img src="images/logos/brownlogo.png" alt="Brown University Logo" class="logo" /> Brown University</p>
       <div class="sidebar-tweet" aria-label="Featured post on X">
-        <p class="sidebar-tweet-title">Twitter (X)</p>
-        <blockquote class="twitter-tweet" data-width="250" data-dnt="true">
+        <blockquote class="twitter-tweet" data-width="320" data-dnt="true">
           <a href="https://x.com/hazel_heejeong/status/2112920095978647747?s=20" target="_blank"
             rel="noopener noreferrer">View the featured post on X</a>
         </blockquote>
       </div>
+      <section id="paper-constellation" class="constellation-panel" aria-labelledby="constellation-title">
+        <div class="constellation-heading">
+          <h2 id="constellation-title">Paper Map 🗺️</h2>
+          <button class="constellation-toggle" type="button" aria-expanded="false" aria-controls="constellation-content"
+            aria-label="Expand Explore">
+            <span class="constellation-chevron" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div id="constellation-content" class="constellation-content" hidden>
+          <div class="constellation-tabs" role="group" aria-label="Research themes">
+            <button type="button" data-constellation-lens="structure" aria-pressed="true">Discover structure</button>
+            <button type="button" data-constellation-lens="dynamics" aria-pressed="false">Learn dynamics</button>
+            <button type="button" data-constellation-lens="reuse" aria-pressed="false">Reusable knowledge</button>
+            <button type="button" data-constellation-lens="verify" aria-pressed="false">Benchmarking
+              intelligence</button>
+          </div>
+          <div class="constellation-map" aria-label="Interactive map of ten research papers">
+            <svg class="constellation-lines" viewBox="0 0 1000 1000" preserveAspectRatio="none"
+              aria-hidden="true"></svg>
+            <div class="constellation-stars"></div>
+          </div>
+          <div class="constellation-paper-detail" aria-live="polite"></div>
+        </div>
+      </section>
     </header>
   </section>
 
@@ -167,17 +197,6 @@
             <li>Astronomy / Aerospace Engineering</li>
           </ul>
           </p> -->
-          <p class="about-actions">
-            <a href="https://drive.google.com/file/d/1FVrDlogZ5SxPKXyHubF2v-w3g04fBv6X/view?usp=sharing" target='_blank'
-              class="button alt icon
-                fa-file-pdf-o small">CV</a>
-            <a target='_blank' href="https://scholar.google.com/citations?user=UU8NCg8AAAAJ&hl=en&oi=sra"
-              class="button alt icon fa-google small">Google Scholar</a>
-            <a class="button unclickable icon fa-envelope-o small">heejeong_nam
-              <w>at</w> brown <w>dot</w> edu
-            </a>
-
-          </p>
           <!--
               <ul class="actions">
               <li></li>
@@ -190,7 +209,7 @@
       <section id="five">
         <div class="container">
           <div class="talks-heading">
-            <h3>Talks</h3>
+            <h3>Selected Talks</h3>
             <div class="talks-filter" role="group" aria-label="Filter talks">
               <button type="button" data-talk-filter="selected" aria-pressed="true">Selected</button>
               <button type="button" data-talk-filter="all" aria-pressed="false">All</button>
@@ -203,19 +222,15 @@
 
                 <tr class="invisible" hidden>
                   <td>
-                    <b>
-                      [Upcoming] Guest Lecture @ University of Pittsburgh
-                    </b>,
-                    Nov, 2026
+                    [Upcoming] Guest Lecture @ University of Pittsburgh,
+                    <span class="talk-date">Nov, 2026</span>
                   </td>
                 </tr>
 
                 <tr class="invisible" data-selected-talk data-selected-order="2">
                   <td>
-                    <b>
-                      Guest Lecture @ Brown University
-                    </b>,
-                    Oct 20th, 2026
+                    Guest Lecture @ Brown University,
+                    <span class="talk-date">Oct 20th, 2026</span>
                     <button type="button" class="talk-abstract-button"
                       data-abstract-open="brown-guest-lecture">Abstract</button>
                   </td>
@@ -224,10 +239,8 @@
 
                 <tr class="invisible" data-selected-talk data-selected-order="3">
                   <td>
-                    <b>
-                      Live AI Research Talk @ Ploutos
-                    </b>,
-                    Jul 27th, 2026
+                    Live AI Research Talk @ Ploutos,
+                    <span class="talk-date">Jul 27th, 2026</span>
                     <button type="button" class="talk-abstract-button"
                       data-abstract-open="ploutos-live-ai-talk">Abstract</button>
                   </td>
@@ -235,28 +248,22 @@
 
                 <tr class="invisible" hidden>
                   <td>
-                    <b>
-                      NYC Computer Vision Day Lightning Talk
-                    </b>,
-                    Apr 27th, 2026
+                    NYC Computer Vision Day Lightning Talk,
+                    <span class="talk-date">Apr 27th, 2026</span>
                   </td>
                 </tr>
 
                 <tr class="invisible" hidden>
                   <td>
-                    <b>
-                      Invited Talk @ Stanford IPRL lab
-                    </b>,
-                    Apr 10th, 2026
+                    Invited Talk @ Stanford IPRL lab,
+                    <span class="talk-date">Apr 10th, 2026</span>
                   </td>
                 </tr>
 
                 <tr class="invisible" data-selected-talk data-selected-order="1">
                   <td>
-                    <b>
-                      Guest Lecture @ Stanford CS25
-                    </b>,
-                    Apr 9th, 2026
+                    Guest Lecture @ Stanford CS25,
+                    <span class="talk-date">Apr 9th, 2026</span>
                     <button type="button" class="talk-abstract-button"
                       data-abstract-open="stanford-cs25-guest-lecture">Abstract</button>
                   </td>
@@ -265,10 +272,8 @@
 
                 <tr class="invisible" data-selected-talk data-selected-order="4">
                   <td>
-                    <b>
-                      Webinar @ POSTECH
-                    </b>,
-                    Mar 18, 2026
+                    Webinar @ POSTECH,
+                    <span class="talk-date">Mar 18, 2026</span>
                     <button type="button" class="talk-abstract-button"
                       data-abstract-open="postech-webinar">Abstract</button>
                   </td>
@@ -277,12 +282,10 @@
 
                 <tr class="invisible" hidden>
                   <td>
-                    <b>
-                      Disentangled Representation Learning @ Yonsei University (Slide <a
-                        href="https://drive.google.com/file/d/1p0Z9AoHoAocjF4i_cIqPY7vxF_Ks4XPz/view?usp=sharing"
-                        target="_blank">here</a>)
-                    </b>
-                    Dec 2023
+                    Disentangled Representation Learning @ Yonsei University (Slide <a
+                      href="https://drive.google.com/file/d/1p0Z9AoHoAocjF4i_cIqPY7vxF_Ks4XPz/view?usp=sharing"
+                      target="_blank">here</a>)
+                    <span class="talk-date">Dec 2023</span>
                   </td>
                 </tr>
 
@@ -392,11 +395,12 @@
       <!-- Publications -->
       <section id="three">
         <div class="container">
-          <header class="major">
+          <header class="major publication-heading">
             <h3>Selected Publications</h3>
             <!-- <p>* indicates equal contribution.</p>-->
-            <p class="publication-list-note">Full list available <a
-                href="https://scholar.google.com/citations?user=UU8NCg8AAAAJ&hl=en&oi=sra">here</a>.</p>
+            <a class="publication-scholar-link"
+              href="https://scholar.google.com/citations?user=UU8NCg8AAAAJ&hl=en&oi=sra" target="_blank"
+              rel="noopener noreferrer">Full list in Google Scholar</a>
           </header>
           <div class="table-wrapper">
             <div class="features">
@@ -441,7 +445,7 @@
               </article>
               <article>
                 <div class="image">
-                  <img src="images/pub/teaser.png" />
+                  <img src="images/pub/otf.png" />
                 </div>
                 <div class="inner">
                   <div class="pub-meta-row">
@@ -908,12 +912,14 @@
     </section>
 
   </div>
+  <script src="js/research-constellation.js" defer></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var galleries = document.querySelectorAll('[data-media-gallery]');
 
       var talkBody = document.querySelector('.talks-list tbody');
+      var talkHeading = document.querySelector('.talks-heading h3');
       var talkRows = Array.from(talkBody.querySelectorAll('tr'));
       var selectedTalkRows = talkRows.filter(function (row) {
         return row.hasAttribute('data-selected-talk');
@@ -922,6 +928,7 @@
       });
 
       function setTalkFilter(showAll) {
+        talkHeading.textContent = showAll ? 'Talks' : 'Selected Talks';
         var rows = showAll ? talkRows : selectedTalkRows.concat(talkRows.filter(function (row) {
           return !row.hasAttribute('data-selected-talk');
         }));
