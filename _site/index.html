@@ -48,10 +48,10 @@
     <a class="site-brand" href="#one">Heejeong Nam</a>
     <ul>
       <li><a href="#one" class="active">About</a></li>
-      <li><a href="#two">News</a></li>
+      <li><a href="#five">Talks</a></li>
       <li><a href="#three">Publications</a></li>
       <!-- <li><a href="#four">Videos</a></li> -->
-      <li><a href="#five">Talks</a></li>
+      <li><a href="#two">News</a></li>
       <li><a href="#six">Media</a></li>
       <li><a href="#seven">Misc</a></li>
     </ul>
@@ -70,10 +70,16 @@
             class="icon fa-github" aria-label="GitHub"><span class="label">GitHub</span></a></li>
         <li><a href="https://www.youtube.com/channel/UCUEb04h81GwJBRffz6fWTdA" target="_blank" rel="noopener noreferrer"
             class="icon fa-youtube-play" aria-label="YouTube"><span class="label">YouTube</span></a></li>
-        <li><a href="#" class="profile-link-placeholder" aria-label="X (link coming soon)"
-            title="X link coming soon">X</a></li>
+        <li><a href="https://x.com/hazel_heejeong" target="_blank" rel="noopener noreferrer" aria-label="X">X</a></li>
       </ul>
       <p><img src="images/logos/brownlogo.png" alt="Brown University Logo" class="logo" /> Brown University</p>
+      <div class="sidebar-tweet" aria-label="Featured post on X">
+        <p class="sidebar-tweet-title">Twitter (X)</p>
+        <blockquote class="twitter-tweet" data-width="250" data-dnt="true">
+          <a href="https://x.com/hazel_heejeong/status/2112920095978647747?s=20" target="_blank"
+            rel="noopener noreferrer">View the featured post on X</a>
+        </blockquote>
+      </div>
     </header>
   </section>
 
@@ -180,6 +186,417 @@
         </div>
       </section>
 
+      <!-- Talks -->
+      <section id="five">
+        <div class="container">
+          <div class="talks-heading">
+            <h3>Talks</h3>
+            <div class="talks-filter" role="group" aria-label="Filter talks">
+              <button type="button" data-talk-filter="selected" aria-pressed="true">Selected</button>
+              <button type="button" data-talk-filter="all" aria-pressed="false">All</button>
+            </div>
+          </div>
+          <div class="talks-feed" aria-label="Invited talks">
+            <table class="invisible talks-list">
+              <tbody class="invisible">
+
+
+                <tr class="invisible" hidden>
+                  <td>
+                    <b>
+                      [Upcoming] Guest Lecture @ University of Pittsburgh
+                    </b>,
+                    Nov, 2026
+                  </td>
+                </tr>
+
+                <tr class="invisible" data-selected-talk data-selected-order="2">
+                  <td>
+                    <b>
+                      Guest Lecture @ Brown University
+                    </b>,
+                    Oct 20th, 2026
+                    <button type="button" class="talk-abstract-button"
+                      data-abstract-open="brown-guest-lecture">Abstract</button>
+                  </td>
+                </tr>
+
+
+                <tr class="invisible" data-selected-talk data-selected-order="3">
+                  <td>
+                    <b>
+                      Live AI Research Talk @ Ploutos
+                    </b>,
+                    Jul 27th, 2026
+                    <button type="button" class="talk-abstract-button"
+                      data-abstract-open="ploutos-live-ai-talk">Abstract</button>
+                  </td>
+                </tr>
+
+                <tr class="invisible" hidden>
+                  <td>
+                    <b>
+                      NYC Computer Vision Day Lightning Talk
+                    </b>,
+                    Apr 27th, 2026
+                  </td>
+                </tr>
+
+                <tr class="invisible" hidden>
+                  <td>
+                    <b>
+                      Invited Talk @ Stanford IPRL lab
+                    </b>,
+                    Apr 10th, 2026
+                  </td>
+                </tr>
+
+                <tr class="invisible" data-selected-talk data-selected-order="1">
+                  <td>
+                    <b>
+                      Guest Lecture @ Stanford CS25
+                    </b>,
+                    Apr 9th, 2026
+                    <button type="button" class="talk-abstract-button"
+                      data-abstract-open="stanford-cs25-guest-lecture">Abstract</button>
+                  </td>
+                </tr>
+
+
+                <tr class="invisible" data-selected-talk data-selected-order="4">
+                  <td>
+                    <b>
+                      Webinar @ POSTECH
+                    </b>,
+                    Mar 18, 2026
+                    <button type="button" class="talk-abstract-button"
+                      data-abstract-open="postech-webinar">Abstract</button>
+                  </td>
+                </tr>
+
+
+                <tr class="invisible" hidden>
+                  <td>
+                    <b>
+                      Disentangled Representation Learning @ Yonsei University (Slide <a
+                        href="https://drive.google.com/file/d/1p0Z9AoHoAocjF4i_cIqPY7vxF_Ks4XPz/view?usp=sharing"
+                        target="_blank">here</a>)
+                    </b>
+                    Dec 2023
+                  </td>
+                </tr>
+
+
+
+
+
+              </tbody>
+            </table>
+          </div>
+          <!--
+              <ul class="actions">
+              <li></li>
+              </ul>
+            -->
+        </div>
+      </section>
+
+      <dialog class="talk-abstract-dialog" id="brown-guest-lecture" aria-labelledby="brown-abstract-title">
+        <div class="talk-abstract-dialog-header">
+          <h3 id="brown-abstract-title">Guest Lecture @ Brown University</h3>
+          <button type="button" class="talk-abstract-close" data-abstract-close
+            aria-label="Close abstract">&times;</button>
+        </div>
+        <div class="talk-abstract-content">
+          <h4>Abstract</h4>
+          <p>Humans do not memorize every scene or transition to learn. Instead, we form reusable concepts and knowledge
+            from observation, such as how actions move an agent in different directions or how rigid objects can
+            interact and push one another.</p>
+          <p>Once such knowledge is learned, it becomes much easier to reason about a slightly different goal or to
+            think about counterfactual situations without relearning the environment from scratch. This raises a natural
+            question: can world models do the same?</p>
+          <p>This talk focuses on two related questions: whether world models truly learn the underlying dynamics of the
+            environment, and how models can be encouraged to learn dynamics that are more reusable and generalizable.
+          </p>
+        </div>
+      </dialog>
+
+      <dialog class="talk-abstract-dialog" id="stanford-cs25-guest-lecture"
+        aria-labelledby="stanford-cs25-abstract-title">
+        <div class="talk-abstract-dialog-header">
+          <h3 id="stanford-cs25-abstract-title">Guest Lecture @ Stanford CS25</h3>
+          <button type="button" class="talk-abstract-close" data-abstract-close
+            aria-label="Close abstract">&times;</button>
+        </div>
+        <div class="talk-abstract-content">
+          <h4>Abstract</h4>
+          <p>World models are increasingly moving away from reconstruction and toward prediction in latent space. In
+            this talk, we will present two recent JEPA-based approaches that illustrate this shift from complementary
+            angles. <a href="https://drive.google.com/open?id=1bF5Yfzf-FG5iNIAgsXn2DwVD3l3ymvZW&amp;usp=drive_fs"
+              target="_blank" rel="noopener noreferrer"><strong>Link to slides</strong></a>.</p>
+          <p>Causal-JEPA induces object-level relational bias to promote representations that capture entities, and
+            interactions, leading to stronger reasoning and more efficient planning. LeWorldModel shows that such
+            predictive world models can also be trained stably end-to-end from raw pixels using a minimal objective
+            and a clean architectural recipe, while remaining competitive on control tasks. Taken together, these
+            works argue for a unified view of world modeling: predictive latent learning becomes most powerful when
+            combined with both structural bias and architectural simplicity. This perspective suggests a promising
+            path toward robust world models that support abstraction, reasoning, and control.</p>
+        </div>
+      </dialog>
+
+      <dialog class="talk-abstract-dialog" id="ploutos-live-ai-talk" aria-labelledby="ploutos-abstract-title">
+        <div class="talk-abstract-dialog-header">
+          <h3 id="ploutos-abstract-title">Live AI Research Talk @ Ploutos</h3>
+          <button type="button" class="talk-abstract-close" data-abstract-close
+            aria-label="Close abstract">&times;</button>
+        </div>
+        <div class="talk-abstract-content">
+          <h4>Abstract</h4>
+          <p>Humans can understand complex changes in a visual scene by recognizing simpler, reusable patterns of
+            motion and interaction. For example, even when objects look different or appear in unfamiliar situations,
+            we can recognize similar ways in which they move and affect one another.</p>
+          <p>This suggests that understanding visual dynamics may require more than predicting entire transitions.
+            Instead, models may benefit from learning reusable components of change that can be recombined across
+            different situations.</p>
+          <p>This talk explores how models can discover such reusable motion primitives directly from videos, and how
+            these primitives can serve as building blocks for learning more generalizable representations of actions
+            and visual dynamics.</p>
+        </div>
+      </dialog>
+
+      <dialog class="talk-abstract-dialog" id="postech-webinar" aria-labelledby="postech-webinar-title">
+        <div class="talk-abstract-dialog-header">
+          <h3 id="postech-webinar-title">Webinar @ POSTECH</h3>
+          <button type="button" class="talk-abstract-close" data-abstract-close
+            aria-label="Close abstract">&times;</button>
+        </div>
+        <div class="talk-abstract-content">
+          <p><strong>Title:</strong> Toward Practical Causal Learning in the Real World</p>
+          <p><strong>Hosted by:</strong> Sangwoo Mo, Assistant Professor at Pohang University of Science and Technology
+            (POSTECH)</p>
+          <p><a href="https://drive.google.com/file/d/1AzD9RmhebwUiYlJ1uAv-xbhCDhN5gZ4i/view?usp=sharing"
+              target="_blank" rel="noopener noreferrer">Slides</a></p>
+          <h4>Abstract</h4>
+          <p>Causal learning aims to uncover the underlying mechanisms of the world, rather than merely capturing
+            correlations in observed data. However, learning identifiable causal representations often requires
+            strong assumptions, and it remains unclear how these theoretical insights can benefit practical learning
+            systems.</p>
+          <p>World models offer a promising setting for exploring this connection, as understanding physical dynamics
+            requires reasoning about how objects interact and influence one another.</p>
+          <p>This talk explores how causal principles can inspire more structured and efficient visual world models,
+            focusing on learning interaction-dependent dynamics through object-level latent interventions. It also
+            discusses the challenges of bridging causal representation learning and practical world modeling.</p>
+        </div>
+      </dialog>
+
+      <!-- Publications -->
+      <section id="three">
+        <div class="container">
+          <header class="major">
+            <h3>Selected Publications</h3>
+            <!-- <p>* indicates equal contribution.</p>-->
+            <p class="publication-list-note">Full list available <a
+                href="https://scholar.google.com/citations?user=UU8NCg8AAAAJ&hl=en&oi=sra">here</a>.</p>
+          </header>
+          <div class="table-wrapper">
+            <div class="features">
+              <article>
+                <div class="image">
+                  <img src="images/pub/cjepa.png" />
+                </div>
+                <div class="inner">
+                  <div class="pub-meta-row">
+                    <span class="conf-badge">ICML 2026</span>
+                    <span class="pub-links">
+                      <script>paper("https://arxiv.org/abs/2602.11389");</script>
+                      <script>website("https://hazel-heejeong-nam.github.io/cjepa/");</script>
+                      <script>invited_talk("https://www.youtube.com/watch?v=GBd7iuJkW08");</script>
+                    </span>
+                  </div>
+                  <b>Causal-JEPA: Learning World Models through Object-Level Latent Interventions</b>
+                  <br>
+                  <b>Heejeong Nam</b>, Quentin Le Lidec*, Lucas Maes*, Yann LeCun, Randall Balestriero
+                  <br>
+                  ICML 2026
+                </div>
+              </article>
+              <article>
+                <div class="image">
+                  <img src="images/pub/anygoal.png" />
+                </div>
+                <div class="inner">
+                  <div class="pub-meta-row">
+                    <span class="conf-badge">arxiv</span>
+                    <span class="pub-links">
+                      <script>paper("https://arxiv.org/pdf/2610.26844");</script>
+                      <script>website("https://hazel-heejeong-nam.github.io/anygoal/");</script>
+                    </span>
+                  </div>
+                  <b>AnyGoal: On World Model Generalization Beyond Expert Rollouts</b>
+                  <br>
+                  <b>Heejeong Nam</b>, Divyat Mahajan, Quentin Le Lidec, Randall Balestriero, David Klindt
+                  <br>
+                  Under Review
+                </div>
+              </article>
+              <article>
+                <div class="image">
+                  <img src="images/pub/teaser.png" />
+                </div>
+                <div class="inner">
+                  <div class="pub-meta-row">
+                    <span class="conf-badge">arxiv</span>
+                    <span class="pub-links">
+                      <script>paper("https://arxiv.org/abs/2606.30544");</script>
+                      <script>website("https://hazel-heejeong-nam.github.io/LAM/");</script>
+                      <script>invited_talk("https://www.ploutos.dev/?stream=calm-indigo-falcon-3be5f0de");</script>
+                    </span>
+                  </div>
+                  <b>Latent Actions from Factorized Transition Effects under Agent Ambiguity</b>
+                  <br>
+                  <b>Heejeong Nam</b>, Chandraditya S Jonnalagadda, Harshit Aggarwal, Erix Xu, Randall Balestriero
+                  <br>
+                  Under Review
+                </div>
+              </article>
+              <article>
+                <div class="image">
+                  <img src="images/pub/crl.png" />
+                </div>
+                <div class="inner">
+                  <div class="pub-meta-row">
+                    <span class="conf-badge">UAI 2026</span>
+                    <span class="pub-links">
+                      <script>paper("https://proceedings.mlr.press/v337/kim26e.html");</script>
+                    </span>
+                  </div>
+                  <b>On Causal Representation Learning with Internal Auxiliaries</b>
+                  <br>
+                  Kwonho Kim, <b>Heejeong Nam</b>, Inwoo Hwang, Sanghack Lee
+                  <br>
+                  UAI 2026
+                </div>
+              </article>
+
+              <!-- <article>
+                <div class="image">
+                  <img src="images/pub/vague2.png" />
+                </div>
+                <div class="inner">
+                  <div class="pub-meta-row">
+                    <span class="conf-badge">ICCV 2025</span>
+                    <span class="pub-links">
+                      <script>paper("https://arxiv.org/abs/2411.14137");</script>
+                      <script>website("https://hazel-heejeong-nam.github.io/vague/");</script>
+                    </span>
+                  </div>
+                  <b>VAGUE: Visual Contexts Clarify Ambiguous Expressions</b>
+                  <br>
+                  <b>Heejeong Nam*</b>, Jinwoo Ahn*, Keummin Ka, Jiwan Chung, Youngjae Yu
+                  <br>
+                  International Conference on Computer Vision, 2025
+                </div>
+              </article> -->
+              <!-- <article>
+                  <div class="image">
+                    <img src="images/pub/pathology_mil.gif" />
+                  </div>
+                  <div class="inner">
+                    <div class="pub-meta-row">
+                      <span class="conf-badge">ICASSP</span>
+                      <span class="pub-links">
+                        <script>paper("https://arxiv.org/abs/2402.10595");</script>
+                        <script>code("https://github.com/AITRICS/pathology_mil");</script>
+                      </span>
+                    </div>
+                    <b>Compact and De-biased Negative Instance Embedding for Multi-Instance Learning on Whole-Slide
+                      Pathological Images</b>
+                    <br>
+                    Joohyeong Lee, <b>Heejeong Nam</b>, Kwanhyeong Lee, Sangchul Hahn
+                    <br>
+                    International Conference on Acoustics, Speech
+                    and Signal Processing 2024, IEEE
+                  </div>
+                </article> -->
+              <!-- 
+                <article>
+                  <div class="image">
+                    <img src="images/pub/scadi.gif" />
+                  </div>
+                  <div class="inner">
+                    <div class="pub-meta-row">
+                      <span class="conf-badge">NeurIPSw 2023</span>
+                      <span class="pub-links">
+                        <script>paper("https://arxiv.org/abs/2311.06567");</script>
+                        <script>code("https://github.com/Hazel-Heejeong-Nam/Self-supervised-causal-disentanglement");</script>
+                      </span>
+                    </div>
+                    <b>SCADI: Self-supervised Causal Disentanglement in Latent Variable Models</b>
+                    <br>
+                    <b>Heejeong Nam</b>
+                    <br>
+                    NeurIPS 2023 Workshop on Causal Representation Learning
+                  </div>
+                </article> -->
+
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Videos -->
+      <!-- <section id="four">
+        <div class="container">
+          <header class="major">
+            <h3>Videos</h3>
+          </header>
+          <div class="video-container">
+            <div class="video-item">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/wC63EU09oZ8"
+                title="[ENG Review] Learning Temporal Causal Representation under Non-Invertible Generation Process"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>"
+            </div>
+            <div class="video-item">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/tQq5iAf46zE"
+                title="[ENG] Causal Representation Learning from Multiple Distributions : A General Setting"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-item">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/jKZQfhMM3Yg"
+                title="[ENG] Everything from NCE (Noise Contrastive Estimation) to commonly used Contrastive loss"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-item">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/NLe12fhvbPI"
+                title="[KOR Review| 한국어 리뷰] Temporally Disentangled Representation Learning under Unknown Nonstationarity"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-item">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/u9YRxz66cMA"
+                title="[KOR Review | 한국어 리뷰] Multi-View Causal Representation Learning with Partial Observability"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="video-item">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/B86-ctBrTMs"
+                title="Enhanced Open Set Recognition via Disentangled Representation Learning" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </section> 
+-->
       <!-- News -->
       <section id="two">
         <div class="container">
@@ -343,317 +760,6 @@
         </div>
       </section>
 
-      <!-- Publications -->
-      <section id="three">
-        <div class="container">
-          <header class="major">
-            <h3>Selected Publications</h3>
-            <!-- <p>* indicates equal contribution.</p>-->
-            <p class="publication-list-note">Full list available <a
-                href="https://scholar.google.com/citations?user=UU8NCg8AAAAJ&hl=en&oi=sra">here</a>.</p>
-          </header>
-          <div class="table-wrapper">
-            <div class="features">
-              <article>
-                <div class="image">
-                  <img src="images/pub/cjepa.png" />
-                </div>
-                <div class="inner">
-                  <div class="pub-meta-row">
-                    <span class="conf-badge">ICML 2026</span>
-                    <span class="pub-links">
-                      <script>paper("https://arxiv.org/abs/2602.11389");</script>
-                      <script>website("https://hazel-heejeong-nam.github.io/cjepa/");</script>
-                      <script>invited_talk("https://www.youtube.com/watch?v=GBd7iuJkW08");</script>
-                    </span>
-                  </div>
-                  <b>Causal-JEPA: Learning World Models through Object-Level Latent Interventions</b>
-                  <br>
-                  <b>Heejeong Nam</b>, Quentin Le Lidec*, Lucas Maes*, Yann LeCun, Randall Balestriero
-                  <br>
-                  ICML 2026
-                </div>
-              </article>
-              <article>
-                <div class="image">
-                  <img src="images/pub/anygoal.png" />
-                </div>
-                <div class="inner">
-                  <div class="pub-meta-row">
-                    <span class="conf-badge">arxiv</span>
-                    <span class="pub-links">
-                      <script>paper("https://arxiv.org/abs/2602.11389");</script>
-                      <script>website("https://hazel-heejeong-nam.github.io/anygoal/");</script>
-                    </span>
-                  </div>
-                  <b>AnyGoal: On World Model Generalization Beyond Expert Rollouts</b>
-                  <br>
-                  <b>Heejeong Nam</b>, Divyat Mahajan,Quentin Le Lidec, Randall Balestriero, David Klindt
-                  <br>
-                  Under Review
-                </div>
-              </article>
-              <article>
-                <div class="image">
-                  <img src="images/pub/teaser.png" />
-                </div>
-                <div class="inner">
-                  <div class="pub-meta-row">
-                    <span class="conf-badge">arxiv</span>
-                    <span class="pub-links">
-                      <script>paper("https://arxiv.org/abs/2606.30544");</script>
-                      <script>website("https://hazel-heejeong-nam.github.io/LAM/");</script>
-                      <script>invited_talk("https://www.ploutos.dev/?stream=calm-indigo-falcon-3be5f0de");</script>
-                    </span>
-                  </div>
-                  <b>Latent Actions from Factorized Transition Effects under Agent Ambiguity</b>
-                  <br>
-                  <b>Heejeong Nam</b>, Chandraditya S Jonnalagadda, Harshit Aggarwal, Erix Xu, Randall Balestriero
-                  <br>
-                  Under Review
-                </div>
-              </article>
-              <article>
-                <div class="image">
-                  <img src="images/pub/crl.png" />
-                </div>
-                <div class="inner">
-                  <div class="pub-meta-row">
-                    <span class="conf-badge">UAI 2026</span>
-                    <span class="pub-links">
-                      <script>paper("https://proceedings.mlr.press/v337/kim26e.html");</script>
-                    </span>
-                  </div>
-                  <b>On Causal Representation Learning with Internal Auxiliaries</b>
-                  <br>
-                  Kwonho Kim, <b>Heejeong Nam</b>, Inwoo Hwang, Sanghack Lee
-                  <br>
-                  UAI 2026
-                </div>
-              </article>
-
-              <!-- <article>
-                <div class="image">
-                  <img src="images/pub/vague2.png" />
-                </div>
-                <div class="inner">
-                  <div class="pub-meta-row">
-                    <span class="conf-badge">ICCV 2025</span>
-                    <span class="pub-links">
-                      <script>paper("https://arxiv.org/abs/2411.14137");</script>
-                      <script>website("https://hazel-heejeong-nam.github.io/vague/");</script>
-                    </span>
-                  </div>
-                  <b>VAGUE: Visual Contexts Clarify Ambiguous Expressions</b>
-                  <br>
-                  <b>Heejeong Nam*</b>, Jinwoo Ahn*, Keummin Ka, Jiwan Chung, Youngjae Yu
-                  <br>
-                  International Conference on Computer Vision, 2025
-                </div>
-              </article> -->
-              <!-- <article>
-                  <div class="image">
-                    <img src="images/pub/pathology_mil.gif" />
-                  </div>
-                  <div class="inner">
-                    <div class="pub-meta-row">
-                      <span class="conf-badge">ICASSP</span>
-                      <span class="pub-links">
-                        <script>paper("https://arxiv.org/abs/2402.10595");</script>
-                        <script>code("https://github.com/AITRICS/pathology_mil");</script>
-                      </span>
-                    </div>
-                    <b>Compact and De-biased Negative Instance Embedding for Multi-Instance Learning on Whole-Slide
-                      Pathological Images</b>
-                    <br>
-                    Joohyeong Lee, <b>Heejeong Nam</b>, Kwanhyeong Lee, Sangchul Hahn
-                    <br>
-                    International Conference on Acoustics, Speech
-                    and Signal Processing 2024, IEEE
-                  </div>
-                </article> -->
-              <!-- 
-                <article>
-                  <div class="image">
-                    <img src="images/pub/scadi.gif" />
-                  </div>
-                  <div class="inner">
-                    <div class="pub-meta-row">
-                      <span class="conf-badge">NeurIPSw 2023</span>
-                      <span class="pub-links">
-                        <script>paper("https://arxiv.org/abs/2311.06567");</script>
-                        <script>code("https://github.com/Hazel-Heejeong-Nam/Self-supervised-causal-disentanglement");</script>
-                      </span>
-                    </div>
-                    <b>SCADI: Self-supervised Causal Disentanglement in Latent Variable Models</b>
-                    <br>
-                    <b>Heejeong Nam</b>
-                    <br>
-                    NeurIPS 2023 Workshop on Causal Representation Learning
-                  </div>
-                </article> -->
-
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Videos -->
-      <!-- <section id="four">
-        <div class="container">
-          <header class="major">
-            <h3>Videos</h3>
-          </header>
-          <div class="video-container">
-            <div class="video-item">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/wC63EU09oZ8"
-                title="[ENG Review] Learning Temporal Causal Representation under Non-Invertible Generation Process"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>"
-            </div>
-            <div class="video-item">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/tQq5iAf46zE"
-                title="[ENG] Causal Representation Learning from Multiple Distributions : A General Setting"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="video-item">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/jKZQfhMM3Yg"
-                title="[ENG] Everything from NCE (Noise Contrastive Estimation) to commonly used Contrastive loss"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="video-item">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/NLe12fhvbPI"
-                title="[KOR Review| 한국어 리뷰] Temporally Disentangled Representation Learning under Unknown Nonstationarity"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="video-item">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/u9YRxz66cMA"
-                title="[KOR Review | 한국어 리뷰] Multi-View Causal Representation Learning with Partial Observability"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-            <div class="video-item">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/B86-ctBrTMs"
-                title="Enhanced Open Set Recognition via Disentangled Representation Learning" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-      </section> 
--->
-      <!-- About -->
-      <section id="five">
-        <div class="container">
-          <h3>Talks</h3>
-          <div class="talks-feed" aria-label="Invited talks">
-            <table class="invisible talks-list">
-              <tbody class="invisible">
-
-
-                <tr class="invisible">
-                  <td>
-                    <b>
-                      [Upcoming] Guest Lecture @ University of Pittsburgh
-                    </b>,
-                    Nov, 2026
-                  </td>
-                </tr>
-
-                <tr class="invisible">
-                  <td>
-                    <b>
-                      [Upcoming] Guest Lecture @ Brown University
-                    </b>,
-                    Oct, 2026
-                  </td>
-                </tr>
-
-
-                <tr class="invisible">
-                  <td>
-                    <b>
-                      Live AI Research Talk @ Ploutos
-                    </b>,
-                    Jul 27th, 2026
-                  </td>
-                </tr>
-
-                <tr class="invisible">
-                  <td>
-                    <b>
-                      NYC Computer Vision Day Lightning Talk
-                    </b>,
-                    Apr 27th, 2026
-                  </td>
-                </tr>
-
-                <tr class="invisible">
-                  <td>
-                    <b>
-                      Invited Talk @ Stanford IPRL lab
-                    </b>,
-                    Apr 10th, 2026
-                  </td>
-                </tr>
-
-                <tr class="invisible">
-                  <td>
-                    <b>
-                      Guest Lecture @ Stanford CS25
-                    </b>,
-                    Apr 9th, 2026
-                  </td>
-                </tr>
-
-
-                <tr class="invisible">
-                  <td>
-                    <b>
-                      Toward Practical Causal Learning in the Real World @ POSTECH (Slide <a
-                        href="https://drive.google.com/file/d/1AzD9RmhebwUiYlJ1uAv-xbhCDhN5gZ4i/view?usp=sharing"
-                        target="_blank">here</a>)
-                    </b>,
-                    Mar 18, 2026
-                  </td>
-                </tr>
-
-
-                <tr class="invisible">
-                  <td>
-                    <b>
-                      Disentangled Representation Learning @ Yonsei University (Slide <a
-                        href="https://drive.google.com/file/d/1p0Z9AoHoAocjF4i_cIqPY7vxF_Ks4XPz/view?usp=sharing"
-                        target="_blank">here</a>)
-                    </b>
-                    Dec 2023
-                  </td>
-                </tr>
-
-
-
-
-
-              </tbody>
-            </table>
-          </div>
-          <!--
-              <ul class="actions">
-              <li></li>
-              </ul>
-            -->
-        </div>
-      </section>
-
       <section id="six">
         <div class="container">
           <header class="major">
@@ -802,9 +908,51 @@
     </section>
 
   </div>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var galleries = document.querySelectorAll('[data-media-gallery]');
+
+      var talkBody = document.querySelector('.talks-list tbody');
+      var talkRows = Array.from(talkBody.querySelectorAll('tr'));
+      var selectedTalkRows = talkRows.filter(function (row) {
+        return row.hasAttribute('data-selected-talk');
+      }).sort(function (a, b) {
+        return Number(a.dataset.selectedOrder) - Number(b.dataset.selectedOrder);
+      });
+
+      function setTalkFilter(showAll) {
+        var rows = showAll ? talkRows : selectedTalkRows.concat(talkRows.filter(function (row) {
+          return !row.hasAttribute('data-selected-talk');
+        }));
+        rows.forEach(function (row) {
+          talkBody.appendChild(row);
+        });
+        talkRows.forEach(function (row) {
+          row.hidden = !showAll && !row.hasAttribute('data-selected-talk');
+        });
+        document.querySelectorAll('[data-talk-filter]').forEach(function (filterButton) {
+          filterButton.setAttribute('aria-pressed', String((filterButton.dataset.talkFilter === 'all') === showAll));
+        });
+      }
+
+      document.querySelectorAll('[data-talk-filter]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          setTalkFilter(button.dataset.talkFilter === 'all');
+        });
+      });
+      setTalkFilter(false);
+
+      document.querySelectorAll('[data-abstract-open]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          document.getElementById(button.dataset.abstractOpen).showModal();
+        });
+      });
+      document.querySelectorAll('[data-abstract-close]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          button.closest('dialog').close();
+        });
+      });
 
       document.querySelectorAll('.profile-link-placeholder').forEach(function (link) {
         link.addEventListener('click', function (event) {
