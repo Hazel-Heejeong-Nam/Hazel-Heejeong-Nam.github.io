@@ -86,11 +86,16 @@
             rel="noopener noreferrer">View the featured post on X</a>
         </blockquote>
       </div>
+    </header>
+  </section>
+
+  <div id="wrapper">
+    <aside id="right-rail" aria-label="Explore and guestbook">
       <section id="paper-constellation" class="constellation-panel" aria-labelledby="constellation-title">
         <div class="constellation-heading">
           <h2 id="constellation-title">Paper Map 🗺️</h2>
           <button class="constellation-toggle" type="button" aria-expanded="false" aria-controls="constellation-content"
-            aria-label="Expand Explore">
+            aria-label="Expand Paper Map">
             <span class="constellation-chevron" aria-hidden="true"></span>
           </button>
         </div>
@@ -110,10 +115,33 @@
           <div class="constellation-paper-detail" aria-live="polite"></div>
         </div>
       </section>
-    </header>
-  </section>
-
-  <div id="wrapper">
+      <section id="anonymous-board" class="guestbook-panel" aria-labelledby="guestbook-title">
+        <div class="constellation-heading">
+          <h2 id="guestbook-title">Say hi anonymously!</h2>
+          <button class="constellation-toggle guestbook-toggle" type="button" aria-expanded="false"
+            aria-controls="guestbook-content" aria-label="Expand anonymous messages">
+            <span class="constellation-chevron" aria-hidden="true"></span>
+          </button>
+        </div>
+        <div id="guestbook-content" hidden>
+          <form id="guestbook-form">
+            <label for="guestbook-message">Leave a public note</label>
+            <textarea id="guestbook-message" maxlength="100" rows="3" placeholder="Say hello…" required></textarea>
+            <div class="guestbook-form-footer"><span id="guestbook-count">0 / 100</span><button type="submit">Post
+                anonymously</button></div>
+          </form>
+          <p id="guestbook-status" role="status" aria-live="polite"></p>
+          <div id="guestbook-messages" aria-label="Public anonymous messages"></div>
+          <nav id="guestbook-pagination" class="guestbook-pagination" aria-label="Message pages" hidden>
+            <button type="button" data-guestbook-page="previous" aria-label="Previous message page">‹</button>
+            <span id="guestbook-page-label" aria-live="polite"></span>
+            <button type="button" data-guestbook-page="next" aria-label="Next message page">›</button>
+          </nav>
+          <a class="guestbook-credit" href="https://feed-pulse.com/free-comments-widget" target="_blank"
+            rel="noopener noreferrer">Messages via FeedPulse</a>
+        </div>
+      </section>
+    </aside>
 
     <!-- Main -->
     <div id="main">
@@ -888,7 +916,17 @@
             However, I am very bad at cooking so don't ask me for home-cooked Korean food 😛. I am caffeine addicted, so
             I am always down for a coffee chat.
           </p>
-          <img src="images/dummy/skating.gif" alt="" class="misc-photo" />
+          <!-- <img src="images/dummy/skating.gif" alt="" class="misc-photo" /> -->
+          <div class="visitor-map" aria-label="Map of visitor countries">
+            <p class="visitor-map-title">Visitors around the world</p>
+            <div class="visitor-map-visual">
+              <img src="images/visitor-world.svg" alt="World map with white ocean and dark brown land" loading="lazy" />
+              <svg class="visitor-map-pins" viewBox="0 0 560 280" aria-label="Visitor countries" role="img"></svg>
+            </div>
+            <p class="visitor-map-summary" aria-live="polite">Loading visit counts…</p>
+            <a class="visitor-map-credit" href="https://feed-pulse.com/site/hazel-heejeong-nam.github.io/traffic"
+              target="_blank" rel="noopener noreferrer">via FeedPulse</a>
+          </div>
           <!-- <p></p> -->
         </div>
       </section>
@@ -912,6 +950,8 @@
 
   </div>
   <script src="js/research-constellation.js" defer></script>
+  <script src="js/visitor-map.js" defer></script>
+  <script src="js/guestbook.js" defer></script>
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

@@ -120,7 +120,7 @@
     var expanded = toggle.getAttribute('aria-expanded') === 'true';
     content.hidden = expanded;
     toggle.setAttribute('aria-expanded', String(!expanded));
-    toggle.setAttribute('aria-label', expanded ? 'Expand Explore' : 'Collapse Explore');
+    toggle.setAttribute('aria-label', expanded ? 'Expand Paper Map' : 'Collapse Paper Map');
   });
   setLens(activeLens);
   detail.textContent = 'Select a star to explore its paper.';
