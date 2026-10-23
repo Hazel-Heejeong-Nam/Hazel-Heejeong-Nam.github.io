@@ -765,7 +765,7 @@ body.home-page .talk-abstract-content p {
 }
 
 body.home-page .news-feed {
-    max-height: 21rem;
+    max-height: 13.5rem;
     overflow-y: auto;
     overscroll-behavior: contain;
     padding-right: 0.65rem;
@@ -795,8 +795,12 @@ body.home-page #five table td {
 }
 
 body.home-page #two table td:first-child {
+    font-family: "Manrope", Arial, Helvetica, sans-serif;
     font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0;
     padding-left: 0;
+    text-transform: none;
     width: 7.5rem !important;
 }
 
@@ -881,7 +885,11 @@ body.home-page .conf-badge {
     padding: 0.15rem 0.35rem;
 }
 
-body.home-page .media-gallery-controls {
+body.home-page .media-gallery {
+    margin-top: 0;
+}
+
+body.home-page .media-gallery-header {
     display: none;
 }
 
@@ -916,13 +924,82 @@ body.home-page .media-card-link::after {
     display: none;
 }
 
-body.home-page .media-card-video-badge,
-body.home-page .media-card-play-button {
-    background: var(--ink);
+body.home-page .media-card-video-badge {
+    background: rgba(39, 26, 22, 0.86);
     border: 0;
-    border-radius: 0;
+    border-radius: 999px;
     box-shadow: none;
     color: var(--white);
+    font-family: "Manrope", Arial, Helvetica, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    left: 0.65rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    padding: 0.3rem 0.55rem;
+    top: 0.65rem;
+}
+
+body.home-page .media-card-play-button {
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(39, 26, 22, 0.18);
+    border-radius: 50%;
+    box-shadow: 0 4px 18px rgba(39, 26, 22, 0.18);
+    height: 3.25rem;
+    width: 3.25rem;
+}
+
+body.home-page .media-card-play-button::before {
+    border-color: transparent transparent transparent var(--ink);
+    border-width: 0.55rem 0 0.55rem 0.85rem;
+    margin-left: 0.18rem;
+}
+
+body.home-page .media-card-browser-bar {
+    gap: 0.3rem;
+    padding: 0.45rem 0.65rem;
+}
+
+body.home-page .media-card-browser-bar span {
+    height: 0.48rem;
+    width: 0.48rem;
+}
+
+body.home-page .media-card-browser-body {
+    gap: 0.45rem;
+    min-height: 0;
+    padding: 0.7rem 1rem;
+}
+
+body.home-page .media-card-site-badge {
+    font-family: "Manrope", Arial, Helvetica, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    gap: 0.45rem;
+    letter-spacing: 0;
+}
+
+body.home-page .media-card-site-badge img {
+    height: 1.2rem;
+    width: 1.2rem;
+}
+
+body.home-page .media-card-site-copy {
+    gap: 0.25rem;
+}
+
+body.home-page .media-card-site-copy strong {
+    font-family: "Manrope", Arial, Helvetica, sans-serif;
+    font-size: 1.08rem;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+body.home-page .media-card-site-copy span {
+    font-family: "Manrope", Arial, Helvetica, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    line-height: 1.3;
 }
 
 body.home-page .media-card-browser-bar span {
@@ -934,6 +1011,15 @@ body.home-page .media-card-site-badge,
 body.home-page .media-card-site-copy span,
 body.home-page .media-card-site-copy strong {
     color: var(--text);
+}
+
+body.home-page .media-card-caption {
+    font-family: "Manrope", Arial, Helvetica, sans-serif;
+    font-size: 1.08rem;
+    font-weight: 400;
+    line-height: 1.45;
+    margin-top: 0.55rem;
+    text-align: left;
 }
 
 body.home-page .misc-photo {
