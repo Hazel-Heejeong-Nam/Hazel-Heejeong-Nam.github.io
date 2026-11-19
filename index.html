@@ -264,7 +264,9 @@
                 <tr class="invisible" data-selected-talk data-selected-order="2">
                   <td>
                     Guest Lecture @ UPitts ECE3893,
-                    <span class="talk-date">Nov, 2026</span>
+                    <span class="talk-date">Nov 18, 2026</span>
+                    <button type="button" class="talk-abstract-button"
+                      data-abstract-open="upitts-guest-lecture">Abstract</button>
                   </td>
                 </tr>
 
@@ -344,6 +346,25 @@
             -->
         </div>
       </section>
+
+      <dialog class="talk-abstract-dialog" id="upitts-guest-lecture" aria-labelledby="upitts-abstract-title">
+        <div class="talk-abstract-dialog-header">
+          <h3 id="upitts-abstract-title">Guest Lecture @ UPitts ECE3893</h3>
+          <button type="button" class="talk-abstract-close" data-abstract-close
+            aria-label="Close abstract">&times;</button>
+        </div>
+        <div class="talk-abstract-content">
+          <h4>TLDR</h4>
+          <p>At the heart of world models lies a fundamental question: what makes a learned representation useful beyond the objective it was trained on?</p>
+          <p>Video link: <a href="https://pitt.zoom.us/rec/share/1lui_XfLX_NQXmmWz7roQlKAS3hKtelQE3wha1kSepmLpN1lJ1x1PK8NSaZhnJJ1.pG2EaiASBpAFUhJQ" target="_blank" rel="noopener noreferrer">Watch the recording</a></p>
+          <h4>Abstract</h4>
+          <p>The first part of the talk focuses on backbone pretraining by maximizing pixel-level reconstruction quality, and particularly Masked Autoencoders (MAE). For this class of models, strong downstream performance often requires additional guidance in the form of fine-tuning or non-linear pooling. The talk explores whether this mismatch reflects downstream underdetermination: models with the same reconstruction loss can nevertheless express features with substantially different downstream utility. Experiments reveal substantial variation in linear-probe accuracy among checkpoints at matched reconstruction loss, with the variation generally increasing as reconstruction loss decreases. The talk provides a first-order local characterization of this phenomenon, proposing a classification-guided predictor--corrector traversal that improves or degrades downstream performance while keeping reconstruction loss nearly fixed. These results indicate that the reconstruction loss does not determine downstream representation quality and identify directions that reconstruction weakly constrains yet matter substantially for classification.</p>
+          <p>The second part of the talk is about compositional generalization of world models. Humans do not memorize every scene or transition to learn. Instead, we form reusable concepts and knowledge from observation, such as how actions move an agent in different directions or how rigid objects can interact and push one another. Once such knowledge is learned, it becomes much easier to reason about a slightly different goal or to think about counterfactual situations without relearning the environment from scratch. This raises a natural question: can world models do the same? This talk focuses on two related questions: whether world models truly learn the underlying dynamics of the environment, and how models can be encouraged to learn dynamics that are more reusable and generalizable.</p>
+          <h4>Speakers’ Biographical Sketch</h4>
+          <p>Matteo Gamba is a postdoctoral fellow at Brown University, working on the theory of self-supervised learning and joint-embedding architecture world models, with focus on characterizing their geometry and robustness properties. His research is centered on developing geometry-informed interpretable approaches to ensure world models can be reliably and safely deployed in high impact applications. Matteo obtained his Ph.D in Computer Science in 2025 from KTH in Stockholm, Sweden. His doctoral thesis provided a characterization of emerging robustness in supervised and self-supervised learning in terms of the geometry of ReLU-based neural networks. Matteo holds a MSc degree in Computer Science from KTH and a BSc in Mathematics from the University of Turin, Italy.</p>
+          <p>Hazel (Heejeong) Nam is a graduate student in Computer Science at Brown University and a Fulbright Scholar, working closely with Randall Balestriero and David Klindt. Her research focuses on world models, representation learning, causality, and compositionality, with the broader goal of enabling more human-like visual perception and reasoning. Her work on JEPA and world models has also been featured in a guest lecture for Stanford CS25. Hazel previously worked as an AI researcher at Boeing and obtained her BSc in Electrical and Electronic Engineering from Yonsei University, South Korea.</p>
+        </div>
+      </dialog>
 
       <dialog class="talk-abstract-dialog" id="brown-guest-lecture" aria-labelledby="brown-abstract-title">
         <div class="talk-abstract-dialog-header">
